@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Petualangan Elektrolit - SMA Santo Paulus Pontianak</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    :root {
+      --primary: #0077b6;
+      --primary-dark: #023e8a;
+      --secondary: #00b4d8;
+      --accent: #ffd166;
+      --strong: #06d6a0;
+      --weak: #f77f00;
+      --non: #8d99ae;
+      --danger: #ef476f;
+      --bg: #f0f7ff;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text-light: #5c677d;
+      --shadow: 0 4px 15px rgba(0, 119, 182, 0.15);
+      --radius: 16px;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #e0f2fe 0%, #f0f7ff 50%, #e6f7f0 100%);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 16px;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ========== HEADER ========== */
+    .app-header {
+      background: linear-gradient(135deg, #1a237e, #283593);
+      color: white;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .app-header .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .app-header .brand .logo-svg {
+      width: 42px;
+      height: 50px;
+      flex-shrink: 0;
+    }
+    .app-header .brand .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .app-header .brand .brand-text .school {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .app-header .brand .brand-text .sub {
+      font-size: 0.68rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+    .header-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .icon-btn {
+      background: rgba(255,255,255,0.18);
+      border: none;
+      color: white;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .icon-btn:active { background: rgba(255,255,255,0.4); }
+    .icon-btn.menu-btn {
+      width: auto;
+      padding: 0 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      gap: 4px;
+      font-weight: 600;
+    }
+
+    /* ========== KONTAINER ========== */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 16px;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    h1 { font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 8px; }
+    h2 { font-size: 1.25rem; color: var(--primary-dark); margin-bottom: 12px; }
+    h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 8px; }
+    h4 { font-size: 1rem; color: var(--primary-dark); margin-bottom: 6px; }
+    p { margin-bottom: 10px; }
+
+    /* ========== TOMBOL ========== */
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 12px rgba(0, 119, 182, 0.3);
+      text-align: center;
+      width: 100%;
+      margin-bottom: 10px;
+      font-family: inherit;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn.secondary {
+      background: linear-gradient(135deg, var(--weak), var(--accent));
+      box-shadow: 0 4px 12px rgba(247, 127, 0, 0.3);
+      color: #3a2e00;
+    }
+    .btn.ghost {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      box-shadow: none;
+    }
+    .btn.danger {
+      background: linear-gradient(135deg, var(--danger), #c9184a);
+      box-shadow: 0 4px 12px rgba(239, 71, 111, 0.3);
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-row .btn { flex: 1; min-width: 140px; }
+
+    /* ========== FORM ========== */
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--primary-dark);
+      font-size: 0.95rem;
+    }
+    select, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #cfe2f3;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: white;
+      margin-bottom: 14px;
+      transition: border 0.2s;
+      font-family: inherit;
+    }
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.15);
+    }
+
+    /* ========== AVATAR ========== */
+    .avatar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .avatar-option {
+      font-size: 2rem;
+      padding: 8px;
+      border: 3px solid transparent;
+      border-radius: 12px;
+      background: #f0f7ff;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .avatar-option.selected {
+      border-color: var(--accent);
+      background: #fff9e6;
+      transform: scale(1.1);
+    }
+
+    /* ========== PETA LEVEL ========== */
+    .level-map { display: flex; flex-direction: column; gap: 14px; }
+    .level-node {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: white;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-left: 6px solid var(--primary);
+      position: relative;
+    }
+    .level-node:active { transform: scale(0.98); }
+    .level-node.locked {
+      opacity: 0.55;
+      cursor: not-allowed;
+      border-left-color: var(--non);
+      background: #f8f9fa;
+    }
+    .level-node.completed {
+      border-left-color: var(--strong);
+      background: #f0fff8;
+    }
+    .level-node.boss {
+      border-left-color: var(--danger);
+      background: linear-gradient(135deg, #fff0f3, #ffe0e6);
+    }
+    .level-icon {
+      font-size: 2rem;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .level-info { flex: 1; }
+    .level-info .level-title { font-weight: 700; font-size: 1rem; color: var(--text); }
+    .level-info .level-desc { font-size: 0.8rem; color: var(--text-light); }
+    .level-stars { font-size: 1.1rem; letter-spacing: 2px; }
+    .lock-badge { font-size: 1.5rem; }
+
+    /* ========== PROGRESS BAR ========== */
+    .progress-bar {
+      height: 12px;
+      background: #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--strong), var(--accent));
+      border-radius: 6px;
+      transition: width 0.5s ease;
+    }
+
+    /* ========== STAT BAR ========== */
+    .stat-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 10px 14px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .hearts { letter-spacing: 2px; font-size: 1.1rem; }
+    .xp-badge {
+      background: linear-gradient(135deg, var(--accent), #ffb703);
+      color: #3a2e00;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* ========== MATERI ========== */
+    .materi-box {
+      background: linear-gradient(135deg, #e0f2fe, #f0f7ff);
+      border-left: 5px solid var(--secondary);
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+    .materi-box strong { color: var(--primary-dark); }
+    .rumus {
+      background: #1a1a2e;
+      color: #00ff9d;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      margin: 8px 0;
+      overflow-x: auto;
+    }
+
+    .materi-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 0.85rem;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .materi-table th, .materi-table td {
+      padding: 10px 8px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .materi-table th {
+      background: var(--primary-dark);
+      color: white;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .materi-table tr:nth-child(even) { background: #f8f9fa; }
+    .materi-table .strong-row { border-left: 4px solid var(--strong); }
+    .materi-table .weak-row { border-left: 4px solid var(--weak); }
+    .materi-table .non-row { border-left: 4px solid var(--non); }
+
+    /* ========== KOMPONEN ALAT ========== */
+    .alat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .alat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border-top: 4px solid var(--secondary);
+    }
+    .alat-card .icon { font-size: 2rem; display: block; margin-bottom: 4px; }
+    .alat-card .nama { font-weight: 700; font-size: 0.85rem; color: var(--primary-dark); }
+    .alat-card .fungsi { font-size: 0.75rem; color: var(--text-light); margin-top: 4px; }
+
+    /* ========== SIMULASI ========== */
+    .sim-container {
+      background: linear-gradient(180deg, #f0f7ff 0%, #e0f2fe 100%);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .sim-apparatus {
+      position: relative;
+      height: 240px;
+      margin: 10px auto;
+      max-width: 340px;
+      background: linear-gradient(180deg, #fff 0%, #f8f9fa 100%);
+      border-radius: 16px;
+      border: 2px solid #cfe2f3;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .sim-lamp {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #444;
+      border: 3px solid #999;
+      margin-bottom: 6px;
+      transition: all 0.4s;
+    }
+    .sim-lamp.on-strong {
+      background: radial-gradient(circle, #fff9c4, #ffd166, #ffb703);
+      box-shadow: 0 0 30px #ffd166, 0 0 60px #ffb703;
+      border-color: #ffd166;
+    }
+    .sim-lamp.on-weak {
+      background: radial-gradient(circle, #ffe0b2, #ffb74d);
+      box-shadow: 0 0 15px #ffb74d;
+      border-color: #ffb74d;
+    }
+    .sim-lamp.off { background: #555; box-shadow: none; border-color: #777; }
+    .sim-wire { width: 4px; height: 18px; background: #333; border-radius: 2px; }
+    .sim-battery {
+      width: 90px;
+      height: 30px;
+      background: linear-gradient(90deg, #333 0%, #333 42%, #f4d03f 42%, #f4d03f 58%, #333 58%, #333 100%);
+      border-radius: 6px;
+      margin: 4px 0;
+      border: 2px solid #222;
+      position: relative;
+    }
+    .sim-battery::after {
+      content: "🔋";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.9rem;
+    }
+    .sim-beaker {
+      width: 130px;
+      height: 85px;
+      background: rgba(200, 230, 255, 0.5);
+      border: 3px solid #90caf9;
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      position: relative;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    .sim-liquid {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65%;
+      background: rgba(100, 181, 246, 0.4);
+      transition: background 0.5s;
+    }
+    .sim-electrode {
+      position: absolute;
+      top: 0;
+      width: 8px;
+      height: 55%;
+      background: #444;
+      border-radius: 2px;
+    }
+    .sim-electrode.left { left: 20%; }
+    .sim-electrode.right { right: 20%; }
+    .sim-bubbles {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65%;
+      pointer-events: none;
+    }
+    .bubble {
+      position: absolute;
+      bottom: 0;
+      width: 6px;
+      height: 6px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 50%;
+      border: 1px solid rgba(200,230,255,0.9);
+      animation: bubbleUp linear infinite;
+    }
+    @keyframes bubbleUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-70px); opacity: 0; }
+    }
+    .sim-info {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      padding: 10px;
+      background: white;
+      border-radius: 10px;
+      border: 2px solid #cfe2f3;
+      text-align: left;
+      min-height: 70px;
+    }
+    .sim-info .label-kat {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+    .label-strong { background: #d8f5e8; color: #047857; }
+    .label-weak { background: #ffe8d6; color: #c2410c; }
+    .label-non { background: #e2e8f0; color: #475569; }
+
+    .sim-pilih {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .sim-pilih button {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 2px solid #cfe2f3;
+      background: white;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .sim-pilih button.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .sim-pilih button:active { transform: scale(0.97); }
+
+    /* ========== DRAG & DROP ========== */
+    .draggable-pool {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      min-height: 70px;
+      margin-bottom: 14px;
+      border: 2px dashed #cfe2f3;
+    }
+    .drag-item {
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      box-shadow: 0 2px 8px rgba(0,119,182,0.3);
+      transition: transform 0.15s;
+    }
+    .drag-item:active { transform: scale(1.05); }
+    .drag-item.placed { opacity: 0.3; pointer-events: none; }
+    .baskets { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .basket {
+      border-radius: 12px;
+      padding: 12px;
+      min-height: 120px;
+      border: 3px dashed;
+      transition: background 0.2s;
+    }
+    .basket.elektrolit { border-color: var(--strong); background: #f0fff8; }
+    .basket.non-elektrolit { border-color: var(--non); background: #f8f9fa; }
+    .basket.dragover { background: #fff9e6; }
+    .basket-title { font-weight: 700; text-align: center; margin-bottom: 8px; font-size: 0.9rem; }
+    .basket-items { display: flex; flex-wrap: wrap; gap: 6px; }
+    .basket-items .drag-item { font-size: 0.75rem; padding: 6px 10px; }
+
+    /* ========== KUIS ========== */
+    .soal-box {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+    .soal-text {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .opsi-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border: 2px solid #cfe2f3;
+      border-radius: 12px;
+      background: white;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .opsi-btn:active { transform: scale(0.98); }
+    .opsi-btn.correct { background: #d8f5e8; border-color: var(--strong); font-weight: 700; }
+    .opsi-btn.wrong { background: #ffe0e6; border-color: var(--danger); }
+    .opsi-btn:disabled { cursor: default; }
+
+    /* ========== FEEDBACK ========== */
+    .feedback {
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 12px;
+      font-size: 0.9rem;
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .feedback.correct { background: #d8f5e8; border-left: 5px solid var(--strong); }
+    .feedback.wrong { background: #ffe0e6; border-left: 5px solid var(--danger); }
+    .feedback .fb-title { font-weight: 700; margin-bottom: 4px; }
+
+    /* ========== TIMER ========== */
+    .timer-bar {
+      height: 10px;
+      background: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .timer-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--danger), var(--weak));
+      transition: width 1s linear;
+    }
+
+    /* ========== HASIL LEVEL ========== */
+    .hasil-box { text-align: center; padding: 20px; }
+    .hasil-emoji { font-size: 4rem; margin-bottom: 10px; }
+    .hasil-stars { font-size: 2.5rem; letter-spacing: 5px; margin: 10px 0; }
+    .rekap-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .rekap-item { background: var(--bg); padding: 12px; border-radius: 10px; }
+    .rekap-item .num { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+    .rekap-item .lbl { font-size: 0.8rem; color: var(--text-light); }
+
+    /* ========== BADGE ========== */
+    .badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
+    .badge-item {
+      text-align: center;
+      padding: 10px;
+      border-radius: 12px;
+      background: #f8f9fa;
+      font-size: 0.7rem;
+      opacity: 0.4;
+    }
+    .badge-item.owned {
+      opacity: 1;
+      background: linear-gradient(135deg, #fff9e6, #ffeaa7);
+      box-shadow: 0 2px 8px rgba(255,183,3,0.3);
+    }
+    .badge-item .badge-icon { font-size: 1.8rem; display: block; }
+
+    /* ========== SERTIFIKAT ========== */
+    .certificate {
+      background: #fffdf5;
+      border: 8px double #283593;
+      border-radius: 8px;
+      padding: 24px 18px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .certificate .cert-logo {
+      width: 90px;
+      height: 108px;
+      margin: 0 auto 8px;
+      display: block;
+    }
+    .cert-title { font-size: 1.3rem; font-weight: 700; color: #1a237e; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+    .cert-school { font-size: 1rem; color: var(--primary); font-weight: 600; margin-bottom: 16px; }
+    .cert-name {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 12px 0;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+    .cert-materi { font-size: 0.95rem; margin: 12px 0; }
+    .cert-nilai { font-size: 2.5rem; font-weight: 700; color: var(--strong); margin: 10px 0; }
+    .cert-predikat {
+      display: inline-block;
+      background: var(--accent);
+      color: #3a2e00;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .cert-sign { margin-top: 20px; font-size: 0.9rem; }
+    .cert-sign .name {
+      font-weight: 700;
+      border-bottom: 1px solid #333;
+      display: inline-block;
+      padding: 0 10px 2px;
+    }
+
+    /* ========== MODAL ========== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+      animation: fadeIn 0.2s;
+    }
+    .modal-content {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      max-width: 650px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      animation: slideUp 0.3s;
+    }
+
+    /* ========== KONFETI ========== */
+    .confetti-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      overflow: hidden;
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0.9;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ========== UTILITAS ========== */
+    .text-center { text-align: center; }
+    .mt-16 { margin-top: 16px; }
+    .mb-16 { margin-bottom: 16px; }
+    .hidden { display: none !important; }
+    .small { font-size: 0.85rem; color: var(--text-light); }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      z-index: 2000;
+      animation: slideUp 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      max-width: 90vw;
+      text-align: center;
+    }
+
+    /* ========== NAV TAB ========== */
+    .nav-tab {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .nav-tab button {
+      padding: 10px 14px;
+      border-radius: 20px;
+      border: 2px solid #cfe2f3;
+      background: white;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      font-family: inherit;
+      color: var(--text-light);
+    }
+    .nav-tab button.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* ========== TUJUAN ========== */
+    .tujuan-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      border-left: 4px solid var(--secondary);
+    }
+    .tujuan-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 0.9rem;
+    }
+    .tujuan-text { flex: 1; font-size: 0.9rem; }
+    .tujuan-text strong { color: var(--primary-dark); display: block; margin-bottom: 2px; }
+
+    /* ========== PENERAPAN ========== */
+    .penerapan-card {
+      background: linear-gradient(135deg, #f0f7ff, #e0f2fe);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      border-left: 4px solid var(--primary);
+    }
+    .penerapan-card .icon { font-size: 1.8rem; margin-bottom: 4px; }
+    .penerapan-card h4 { color: var(--primary-dark); margin-bottom: 4px; }
+    .penerapan-card p { font-size: 0.85rem; margin-bottom: 4px; }
+    .penerapan-card .kait {
+      font-size: 0.8rem;
+      background: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      margin-top: 6px;
+      border-left: 3px solid var(--strong);
+    }
+
+    /* ========== RESPONSIF ========== */
+    @media (max-width: 480px) {
+      .container { padding: 10px; }
+      h1 { font-size: 1.25rem; }
+      .baskets { grid-template-columns: 1fr; }
+      .rekap-grid { grid-template-columns: 1fr 1fr; }
+      .cert-name { font-size: 1.3rem; }
+      .materi-table { font-size: 0.75rem; }
+      .materi-table th, .materi-table td { padding: 8px 6px; }
+      .app-header .brand .brand-text .school { font-size: 0.75rem; }
+      .icon-btn.menu-btn { padding: 0 8px; font-size: 0.7rem; }
+    }
+
+    @media print {
+      body * { visibility: hidden; }
+      #certificateArea, #certificateArea * { visibility: visible; }
+      #certificateArea { position: absolute; left: 0; top: 0; width: 100%; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER DENGAN LOGO GELAS KIMIA ========== -->
+  <header class="app-header no-print">
+    <div class="brand">
+      <!-- Logo Gelas Kimia Laboratorium (Erlenmeyer + Tabung Reaksi) -->
+      <svg class="logo-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Latar lingkaran -->
+        <circle cx="50" cy="60" r="48" fill="#e3f2fd" stroke="#1a237e" stroke-width="3"/>
+        <!-- Labu Erlenmeyer -->
+        <path d="M35 25 L65 25 L65 30 L58 32 L58 60 L80 95 Q82 100 77 100 L23 100 Q18 100 20 95 L42 60 L42 32 L35 30 Z" 
+              fill="#ffffff" stroke="#0d47a1" stroke-width="2.5"/>
+        <!-- Cairan dalam labu -->
+        <path d="M28 82 L72 82 L78 96 Q79 98 77 98 L23 98 Q21 98 22 96 Z" fill="#00b4d8" opacity="0.7"/>
+        <!-- Gelembung di cairan -->
+        <circle cx="38" cy="90" r="2.5" fill="#ffffff" opacity="0.9"/>
+        <circle cx="50" cy="93" r="2" fill="#ffffff" opacity="0.9"/>
+        <circle cx="62" cy="90" r="2.5" fill="#ffffff" opacity="0.9"/>
+        <circle cx="45" cy="88" r="1.5" fill="#ffffff" opacity="0.9"/>
+        <circle cx="56" cy="92" r="1.5" fill="#ffffff" opacity="0.9"/>
+        <!-- Leher labu -->
+        <rect x="44" y="18" width="12" height="8" fill="#0d47a1"/>
+        <!-- Tabung reaksi kiri -->
+        <g transform="rotate(-25 30 60)">
+          <rect x="26" y="45" width="8" height="30" rx="4" fill="#ffffff" stroke="#0d47a1" stroke-width="2"/>
+          <rect x="26" y="60" width="8" height="15" rx="4" fill="#f77f00" opacity="0.7"/>
+        </g>
+        <!-- Tabung reaksi kanan -->
+        <g transform="rotate(25 70 60)">
+          <rect x="66" y="45" width="8" height="30" rx="4" fill="#ffffff" stroke="#0d47a1" stroke-width="2"/>
+          <rect x="66" y="60" width="8" height="15" rx="4" fill="#06d6a0" opacity="0.7"/>
+        </g>
+        <!-- Atom/molekul dekorasi -->
+        <circle cx="20" cy="30" r="4" fill="#ffd166" stroke="#1a237e" stroke-width="1.5"/>
+        <circle cx="80" cy="30" r="4" fill="#ef476f" stroke="#1a237e" stroke-width="1.5"/>
+        <circle cx="18" cy="42" r="3" fill="#06d6a0" stroke="#1a237e" stroke-width="1.5"/>
+        <circle cx="82" cy="42" r="3" fill="#f77f00" stroke="#1a237e" stroke-width="1.5"/>
+      </svg>
+      <div class="brand-text">
+        <span class="school">SMA Santo Paulus</span>
+        <span class="sub">Pontianak</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn menu-btn" id="tujuanBtn" title="Tujuan Pembelajaran">🎯</button>
+      <button class="icon-btn menu-btn" id="materiBtn" title="Materi Lengkap">📖</button>
+      <button class="icon-btn menu-btn" id="praktikumBtn" title="Simulasi Praktikum">🔬</button>
+      <button class="icon-btn" id="muteBtn" title="Suara">🔊</button>
+      <button class="icon-btn hidden" id="logoutBtn" title="Ganti Akun">🚪</button>
+    </div>
+  </header>
+
+  <!-- ========== HALAMAN LOGIN ========== -->
+  <div id="loginPage" class="container">
+    <div class="card" style="text-align:center;">
+      <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="width:110px; height:132px; margin-bottom:8px;">
+        <circle cx="50" cy="60" r="48" fill="#e3f2fd" stroke="#1a237e" stroke-width="3"/>
+        <path d="M35 25 L65 25 L65 30 L58 32 L58 60 L80 95 Q82 100 77 100 L23 100 Q18 100 20 95 L42 60 L42 32 L35 30 Z" 
+              fill="#ffffff" stroke="#0d47a1" stroke-width="2.5"/>
+        <path d="M28 82 L72 82 L78 96 Q79 98 77 98 L23 98 Q21 98 22 96 Z" fill="#00b4d8" opacity="0.7"/>
+        <circle cx="38" cy="90" r="2.5" fill="#ffffff" opacity="0.9"/>
+        <circle cx="50" cy="93" r="2" fill="#ffffff" opacity="0.9"/>
+        <circle cx="62" cy="90" r="2.5" fill="#ffffff" opacity="0.9"/>
+        <circle cx="45" cy="88" r="1.5" fill="#ffffff" opacity="0.9"/>
+        <circle cx="56" cy="92" r="1.5" fill="#ffffff" opacity="0.9"/>
+        <rect x="44" y="18" width="12" height="8" fill="#0d47a1"/>
+        <g transform="rotate(-25 30 60)">
+          <rect x="26" y="45" width="8" height="30" rx="4" fill="#ffffff" stroke="#0d47a1" stroke-width="2"/>
+          <rect x="26" y="60" width="8" height="15" rx="4" fill="#f77f00" opacity="0.7"/>
+        </g>
+        <g transform="rotate(25 70 60)">
+          <rect x="66" y="45" width="8" height="30" rx="4" fill="#ffffff" stroke="#0d47a1" stroke-width="2"/>
+          <rect x="66" y="60" width="8" height="15" rx="4" fill="#06d6a0" opacity="0.7"/>
+        </g>
+        <circle cx="20" cy="30" r="4" fill="#ffd166" stroke="#1a237e" stroke-width="1.5"/>
+        <circle cx="80" cy="30" r="4" fill="#ef476f" stroke="#1a237e" stroke-width="1.5"/>
+        <circle cx="18" cy="42" r="3" fill="#06d6a0" stroke="#1a237e" stroke-width="1.5"/>
+        <circle cx="82" cy="42" r="3" fill="#f77f00" stroke="#1a237e" stroke-width="1.5"/>
+      </svg>
+      <h1>Petualangan Elektrolit</h1>
+      <p class="small">Larutan Elektrolit & Non-Elektrolit — Kimia Kelas 11</p>
+      <p class="small" style="margin-bottom:20px;">SMA Santo Paulus Pontianak</p>
+
+      <div style="text-align:left;">
+        <label for="kelasSelect">Pilih Kelas</label>
+        <select id="kelasSelect">
+          <option value="">-- Pilih Kelas --</option>
+          <option value="11 Kimia 1">Kelas 11 - Kimia 1</option>
+          <option value="11 Kimia 2">Kelas 11 - Kimia 2</option>
+          <option value="11 Kimia 3">Kelas 11 - Kimia 3</option>
+        </select>
+
+        <label for="namaSelect">Pilih Nama</label>
+        <select id="namaSelect" disabled>
+          <option value="">-- Pilih Kelas Dahulu --</option>
+        </select>
+
+        <label for="absenInput">Nomor Absen</label>
+        <input type="number" id="absenInput" placeholder="Masukkan nomor absen" min="1" max="40" disabled>
+
+        <button class="btn" id="loginBtn" disabled>Masuk Petualangan 🚀</button>
+      </div>
+      <p class="small mt-16">Data tersimpan di perangkat ini. Gunakan perangkat yang sama untuk auto-login.</p>
+    </div>
+  </div>
+
+  <!-- ========== HALAMAN UTAMA ========== -->
+  <div id="homePage" class="container hidden">
+    <div class="card">
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+        <div id="userAvatar" style="font-size:2.5rem; background:var(--bg); width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center;">🧑‍🔬</div>
+        <div style="flex:1;">
+          <h2 id="userName" style="margin-bottom:2px;">Nama Siswa</h2>
+          <p class="small" id="userKelas" style="margin-bottom:0;">Kelas</p>
+        </div>
+        <button class="icon-btn" id="editAvatarBtn" style="background:var(--bg); color:var(--primary);" title="Ganti Avatar">✏️</button>
+      </div>
+
+      <div class="stat-bar">
+        <span>⭐ Level: <strong id="userLevel">Pemula</strong></span>
+        <span class="xp-badge" id="userXP">0 XP</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="xpProgress" style="width:0%"></div>
+      </div>
+      <p class="small text-center" id="xpNext">0/100 XP menuju level berikutnya</p>
+
+      <div class="btn-row mt-16">
+        <button class="btn" id="mulaiBtn">Mulai Petualangan 🧭</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn ghost" id="homeMateriBtn">📖 Materi</button>
+        <button class="btn ghost" id="homePraktikumBtn">🔬 Lab Virtual</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🏅 Badge Koleksi</h3>
+      <div class="badge-grid" id="badgeGrid"></div>
+    </div>
+  </div>
+
+  <!-- ========== HALAMAN PETA LEVEL ========== -->
+  <div id="mapPage" class="container hidden">
+    <div class="card">
+      <h2>🗺️ Peta Petualangan</h2>
+      <p class="small">Selesaikan setiap level untuk membuka level berikutnya!</p>
+    </div>
+    <div class="level-map" id="levelMap"></div>
+    <button class="btn ghost mt-16" id="backHomeBtn">← Kembali ke Beranda</button>
+  </div>
+
+  <!-- ========== HALAMAN PERMAINAN ========== -->
+  <div id="gamePage" class="container hidden">
+    <div class="stat-bar">
+      <span id="gameLevelTitle">Level 1</span>
+      <span class="hearts" id="gameHearts">❤️❤️❤️</span>
+      <span class="xp-badge" id="gameXP">0 XP</span>
+    </div>
+    <div id="gameContent"></div>
+    <button class="btn ghost mt-16" id="quitGameBtn">← Keluar Level</button>
+  </div>
+
+  <!-- ========== HALAMAN SERTIFIKAT ========== -->
+  <div id="certPage" class="container hidden">
+    <div id="certificateArea">
+      <div class="certificate">
+        <svg class="cert-logo" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="60" r="48" fill="#e3f2fd" stroke="#1a237e" stroke-width="3"/>
+          <path d="M35 25 L65 25 L65 30 L58 32 L58 60 L80 95 Q82 100 77 100 L23 100 Q18 100 20 95 L42 60 L42 32 L35 30 Z" 
+                fill="#ffffff" stroke="#0d47a1" stroke-width="2.5"/>
+          <path d="M28 82 L72 82 L78 96 Q79 98 77 98 L23 98 Q21 98 22 96 Z" fill="#00b4d8" opacity="0.7"/>
+          <circle cx="38" cy="90" r="2.5" fill="#ffffff" opacity="0.9"/>
+          <circle cx="50" cy="93" r="2" fill="#ffffff" opacity="0.9"/>
+          <circle cx="62" cy="90" r="2.5" fill="#ffffff" opacity="0.9"/>
+          <circle cx="45" cy="88" r="1.5" fill="#ffffff" opacity="0.9"/>
+          <circle cx="56" cy="92" r="1.5" fill="#ffffff" opacity="0.9"/>
+          <rect x="44" y="18" width="12" height="8" fill="#0d47a1"/>
+          <g transform="rotate(-25 30 60)">
+            <rect x="26" y="45" width="8" height="30" rx="4" fill="#ffffff" stroke="#0d47a1" stroke-width="2"/>
+            <rect x="26" y="60" width="8" height="15" rx="4" fill="#f77f00" opacity="0.7"/>
+          </g>
+          <g transform="rotate(25 70 60)">
+            <rect x="66" y="45" width="8" height="30" rx="4" fill="#ffffff" stroke="#0d47a1" stroke-width="2"/>
+            <rect x="66" y="60" width="8" height="15" rx="4" fill="#06d6a0" opacity="0.7"/>
+          </g>
+          <circle cx="20" cy="30" r="4" fill="#ffd166" stroke="#1a237e" stroke-width="1.5"/>
+          <circle cx="80" cy="30" r="4" fill="#ef476f" stroke="#1a237e" stroke-width="1.5"/>
+          <circle cx="18" cy="42" r="3" fill="#06d6a0" stroke="#1a237e" stroke-width="1.5"/>
+          <circle cx="82" cy="42" r="3" fill="#f77f00" stroke="#1a237e" stroke-width="1.5"/>
+        </svg>
+        <div class="cert-title">Sertifikat Keaktifan Belajar Kimia</div>
+        <div class="cert-school">SMA Santo Paulus Pontianak</div>
+        <div style="font-size:2rem;">⚗️🧪🔬</div>
+        <p class="small" style="margin-top:10px;">Diberikan kepada:</p>
+        <div class="cert-name" id="certName">Nama Siswa</div>
+        <p class="cert-materi">Kelas: <strong id="certKelas">-</strong></p>
+        <p class="cert-materi">Telah menyelesaikan materi:<br><strong>"Larutan Elektrolit dan Non-Elektrolit"</strong></p>
+        <div class="cert-nilai" id="certNilai">0</div>
+        <div class="cert-predikat" id="certPredikat">-</div>
+        <p class="small">Tanggal: <span id="certTanggal">-</span></p>
+        <div class="cert-sign">
+          <p>Pontianak, <span id="certTglTtd">-</span></p>
+          <p style="margin-top:30px;"><span class="name">Agustinus Ridwan, S.Pd.</span></p>
+          <p class="small">Guru Kimia</p>
+        </div>
+        <div style="font-size:1.5rem; margin-top:10px; opacity:0.3;">🧬 ⚗️ 🧪 🔬 🧬</div>
+      </div>
+    </div>
+    <div class="btn-row mt-16 no-print">
+      <button class="btn" id="printCertBtn">🖨️ Cetak / Simpan PDF</button>
+      <button class="btn ghost" id="backFromCertBtn">← Kembali</button>
+    </div>
+  </div>
+
+  <!-- ========== MODAL MATERI ========== -->
+  <div id="materiModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <h2>📖 Materi Lengkap</h2>
+      <div class="nav-tab" id="materiNav">
+        <button data-tab="pengertian" class="active">Pengertian</button>
+        <button data-tab="alat">Alat Uji</button>
+        <button data-tab="pengujian">Hasil Uji</button>
+        <button data-tab="kelompok">3 Kelompok</button>
+        <button data-tab="ionisasi">Reaksi Ionisasi</button>
+        <button data-tab="alpha">Derajat Ionisasi</button>
+        <button data-tab="penerapan">Penerapan</button>
+      </div>
+      <div id="materiTabContent"></div>
+      <button class="btn mt-16" id="closeMateriBtn">Tutup</button>
+    </div>
+  </div>
+
+  <!-- ========== MODAL TUJUAN ========== -->
+  <div id="tujuanModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <h2>🎯 Tujuan Pembelajaran</h2>
+      <p class="small mb-16">Setelah mempelajari materi ini, murid diharapkan mampu:</p>
+      <div id="tujuanContent"></div>
+      <button class="btn mt-16" id="closeTujuanBtn">Tutup</button>
+    </div>
+  </div>
+
+  <!-- ========== MODAL PRAKTIKUM ========== -->
+  <div id="praktikumModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <h2>🔬 Simulasi Praktikum</h2>
+      <p class="small mb-16">Uji Daya Hantar Listrik Larutan — pilih larutan dan amati nyala lampu serta gelembung gasnya!</p>
+      <div id="praktikumContent"></div>
+      <button class="btn mt-16" id="closePraktikumBtn">Tutup</button>
+    </div>
+  </div>
+
+  <!-- ========== MODAL AVATAR ========== -->
+  <div id="avatarModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <h2>Pilih Avatar</h2>
+      <div class="avatar-grid" id="avatarGrid"></div>
+      <button class="btn mt-16" id="closeAvatarBtn">Simpan</button>
+    </div>
+  </div>
+
+  <div class="confetti-container" id="confettiContainer"></div>
+
+  <script>
+    // ================================================================
+    // 1. DATA SISWA
+    // ================================================================
+    const DAFTAR_SISWA = {
+      "11 Kimia 1": [
+        { absen: 1, nama: "Alpino Metodius" }, { absen: 2, nama: "Angely Chyntia Christine" },
+        { absen: 3, nama: "Axel Alvis Wun" }, { absen: 4, nama: "Bhetesda Grace Vanea Paraya" },
+        { absen: 5, nama: "Briyant Edgardo Sinaga" }, { absen: 6, nama: "Caecilia Chrissy Amabbel Kahaya" },
+        { absen: 7, nama: "Caroline Ivana" }, { absen: 8, nama: "Chastine Clarissa" },
+        { absen: 9, nama: "Christiani Putri Dwi Cinta" }, { absen: 10, nama: "Fabio Fransco" },
+        { absen: 11, nama: "Felisya Valentina" }, { absen: 12, nama: "Florentina Zefanya Neska" },
+        { absen: 13, nama: "Fransisca Juju Pratama" }, { absen: 14, nama: "Ignatius Dali" },
+        { absen: 15, nama: "Irren Ilaqueenna" }, { absen: 16, nama: "Keisyah Meilani Shirleen" },
+        { absen: 17, nama: "Marsela Aprilian" }, { absen: 18, nama: "Mia Azalia" },
+        { absen: 19, nama: "Oktavienny Nofe" }, { absen: 20, nama: "Owen Geraldo Chandra" },
+        { absen: 21, nama: "Puteri Samara Jessica" }, { absen: 22, nama: "Rafa Emeraldy Chandra" },
+        { absen: 23, nama: "Selviana Nefi" }, { absen: 24, nama: "Silvester Noviani" },
+        { absen: 25, nama: "Stevino Nata Wardani" }, { absen: 26, nama: "Teguh Gunawan" },
+        { absen: 27, nama: "Tri City Yoti" }, { absen: 28, nama: "Yeci" },
+        { absen: 29, nama: "Yonas Galih Gumintang" }, { absen: 30, nama: "Yusta Calista Adila Putri" },
+        { absen: 31, nama: "Ziphora Natasha" }
+      ],
+      "11 Kimia 2": [
+        { absen: 1, nama: "Brandon Alexander" }, { absen: 2, nama: "Carissa Leticia Ngantung" },
+        { absen: 3, nama: "Carissa Putri Siallagan" }, { absen: 4, nama: "Carolia Nava" },
+        { absen: 5, nama: "Chil Win" }, { absen: 6, nama: "Christian Denilson" },
+        { absen: 7, nama: "Clara Evani" }, { absen: 8, nama: "Dave Andrean" },
+        { absen: 9, nama: "Delius Marko Renaldi" }, { absen: 10, nama: "Digta Valenda" },
+        { absen: 11, nama: "Dion Novic" }, { absen: 12, nama: "Evander Jo" },
+        { absen: 13, nama: "Everli Listya" }, { absen: 14, nama: "Fetrus Ricardo" },
+        { absen: 15, nama: "Flaviana Salsa" }, { absen: 16, nama: "Fransiska Elia" },
+        { absen: 17, nama: "Jeppry Gerson" }, { absen: 18, nama: "John Sons" },
+        { absen: 19, nama: "Lionel Deogracia Assa" }, { absen: 20, nama: "Majesty Paulyfia" },
+        { absen: 21, nama: "Mario Christ Mikael" }, { absen: 22, nama: "Maura Febbry" },
+        { absen: 23, nama: "Ryan Misora" }, { absen: 24, nama: "Stanney Canon Brahmayhanna" },
+        { absen: 25, nama: "Theresia Hani" }, { absen: 26, nama: "Valeryo Chandra Halim" },
+        { absen: 27, nama: "Victor Setiawan" }, { absen: 28, nama: "Vincent Lindra Then" },
+        { absen: 29, nama: "Viola Mareta" }, { absen: 30, nama: "Wilsenz Fernandez" }
+      ],
+      "11 Kimia 3": [
+        { absen: 1, nama: "Albert Carnegi Hero Aquino" }, { absen: 2, nama: "Andrea Charita Divina" },
+        { absen: 3, nama: "Andreas Andika" }, { absen: 4, nama: "Anggea Letiza Nacita" },
+        { absen: 5, nama: "Cristian Willy" }, { absen: 6, nama: "Evelyn Yovela" },
+        { absen: 7, nama: "Genoveva Lusiana Anggun" }, { absen: 8, nama: "Graciela Yuri Fumiko" },
+        { absen: 9, nama: "Grasela Aprilia Iryan" }, { absen: 10, nama: "Gregorius Stevanus" },
+        { absen: 11, nama: "Grezencia Tifani" }, { absen: 12, nama: "Intan Berliana" },
+        { absen: 13, nama: "Jesica Rheaivana Fielo Veril" }, { absen: 14, nama: "Josef Tristan Willie" },
+        { absen: 15, nama: "Maria Maydilova Pasaribu" }, { absen: 16, nama: "Maria Oktaviani" },
+        { absen: 17, nama: "Midea Untan" }, { absen: 18, nama: "Natasya Audreylia" },
+        { absen: 19, nama: "Octavian Seviero Geobagara" }, { absen: 20, nama: "Olinsha Shasya" },
+        { absen: 21, nama: "Owen Cristiono" }, { absen: 22, nama: "Rafael Oscar Gozali" },
+        { absen: 23, nama: "Revi Orville Thamrin" }, { absen: 24, nama: "Roderick Dustin" },
+        { absen: 25, nama: "Rosalia Milda" }, { absen: 26, nama: "Salomon Elang Nusantara" },
+        { absen: 27, nama: "Shakira Alexa Carlos" }, { absen: 28, nama: "Steven Theodoric Lorand" },
+        { absen: 29, nama: "Vanelia Natalia Cega" }, { absen: 30, nama: "Vanessa Lovelyn" }
+      ]
+    };
+
+    // ================================================================
+    // 2. BANK SOAL
+    // ================================================================
+    const BANK_SOAL = {
+      level1: [
+        { id: "L1-1", tipe: "pilihan", soal: "Larutan garam dapur (NaCl) dalam air termasuk...", opsi: ["Elektrolit kuat", "Elektrolit lemah", "Non-elektrolit", "Tidak dapat ditentukan"], jawaban: 0, penjelasan: "NaCl adalah senyawa ion yang terionisasi sempurna dalam air menjadi Na⁺ dan Cl⁻, sehingga termasuk elektrolit kuat.", petunjuk: "Ingat: senyawa ion yang terurai sempurna = elektrolit kuat." },
+        { id: "L1-2", tipe: "pilihan", soal: "Alat uji elektrolit yang berfungsi sebagai sumber arus listrik adalah...", opsi: ["Baterai", "Gelas kimia", "Lampu", "Elektroda karbon"], jawaban: 0, penjelasan: "Baterai berfungsi sebagai sumber arus listrik yang mengalirkan elektron ke rangkaian. Tanpa baterai, tidak ada arus yang mengalir.", petunjuk: "Komponen yang menyimpan energi listrik untuk menggerakkan arus." },
+        { id: "L1-3", tipe: "pilihan", soal: "Fungsi elektroda karbon (grafit) dalam alat uji elektrolit adalah...", opsi: ["Sebagai konduktor yang dicelupkan ke larutan", "Sebagai sumber cahaya", "Sebagai wadah larutan", "Sebagai penutup rangkaian"], jawaban: 0, penjelasan: "Elektroda karbon (grafit) bersifat konduktor dan inert. Kedua elektroda dicelupkan ke larutan untuk mengalirkan arus listrik ke dalam larutan.", petunjuk: "Komponen yang dicelupkan ke dalam larutan uji." },
+        { id: "L1-4", tipe: "pilihan", soal: "Lampu pada alat uji elektrolit berfungsi untuk...", opsi: ["Menunjukkan ada/tidaknya arus listrik yang mengalir", "Memanaskan larutan", "Mencampur larutan", "Menyaring larutan"], jawaban: 0, penjelasan: "Lampu adalah indikator visual. Jika lampu menyala, berarti arus listrik mengalir melalui larutan (larutan menghantarkan listrik).", petunjuk: "Indikator visual adanya arus listrik." },
+        { id: "L1-5", tipe: "pilihan", soal: "Larutan gula (C₆H₁₂O₆) dalam air tidak dapat menghantarkan listrik karena...", opsi: ["Terionisasi sebagian", "Tidak terionisasi menjadi ion", "Mengandung ion H⁺", "Bereaksi dengan air"], jawaban: 1, penjelasan: "Gula adalah senyawa kovalen non-polar yang larut dalam air tanpa terurai menjadi ion, sehingga tidak menghantarkan listrik.", petunjuk: "Non-elektrolit tidak menghasilkan ion bebas dalam larutan." },
+        { id: "L1-6", tipe: "pilihan", soal: "Urutan komponen alat uji elektrolit dari sumber arus hingga indikator adalah...", opsi: ["Baterai → elektroda → larutan → elektroda → lampu", "Lampu → baterai → elektroda → larutan", "Larutan → baterai → lampu → elektroda", "Elektroda → lampu → baterai → larutan"], jawaban: 0, penjelasan: "Arus mengalir dari baterai → elektroda kiri → larutan → elektroda kanan → lampu. Lampu menyala jika larutan menghantarkan listrik.", petunjuk: "Arus mengalir dari sumber arus, melewati larutan, lalu ke indikator." },
+        { id: "L1-7", tipe: "pilihan", soal: "Manakah yang termasuk non-elektrolit?", opsi: ["Air laut", "Larutan urea", "Larutan cuka", "Larutan HCl"], jawaban: 1, penjelasan: "Urea (CO(NH₂)₂) larut dalam air sebagai molekul netral, tidak terionisasi, sehingga non-elektrolit.", petunjuk: "Cari senyawa kovalen yang tidak menghasilkan ion." },
+        { id: "L1-8", tipe: "pilihan", soal: "Larutan yang dapat menghantarkan listrik karena mengandung ion-ion bebas adalah...", opsi: ["Larutan alkohol", "Air suling", "Larutan asam klorida", "Larutan glukosa"], jawaban: 2, penjelasan: "HCl dalam air terionisasi menjadi H⁺ dan Cl⁻ yang bergerak bebas, sehingga menghantarkan listrik.", petunjuk: "Elektrolit menghasilkan ion bebas dalam air." }
+      ],
+      level2: [
+        { id: "L2-1", tipe: "pilihan", soal: "Hasil uji: lampu menyala terang, gelembung gas banyak. Larutan ini termasuk...", opsi: ["Elektrolit kuat", "Elektrolit lemah", "Non-elektrolit", "Bukan larutan"], jawaban: 0, penjelasan: "Nyala lampu terang dan gelembung banyak menunjukkan ionisasi sempurna → elektrolit kuat.", petunjuk: "Terang + banyak gelembung = ionisasi sempurna." },
+        { id: "L2-2", tipe: "pilihan", soal: "CH₃COOH dalam air termasuk elektrolit lemah karena...", opsi: ["Tidak terionisasi sama sekali", "Terionisasi sebagian menjadi ion", "Terionisasi sempurna", "Tidak larut dalam air"], jawaban: 1, penjelasan: "Asam cuka (CH₃COOH) hanya sebagian kecil molekulnya terionisasi menjadi CH₃COO⁻ dan H⁺, sehingga elektrolit lemah.", petunjuk: "Elektrolit lemah = ionisasi sebagian (α < 1)." },
+        { id: "L2-3", tipe: "pilihan", soal: "Larutan NH₄OH termasuk elektrolit lemah. Ciri hasil ujinya adalah...", opsi: ["Lampu terang, gelembung banyak", "Lampu redup/tidak menyala, gelembung sedikit", "Tidak ada gelembung", "Lampu terang, tidak ada gelembung"], jawaban: 1, penjelasan: "Karena hanya sebagian terionisasi, jumlah ion sedikit → lampu redup dan gelembung sedikit.", petunjuk: "Semakin sedikit ion, semakin redup lampu dan sedikit gelembung." },
+        { id: "L2-4", tipe: "pilihan", soal: "Larutan NaCl 1 M dan CH₃COOH 1 M diuji. Perbedaan hasil uji yang benar adalah...", opsi: ["NaCl redup, CH₃COOH terang", "NaCl terang, CH₃COOH redup", "Keduanya terang", "Keduanya tidak menyala"], jawaban: 1, penjelasan: "NaCl elektrolit kuat (ionisasi sempurna) → terang. CH₃COOH elektrolit lemah (ionisasi sebagian) → redup.", petunjuk: "Bandingkan jumlah ion yang dihasilkan masing-masing larutan." },
+        { id: "L2-5", tipe: "pilihan", soal: "Gelembung gas pada elektroda muncul karena...", opsi: ["Terbentuk gas dari reaksi ion di elektroda", "Larutan mendidih", "Udara masuk ke larutan", "Air menguap"], jawaban: 0, penjelasan: "Ion-ion yang bergerak ke elektroda mengalami reaksi elektrolisis dan menghasilkan gas (misalnya H₂ atau O₂) yang terlihat sebagai gelembung.", petunjuk: "Gelembung = hasil reaksi ion di permukaan elektroda." }
+      ],
+      level3: [
+        { id: "L3-1", tipe: "pilihan", soal: "NaCl memiliki ikatan ion dan dalam air bersifat...", opsi: ["Elektrolit kuat", "Elektrolit lemah", "Non-elektrolit", "Tidak larut"], jawaban: 0, penjelasan: "Senyawa ion seperti NaCl terurai sempurna menjadi ion bebas → elektrolit kuat.", petunjuk: "Ikatan ion → terurai sempurna → elektrolit kuat." },
+        { id: "L3-2", tipe: "pilihan", soal: "HCl memiliki ikatan kovalen polar. Dalam air, HCl termasuk...", opsi: ["Elektrolit lemah", "Non-elektrolit", "Elektrolit kuat", "Tidak terionisasi"], jawaban: 2, penjelasan: "HCl kovalen polar terionisasi sempurna dalam air menjadi H⁺ dan Cl⁻ → elektrolit kuat.", petunjuk: "Kovalen polar + terionisasi sempurna = elektrolit kuat." },
+        { id: "L3-3", tipe: "pilihan", soal: "Glukosa (C₆H₁₂O₆) memiliki ikatan kovalen non-polar dan dalam air bersifat...", opsi: ["Elektrolit kuat", "Elektrolit lemah", "Non-elektrolit", "Asam kuat"], jawaban: 2, penjelasan: "Glukosa larut sebagai molekul utuh tanpa terionisasi → non-elektrolit.", petunjuk: "Kovalen non-polar tidak menghasilkan ion dalam air." },
+        { id: "L3-4", tipe: "pilihan", soal: "Pasangan senyawa berikut yang keduanya elektrolit kuat adalah...", opsi: ["NaCl dan CH₃COOH", "HCl dan NaCl", "CH₃COOH dan glukosa", "Glukosa dan urea"], jawaban: 1, penjelasan: "HCl (kovalen polar, ionisasi sempurna) dan NaCl (ion, terurai sempurna) keduanya elektrolit kuat.", petunjuk: "Elektrolit kuat: ionisasi sempurna, baik dari ikatan ion maupun kovalen polar." },
+        { id: "L3-5", tipe: "pilihan", soal: "Senyawa ion dapat menghantarkan listrik dalam bentuk...", opsi: ["Padatan kering", "Lelehan dan larutan", "Gas", "Kristal murni"], jawaban: 1, penjelasan: "Senyawa ion hanya menghantarkan listrik saat lelehan atau larutan karena ion-ionnya bebas bergerak. Padatan kering ionnya terikat di kisi kristal.", petunjuk: "Ion harus bebas bergerak untuk menghantarkan listrik." }
+      ],
+      level4: [
+        { id: "L4-1", tipe: "pilihan", soal: "Hasil ionisasi NaCl dalam air adalah...", opsi: ["Na⁺ + Cl⁻", "Na²⁺ + Cl²⁻", "NaCl tetap", "Na + Cl"], jawaban: 0, penjelasan: "NaCl → Na⁺ + Cl⁻. Natrium melepas 1 elektron, klorin menangkap 1 elektron.", petunjuk: "Na golongan IA → Na⁺; Cl golongan VIIA → Cl⁻." },
+        { id: "L4-2", tipe: "pilihan", soal: "Persamaan ionisasi CH₃COOH yang benar adalah...", opsi: ["CH₃COOH → CH₃COO⁻ + H⁺", "CH₃COOH ⇌ CH₃COO⁻ + H⁺", "CH₃COOH → CH₃⁺ + COOH⁻", "CH₃COOH ⇌ CH₃⁺ + COOH⁻"], jawaban: 1, penjelasan: "CH₃COOH elektrolit lemah, ionisasi sebagian, ditulis dengan tanda kesetimbangan (⇌).", petunjuk: "Elektrolit lemah → panah kesetimbangan (⇌)." },
+        { id: "L4-3", tipe: "pilihan", soal: "Ionisasi Ca(OH)₂ dalam air menghasilkan...", opsi: ["Ca²⁺ + 2OH⁻", "Ca⁺ + OH⁻", "Ca²⁺ + OH₂⁻", "Ca + 2OH"], jawaban: 0, penjelasan: "Ca(OH)₂ → Ca²⁺ + 2OH⁻. Kalsium melepas 2 elektron, dua ion hidroksida dilepaskan.", petunjuk: "Ca golongan IIA → Ca²⁺; OH⁻ muatannya -1, perlu 2 untuk menetralkan." },
+        { id: "L4-4", tipe: "pilihan", soal: "H₂SO₄ terionisasi sempurna. Persamaan ionisasinya adalah...", opsi: ["H₂SO₄ → 2H⁺ + SO₄²⁻", "H₂SO₄ ⇌ 2H⁺ + SO₄²⁻", "H₂SO₄ → H₂⁺ + SO₄⁻", "H₂SO₄ → 2H + SO₄"], jawaban: 0, penjelasan: "H₂SO₄ asam kuat, terionisasi sempurna → 2H⁺ + SO₄²⁻ (gunakan panah satu arah).", petunjuk: "Asam kuat = ionisasi sempurna = panah satu arah (→)." },
+        { id: "L4-5", tipe: "pilihan", soal: "Reaksi ionisasi Al₂(SO₄)₃ yang benar adalah...", opsi: ["Al₂(SO₄)₃ → 2Al³⁺ + 3SO₄²⁻", "Al₂(SO₄)₃ → Al³⁺ + SO₄²⁻", "Al₂(SO₄)₃ ⇌ 2Al³⁺ + 3SO₄²⁻", "Al₂(SO₄)₃ → 3Al³⁺ + 2SO₄²⁻"], jawaban: 0, penjelasan: "Al₂(SO₄)₃ → 2Al³⁺ + 3SO₄²⁻ (garam ion, ionisasi sempurna).", petunjuk: "Sesuaikan jumlah atom dan muatan di kedua sisi." }
+      ],
+      level5: [
+        { id: "L5-1", tipe: "pilihan", soal: "Cairan infus (NaCl 0,9%) termasuk elektrolit karena...", opsi: ["Mengandung ion Na⁺ dan Cl⁻ yang penting bagi tubuh", "Tidak mengandung ion", "Hanya berisi air murni", "Bersifat non-polar"], jawaban: 0, penjelasan: "Infus NaCl mengandung ion Na⁺ dan Cl⁻ yang berperan menjaga keseimbangan elektrolit tubuh.", petunjuk: "Cairan infus = larutan garam fisiologis = elektrolit." },
+        { id: "L5-2", tipe: "pilihan", soal: "Air aki (H₂SO₄) digunakan pada baterai karena...", opsi: ["Dapat menghantarkan listrik karena mengandung ion", "Tidak menghantarkan listrik", "Merupakan non-elektrolit", "Hanya sebagai pelarut"], jawaban: 0, penjelasan: "H₂SO₄ terionisasi menjadi 2H⁺ dan SO₄²⁻ yang menghantarkan arus listrik dalam aki.", petunjuk: "Aki membutuhkan larutan elektrolit untuk reaksi kimia-listrik." },
+        { id: "L5-3", tipe: "pilihan", soal: "Manakah pasangan larutan dan pemanfaatan yang tepat?", opsi: ["Larutan gula – cairan infus", "Larutan NaCl – cairan infus", "Air suling – air aki", "Larutan urea – penghantar listrik"], jawaban: 1, penjelasan: "NaCl 0,9% digunakan sebagai cairan infus karena mengandung ion yang dibutuhkan tubuh.", petunjuk: "Infus = larutan garam fisiologis (NaCl)." },
+        { id: "L5-4", tipe: "pilihan", soal: "Mengapa larutan gula tidak dapat digunakan sebagai cairan infus pengganti ion tubuh?", opsi: ["Karena gula non-elektrolit, tidak menghasilkan ion", "Karena gula terlalu mahal", "Karena gula elektrolit kuat", "Karena gula tidak larut dalam air"], jawaban: 0, penjelasan: "Gula larut sebagai molekul netral, tidak menghasilkan ion, sehingga tidak dapat menggantikan elektrolit tubuh.", petunjuk: "Infus elektrolit harus mengandung ion, bukan molekul netral." },
+        { id: "L5-5", tipe: "pilihan", soal: "Minuman isotonik bermanfaat bagi atlet karena...", opsi: ["Menggantikan ion tubuh yang hilang melalui keringat", "Menambah energi tanpa ion", "Mengandung alkohol", "Tidak mengandung mineral"], jawaban: 0, penjelasan: "Minuman isotonik mengandung elektrolit (Na⁺, K⁺, Cl⁻) untuk menggantikan ion yang hilang saat berkeringat.", petunjuk: "Atlet berkeringat kehilangan ion, perlu diganti." }
+      ],
+      boss: [
+        { id: "B-1", tipe: "pilihan", soal: "Larutan yang tidak dapat menghantarkan listrik adalah...", opsi: ["Larutan garam", "Larutan cuka", "Larutan urea", "Air laut"], jawaban: 2, penjelasan: "Urea non-elektrolit, tidak terionisasi dalam air.", petunjuk: "Non-elektrolit = tidak ada ion bebas." },
+        { id: "B-2", tipe: "pilihan", soal: "Komponen alat uji elektrolit yang berfungsi sebagai indikator visual adalah...", opsi: ["Baterai", "Lampu", "Gelas kimia", "Kabel"], jawaban: 1, penjelasan: "Lampu adalah indikator visual: menyala = ada arus, mati = tidak ada arus.", petunjuk: "Komponen yang bisa menyala." },
+        { id: "B-3", tipe: "pilihan", soal: "Elektroda yang digunakan dalam uji elektrolit umumnya terbuat dari...", opsi: ["Karbon (grafit)", "Besi", "Tembaga", "Plastik"], jawaban: 0, penjelasan: "Elektroda karbon (grafit) bersifat konduktor dan inert, tidak bereaksi dengan larutan.", petunjuk: "Bahan konduktor yang inert." },
+        { id: "B-4", tipe: "pilihan", soal: "Elektrolit kuat ditunjukkan oleh...", opsi: ["Ionisasi sebagian", "Ionisasi sempurna", "Tidak terionisasi", "Larut tanpa ion"], jawaban: 1, penjelasan: "Elektrolit kuat terionisasi sempurna (α = 1).", petunjuk: "Kuat = sempurna." },
+        { id: "B-5", tipe: "pilihan", soal: "Ionisasi H₃PO₄ (asam lemah) yang benar adalah...", opsi: ["H₃PO₄ → 3H⁺ + PO₄³⁻", "H₃PO₄ ⇌ 3H⁺ + PO₄³⁻", "H₃PO₄ → H⁺ + H₂PO₄⁻", "H₃PO₄ ⇌ H⁺ + H₂PO₄⁻"], jawaban: 3, penjelasan: "H₃PO₄ asam lemah, ionisasi bertahap dan sebagian, ditulis dengan ⇌.", petunjuk: "Asam lemah → panah kesetimbangan." },
+        { id: "B-6", tipe: "pilihan", soal: "Pasangan senyawa ion dan kovalen polar yang keduanya elektrolit kuat adalah...", opsi: ["NaCl dan HCl", "CH₃COOH dan NaCl", "Glukosa dan HCl", "Urea dan NaCl"], jawaban: 0, penjelasan: "NaCl (ion) dan HCl (kovalen polar) keduanya terionisasi sempurna → elektrolit kuat.", petunjuk: "Cari yang ionisasi sempurna." },
+        { id: "B-7", tipe: "pilihan", soal: "Gelembung gas sedikit dan lampu redup menunjukkan...", opsi: ["Elektrolit kuat", "Elektrolit lemah", "Non-elektrolit", "Bukan larutan"], jawaban: 1, penjelasan: "Ion sedikit → elektrolit lemah.", petunjuk: "Redup + sedikit gelembung = lemah." },
+        { id: "B-8", tipe: "pilihan", soal: "Kegunaan larutan elektrolit dalam tubuh manusia adalah...", opsi: ["Menjaga keseimbangan cairan dan impuls saraf", "Sumber energi utama", "Membentuk tulang", "Mengangkut oksigen"], jawaban: 0, penjelasan: "Ion Na⁺, K⁺, Ca²⁺, Cl⁻ berperan dalam keseimbangan cairan dan transmisi impuls saraf.", petunjuk: "Elektrolit tubuh = ion untuk fungsi fisiologis." },
+        { id: "B-9", tipe: "pilihan", soal: "Larutan CaCl₂ 0,1 M termasuk elektrolit kuat karena...", opsi: ["Terionisasi sempurna menjadi Ca²⁺ dan 2Cl⁻", "Terionisasi sebagian", "Tidak terionisasi", "Hanya larut"], jawaban: 0, penjelasan: "CaCl₂ → Ca²⁺ + 2Cl⁻, ionisasi sempurna.", petunjuk: "Garam ion → elektrolit kuat." },
+        { id: "B-10", tipe: "pilihan", soal: "Zat berikut yang termasuk non-elektrolit adalah...", opsi: ["HCl", "NaOH", "C₂H₅OH", "H₂SO₄"], jawaban: 2, penjelasan: "Etanol (C₂H₅OH) larut sebagai molekul netral, non-elektrolit.", petunjuk: "Alkohol = non-elektrolit." },
+        { id: "B-11", tipe: "pilihan", soal: "Reaksi ionisasi Al₂(SO₄)₃ yang benar adalah...", opsi: ["Al₂(SO₄)₃ → 2Al³⁺ + 3SO₄²⁻", "Al₂(SO₄)₃ → Al³⁺ + SO₄²⁻", "Al₂(SO₄)₃ ⇌ 2Al³⁺ + 3SO₄²⁻", "Al₂(SO₄)₃ → 3Al³⁺ + 2SO₄²⁻"], jawaban: 0, penjelasan: "Al₂(SO₄)₃ → 2Al³⁺ + 3SO₄²⁻ (garam ion, ionisasi sempurna).", petunjuk: "Sesuaikan jumlah atom dan muatan." },
+        { id: "B-12", tipe: "pilihan", soal: "Sifat larutan elektrolit yang benar adalah...", opsi: ["Tidak dapat menghantarkan listrik", "Mengandung ion bebas", "Selalu berupa senyawa kovalen non-polar", "Tidak larut dalam air"], jawaban: 1, penjelasan: "Elektrolit mengandung ion bebas yang dapat menghantarkan listrik.", petunjuk: "Ion bebas = penghantar listrik." }
+      ]
+    };
+
+    const LEVELS = [
+      { id: 1, nama: "Lab Daya Hantar Listrik", icon: "🔌", tipe: "dragdrop", soalKey: "level1", materi: "level1" },
+      { id: 2, nama: "Arena Elektrolit Kuat vs Lemah", icon: "⚡", tipe: "pilihan", soalKey: "level2", materi: "level2" },
+      { id: 3, nama: "Misi Jenis Ikatan", icon: "🔗", tipe: "pilihan", soalKey: "level3", materi: "level3" },
+      { id: 4, nama: "Dunia Reaksi Ionisasi", icon: "🧪", tipe: "pilihan", soalKey: "level4", materi: "level4" },
+      { id: 5, nama: "Detektif Kehidupan Sehari-hari", icon: "🔍", tipe: "pilihan", soalKey: "level5", materi: "level5" },
+      { id: 6, nama: "Pertarungan Akhir (Boss)", icon: "👑", tipe: "boss", soalKey: "boss", materi: "boss" }
+    ];
+
+    const MATERI_TAB = {
+      pengertian: `
+        <h3>🔌 Apa itu Larutan Elektrolit?</h3>
+        <p><strong>Larutan elektrolit</strong> adalah larutan yang dapat menghantarkan arus listrik karena mengandung <strong>ion-ion bebas</strong> yang dapat bergerak di dalamnya.</p>
+        <p><strong>Larutan non-elektrolit</strong> adalah larutan yang tidak dapat menghantarkan arus listrik karena zat terlarutnya tetap berupa <strong>molekul netral</strong> (tidak terionisasi).</p>
+        <div class="materi-box">
+          <strong>Syarat larutan dapat menghantarkan listrik:</strong><br>
+          Harus mengandung partikel bermuatan (ion) yang <strong>bebas bergerak</strong> — bukan sekadar zat yang larut dalam air.
+        </div>`,
+      alat: `
+        <h3>🔧 Komponen Alat Uji Elektrolit</h3>
+        <p>Alat uji elektrolit terdiri dari rangkaian sederhana yang dapat menguji apakah suatu larutan menghantarkan listrik atau tidak.</p>
+        <div class="alat-grid">
+          <div class="alat-card"><span class="icon">🔋</span><div class="nama">Baterai</div><div class="fungsi">Sumber arus listrik (DC) yang menggerakkan elektron melalui rangkaian.</div></div>
+          <div class="alat-card"><span class="icon">⚫</span><div class="nama">Elektroda Karbon</div><div class="fungsi">Konduktor inert (grafit) yang dicelupkan ke larutan untuk mengalirkan arus.</div></div>
+          <div class="alat-card"><span class="icon">💡</span><div class="nama">Lampu</div><div class="fungsi">Indikator visual: menyala = ada arus; mati = tidak ada arus.</div></div>
+          <div class="alat-card"><span class="icon">🥃</span><div class="nama">Gelas Kimia</div><div class="fungsi">Wadah untuk larutan uji.</div></div>
+          <div class="alat-card"><span class="icon">🔌</span><div class="nama">Kabel Penghubung</div><div class="fungsi">Menghubungkan baterai, elektroda, dan lampu menjadi rangkaian tertutup.</div></div>
+          <div class="alat-card"><span class="icon">🫧</span><div class="nama">Gelembung Gas</div><div class="fungsi">Indikator tambahan: muncul karena reaksi ion di elektroda.</div></div>
+        </div>
+        <div class="materi-box">
+          <strong>Cara kerja:</strong> Baterai → kabel → elektroda kiri → larutan → elektroda kanan → kabel → lampu → kembali ke baterai. Jika larutan mengandung ion bebas, arus mengalir dan lampu menyala.
+        </div>`,
+      pengujian: `
+        <h3>🔬 Hasil Uji Daya Hantar Listrik</h3>
+        <p>Rangkaian sederhana: <strong>baterai — lampu — dua elektroda karbon</strong> yang dicelupkan ke dalam larutan uji.</p>
+        <table class="materi-table">
+          <tr><th>Pengamatan</th><th>Elektrolit Kuat</th><th>Elektrolit Lemah</th><th>Non-Elektrolit</th></tr>
+          <tr class="strong-row"><td>Nyala lampu</td><td>Terang</td><td>Redup / nyaris padam</td><td>Tidak menyala</td></tr>
+          <tr class="weak-row"><td>Gelembung gas</td><td>Banyak</td><td>Sedikit</td><td>Tidak ada</td></tr>
+          <tr class="non-row"><td>Jumlah ion</td><td>Sangat banyak</td><td>Sedikit</td><td>Tidak ada</td></tr>
+        </table>
+        <div class="materi-box">
+          <strong>Ingat:</strong> Semakin banyak ion bebas → semakin terang nyala lampu dan semakin banyak gelembung gas.
+        </div>`,
+      kelompok: `
+        <h3>📊 Tiga Kelompok Larutan Berdasarkan Daya Hantar</h3>
+        <table class="materi-table">
+          <tr><th>Aspek</th><th>Elektrolit Kuat</th><th>Elektrolit Lemah</th><th>Non-Elektrolit</th></tr>
+          <tr><td>Derajat ionisasi (α)</td><td>α = 1</td><td>0 &lt; α &lt; 1</td><td>α = 0</td></tr>
+          <tr><td>Jenis zat terlarut</td><td>Ion / kovalen polar kuat</td><td>Kovalen polar lemah</td><td>Kovalen nonpolar / netral</td></tr>
+          <tr><td>Contoh</td><td>NaCl, HCl, NaOH, H₂SO₄</td><td>CH₃COOH, NH₃ (NH₄OH), HCN, HF</td><td>Gula, urea, alkohol, glukosa</td></tr>
+        </table>
+        <h4>⚡ Elektrolit Kuat</h4>
+        <p>Terionisasi sempurna (100%), ion bebas sangat banyak. Mencakup asam kuat dan basa kuat.</p>
+        <p><strong>Contoh:</strong> NaCl, KCl, CaCl₂, K₂SO₄, HCl, HNO₃, H₂SO₄, NaOH, KOH.</p>
+        <h4>⚗️ Elektrolit Lemah</h4>
+        <p>Hanya terionisasi sebagian, ion bebas sedikit. Mencakup asam lemah dan basa lemah.</p>
+        <p><strong>Contoh:</strong> CH₃COOH, HCN, H₂CO₃, HF, NH₃ (NH₄OH).</p>
+        <h4>🚫 Non-Elektrolit</h4>
+        <p>Tidak terionisasi, zat terlarut tetap molekul netral.</p>
+        <p><strong>Contoh:</strong> Larutan gula (C₁₂H₂₂O₁₁), urea (CO(NH₂)₂), etanol (C₂H₅OH), glukosa (C₆H₁₂O₆).</p>`,
+      ionisasi: `
+        <h3>🧪 Mengapa Larutan Elektrolit Dapat Menghantarkan Listrik?</h3>
+        <h4>1. Senyawa Ion (contoh: NaCl)</h4>
+        <div class="rumus">NaCl(s) → Na⁺(aq) + Cl⁻(aq)</div>
+        <p>Ikatan ion pada kisi kristal terputus saat dilarutkan; ion-ion terlepas bebas bergerak (disosiasi).</p>
+        <h4>2. Senyawa Kovalen Polar (contoh: HCl)</h4>
+        <div class="rumus">HCl(aq) → H⁺(aq) + Cl⁻(aq)</div>
+        <p>Molekul bereaksi dengan air dan terionisasi menjadi ion-ion (dapat sempurna atau sebagian).</p>
+        <h4>3. Molekul Netral / Nonpolar (contoh: gula)</h4>
+        <div class="rumus">C₁₂H₂₂O₁₁(s) → C₁₂H₂₂O₁₁(aq)</div>
+        <p>Zat larut tetapi tetap berupa molekul utuh; tidak terbentuk ion sama sekali.</p>
+        <div class="materi-box">
+          <strong>Kesimpulan:</strong> Ion-ion bebas inilah yang membawa muatan listrik bergerak melalui larutan menuju elektroda.
+        </div>`,
+      alpha: `
+        <h3>📐 Rangkuman Derajat Ionisasi (α)</h3>
+        <div class="rumus">α = jumlah mol zat yang terionisasi / jumlah mol zat mula-mula</div>
+        <table class="materi-table">
+          <tr><th>Nilai α</th><th>Kelompok</th><th>Keterangan</th></tr>
+          <tr class="strong-row"><td>α = 1</td><td>Elektrolit Kuat</td><td>Terionisasi sempurna</td></tr>
+          <tr class="weak-row"><td>0 &lt; α &lt; 1</td><td>Elektrolit Lemah</td><td>Terionisasi sebagian</td></tr>
+          <tr class="non-row"><td>α = 0</td><td>Non-Elektrolit</td><td>Tidak terionisasi</td></tr>
+        </table>
+        <div class="materi-box">
+          <strong>Semakin besar nilai α</strong> → semakin banyak ion bebas → daya hantar listrik semakin kuat.
+        </div>`,
+      penerapan: `
+        <h3>🌍 Penerapan Larutan Elektrolit dalam Kehidupan Sehari-hari</h3>
+        <div class="penerapan-card"><div class="icon">💉</div><h4>Cairan Infus (NaCl 0,9%)</h4><p>Mengandung ion Na⁺ dan Cl⁻ untuk menjaga keseimbangan elektrolit dan cairan tubuh pasien.</p><div class="kait">💡 <strong>Kaitan:</strong> NaCl elektrolit kuat, terionisasi sempurna.</div></div>
+        <div class="penerapan-card"><div class="icon">🔋</div><h4>Air Aki (H₂SO₄)</h4><p>Digunakan pada baterai kendaraan karena dapat menghantarkan listrik dan terlibat reaksi kimia-listrik.</p><div class="kait">💡 <strong>Kaitan:</strong> H₂SO₄ asam kuat (elektrolit kuat) → 2H⁺ + SO₄²⁻.</div></div>
+        <div class="penerapan-card"><div class="icon">🩺</div><h4>Cairan Tubuh Manusia</h4><p>Darah, keringat, dan cairan tubuh mengandung ion Na⁺, K⁺, Ca²⁺, Cl⁻ untuk keseimbangan cairan dan impuls saraf.</p><div class="kait">💡 <strong>Kaitan:</strong> Ion-ion inilah yang membuat cairan tubuh bersifat elektrolit.</div></div>
+        <div class="penerapan-card"><div class="icon">🥤</div><h4>Minuman Isotonik / Oralit</h4><p>Mengandung elektrolit (Na⁺, K⁺, Cl⁻) untuk menggantikan ion tubuh yang hilang saat berkeringat atau diare.</p><div class="kait">💡 <strong>Kaitan:</strong> Elektrolit membantu memulihkan keseimbangan ion tubuh.</div></div>
+        <div class="penerapan-card"><div class="icon">🧂</div><h4>Garam Dapur (NaCl)</h4><p>Dalam air terionisasi menjadi Na⁺ dan Cl⁻ — memberi rasa asin dan merupakan elektrolit penting bagi tubuh.</p><div class="kait">💡 <strong>Kaitan:</strong> Senyawa ion → elektrolit kuat.</div></div>
+        <div class="penerapan-card"><div class="icon">🍚</div><h4>Air Cucian Beras</h4><p>Mengandung karbohidrat dan molekul netral, bukan ion — tidak menghantarkan listrik dengan baik.</p><div class="kait">💡 <strong>Kaitan:</strong> Non-elektrolit = molekul netral.</div></div>
+        <div class="materi-box">
+          <strong>Kesimpulan:</strong> Larutan elektrolit banyak dimanfaatkan karena kemampuannya menghantarkan listrik dan menyediakan ion bagi tubuh. Non-elektrolit digunakan saat tidak menginginkan ion bebas.
+        </div>`
+    };
+
+    const MATERI = {
+      level1: `<h3>🔌 Daya Hantar Listrik Larutan</h3><p>Elektrolit = terurai menjadi ion → menghantarkan listrik. Non-elektrolit = tidak terurai menjadi ion.</p>`,
+      level2: `<h3>⚡ Elektrolit Kuat vs Lemah</h3><p>Kuat: α=1, lampu terang, gelembung banyak. Lemah: 0<α<1, lampu redup, gelembung sedikit.</p>`,
+      level3: `<h3>🔗 Jenis Ikatan & Sifat Elektrolit</h3><p>Senyawa ion → elektrolit kuat. Kovalen polar → kuat/lemah. Kovalen non-polar → non-elektrolit.</p>`,
+      level4: `<h3>🧪 Reaksi Ionisasi</h3><p>Kuat pakai →, lemah pakai ⇌. Sesuaikan jumlah atom dan muatan.</p>`,
+      level5: `<h3>🔍 Penerapan Sehari-hari</h3><p>Infus NaCl, air aki H₂SO₄, cairan tubuh, minuman isotonik.</p>`,
+      boss: `<h3>👑 Ringkasan Boss</h3><p>Semua konsep Level 1–5 termasuk komponen alat uji elektrolit.</p>`
+    };
+
+    const TUJUAN = [
+      { num: 1, judul: "Membedakan Larutan Elektrolit dan Non-Elektrolit", desc: "Menjelaskan perbedaan keduanya berdasarkan hasil percobaan daya hantar listrik (nyala lampu dan gelembung gas)." },
+      { num: 2, judul: "Mengklasifikasikan Jenis Larutan", desc: "Mengelompokkan larutan ke dalam elektrolit kuat, elektrolit lemah, dan non-elektrolit beserta contohnya." },
+      { num: 3, judul: "Mengidentifikasi Komponen Alat Uji Elektrolit", desc: "Mengenali fungsi baterai, elektroda karbon, lampu, dan gelas kimia dalam rangkaian uji daya hantar listrik." },
+      { num: 4, judul: "Menghubungkan Derajat Ionisasi dengan Jenis Larutan", desc: "Memahami α = 1, 0 < α < 1, dan α = 0 sebagai dasar sebelum mempelajari pH asam dan basa kuat/lemah." },
+      { num: 5, judul: "Menerapkan Konsep dalam Kehidupan Sehari-hari", desc: "Mengaitkan sifat elektrolit/non-elektrolit dengan pemanfaatan nyata seperti cairan infus, air aki, dan cairan tubuh." }
+    ];
+
+    const SIMULASI_LARUTAN = [
+      { id: "nacl", nama: "NaCl (garam dapur)", kategori: "kuat", lampu: "terang", gelembung: "banyak", ion: "Na⁺ dan Cl⁻ sangat banyak", penjelasan: "NaCl senyawa ion, terionisasi sempurna. Ion bebas sangat banyak → lampu terang, gelembung banyak.", reaksi: "NaCl(s) → Na⁺(aq) + Cl⁻(aq)" },
+      { id: "hcl", nama: "HCl (asam klorida)", kategori: "kuat", lampu: "terang", gelembung: "banyak", ion: "H⁺ dan Cl⁻ sangat banyak", penjelasan: "HCl asam kuat (kovalen polar) terionisasi sempurna. Lampu terang.", reaksi: "HCl(aq) → H⁺(aq) + Cl⁻(aq)" },
+      { id: "naoh", nama: "NaOH (natrium hidroksida)", kategori: "kuat", lampu: "terang", gelembung: "banyak", ion: "Na⁺ dan OH⁻ sangat banyak", penjelasan: "NaOH basa kuat (senyawa ion) terionisasi sempurna. Lampu terang.", reaksi: "NaOH(s) → Na⁺(aq) + OH⁻(aq)" },
+      { id: "h2so4", nama: "H₂SO₄ (asam sulfat)", kategori: "kuat", lampu: "terang", gelembung: "banyak", ion: "2H⁺ dan SO₄²⁻ sangat banyak", penjelasan: "H₂SO₄ asam kuat terionisasi sempurna. Ini yang dipakai di air aki!", reaksi: "H₂SO₄(aq) → 2H⁺(aq) + SO₄²⁻(aq)" },
+      { id: "ch3cooh", nama: "CH₃COOH (asam cuka)", kategori: "lemah", lampu: "redup", gelembung: "sedikit", ion: "CH₃COO⁻ dan H⁺ sedikit", penjelasan: "CH₃COOH asam lemah, terionisasi sebagian. Lampu redup.", reaksi: "CH₃COOH(aq) ⇌ CH₃COO⁻(aq) + H⁺(aq)" },
+      { id: "nh4oh", nama: "NH₄OH (amonia)", kategori: "lemah", lampu: "redup", gelembung: "sedikit", ion: "NH₄⁺ dan OH⁻ sedikit", penjelasan: "NH₄OH basa lemah, terionisasi sebagian. Lampu redup.", reaksi: "NH₄OH(aq) ⇌ NH₄⁺(aq) + OH⁻(aq)" },
+      { id: "hcn", nama: "HCN (asam sianida)", kategori: "lemah", lampu: "redup", gelembung: "sedikit", ion: "H⁺ dan CN⁻ sedikit", penjelasan: "HCN asam lemah, terionisasi sebagian. Lampu redup.", reaksi: "HCN(aq) ⇌ H⁺(aq) + CN⁻(aq)" },
+      { id: "gula", nama: "C₁₂H₂₂O₁₁ (gula)", kategori: "non", lampu: "mati", gelembung: "tidak", ion: "Tidak ada ion (molekul netral)", penjelasan: "Gula larut sebagai molekul netral. Lampu tidak menyala.", reaksi: "C₁₂H₂₂O₁₁(s) → C₁₂H₂₂O₁₁(aq)" },
+      { id: "urea", nama: "CO(NH₂)₂ (urea)", kategori: "non", lampu: "mati", gelembung: "tidak", ion: "Tidak ada ion", penjelasan: "Urea senyawa kovalen netral, tidak terionisasi. Lampu mati.", reaksi: "CO(NH₂)₂(s) → CO(NH₂)₂(aq)" },
+      { id: "etanol", nama: "C₂H₅OH (etanol)", kategori: "non", lampu: "mati", gelembung: "tidak", ion: "Tidak ada ion", penjelasan: "Etanol alkohol, tidak terionisasi. Lampu mati.", reaksi: "C₂H₅OH(l) → C₂H₅OH(aq)" },
+      { id: "glukosa", nama: "C₆H₁₂O₆ (glukosa)", kategori: "non", lampu: "mati", gelembung: "tidak", ion: "Tidak ada ion", penjelasan: "Glukosa larut sebagai molekul utuh. Lampu mati.", reaksi: "C₆H₁₂O₆(s) → C₆H₁₂O₆(aq)" }
+    ];
+
+    const LEVEL_PEMAIN = [
+      { nama: "Pemula", minXP: 0 },
+      { nama: "Peneliti Muda", minXP: 100 },
+      { nama: "Ahli Kimia", minXP: 250 },
+      { nama: "Profesor Elektrolit", minXP: 500 }
+    ];
+
+    const BADGE_DEF = [
+      { id: "pemburu_ion", nama: "Pemburu Ion", icon: "🏹", desc: "Selesaikan Level 1" },
+      { id: "master_ionisasi", nama: "Master Ionisasi", icon: "⚗️", desc: "Selesaikan Level 4" },
+      { id: "detektif_elektrolit", nama: "Detektif Elektrolit", icon: "🔍", desc: "Selesaikan Level 5" },
+      { id: "tanpa_salah", nama: "Tanpa Salah", icon: "💎", desc: "Selesaikan level tanpa kehilangan nyawa" },
+      { id: "boss_slayer", nama: "Boss Slayer", icon: "👑", desc: "Kalahkan Boss" },
+      { id: "streak_master", nama: "Streak Master", icon: "🔥", desc: "3 benar berturut-turut" },
+      { id: "ilmuwan_muda", nama: "Ilmuwan Muda", icon: "🔬", desc: "Coba simulasi praktikum" }
+    ];
+
+    const STORAGE_KEY = "petualangan_elektrolit_v5";
+
+    let state = {
+      siswa: null, avatar: "🧑‍🔬", xp: 0, badges: [],
+      levelSelesai: {}, bintang: {}, levelBuka: 1,
+      skorTotal: { benar: 0, soal: 0 }, skorPerLevel: {},
+      muted: false, sertifikat: null, simulasiDibuka: false
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) { state = { ...state, ...JSON.parse(raw) }; }
+      } catch (e) { console.warn("localStorage tidak tersedia."); }
+    }
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    }
+
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; } }
+      return audioCtx;
+    }
+    function playTone(freq, duration, type = "sine", volume = 0.15) {
+      if (state.muted) return;
+      const ctx = getAudioCtx();
+      if (!ctx) return;
+      try {
+        const osc = ctx.createOscillator(); const gain = ctx.createGain();
+        osc.type = type; osc.frequency.value = freq;
+        gain.gain.setValueAtTime(volume, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(); osc.stop(ctx.currentTime + duration);
+      } catch (e) {}
+    }
+    function suaraBenar() { playTone(523,0.15); setTimeout(()=>playTone(659,0.15),100); setTimeout(()=>playTone(784,0.2),200); }
+    function suaraSalah() { playTone(200,0.3,"sawtooth",0.1); setTimeout(()=>playTone(150,0.4,"sawtooth",0.1),150); }
+    function suaraKlik() { playTone(600,0.08,"square",0.08); }
+
+    function showPage(id) {
+      document.querySelectorAll(".container").forEach(el => el.classList.add("hidden"));
+      const page = document.getElementById(id);
+      if (page) { page.classList.remove("hidden"); window.scrollTo({ top: 0, behavior: "smooth" }); }
+      const logoutBtn = document.getElementById("logoutBtn");
+      if (state.siswa && id !== "loginPage") logoutBtn.classList.remove("hidden");
+      else logoutBtn.classList.add("hidden");
+    }
+
+    function initLogin() {
+      const kelasSelect = document.getElementById("kelasSelect");
+      const namaSelect = document.getElementById("namaSelect");
+      const absenInput = document.getElementById("absenInput");
+      const loginBtn = document.getElementById("loginBtn");
+
+      kelasSelect.addEventListener("change", () => {
+        const kelas = kelasSelect.value;
+        namaSelect.innerHTML = '<option value="">-- Pilih Nama --</option>';
+        if (kelas && DAFTAR_SISWA[kelas]) {
+          DAFTAR_SISWA[kelas].forEach(s => {
+            const opt = document.createElement("option");
+            opt.value = s.nama; opt.textContent = s.nama; opt.dataset.absen = s.absen;
+            namaSelect.appendChild(opt);
+          });
+          namaSelect.disabled = false;
+        } else { namaSelect.disabled = true; absenInput.disabled = true; loginBtn.disabled = true; }
+        absenInput.value = ""; absenInput.disabled = true; loginBtn.disabled = true;
+      });
+
+      namaSelect.addEventListener("change", () => {
+        if (namaSelect.value) { absenInput.disabled = false; absenInput.focus(); cekLogin(); }
+        else { absenInput.disabled = true; loginBtn.disabled = true; }
+      });
+
+      absenInput.addEventListener("input", cekLogin);
+
+      function cekLogin() {
+        const kelas = kelasSelect.value, nama = namaSelect.value, absen = parseInt(absenInput.value);
+        if (kelas && nama && absen) {
+          const siswa = DAFTAR_SISWA[kelas].find(s => s.nama === nama);
+          loginBtn.disabled = !(siswa && siswa.absen === absen);
+        } else loginBtn.disabled = true;
+      }
+
+      loginBtn.addEventListener("click", () => {
+        const kelas = kelasSelect.value, nama = namaSelect.value, absen = parseInt(absenInput.value);
+        const siswa = DAFTAR_SISWA[kelas].find(s => s.nama === nama && s.absen === absen);
+        if (siswa) {
+          suaraKlik();
+          state.siswa = { kelas, nama: siswa.nama, absen: siswa.absen };
+          saveState();
+          masukKeHome();
+        } else alert("Nomor absen tidak cocok. Coba lagi.");
+      });
+    }
+
+    function masukKeHome() { showPage("homePage"); renderHome(); }
+
+    function cekAutoLogin() {
+      if (state.siswa && state.siswa.kelas && state.siswa.nama && state.siswa.absen) {
+        const kelas = state.siswa.kelas;
+        if (DAFTAR_SISWA[kelas]) {
+          const siswa = DAFTAR_SISWA[kelas].find(s => s.nama === state.siswa.nama && s.absen === state.siswa.absen);
+          if (siswa) { masukKeHome(); return true; }
+        }
+      }
+      return false;
+    }
+
+    function renderHome() {
+      if (!state.siswa) return;
+      document.getElementById("userName").textContent = state.siswa.nama;
+      document.getElementById("userKelas").textContent = state.siswa.kelas.replace("11 Kimia", "Kelas 11 - Kimia");
+      document.getElementById("userAvatar").textContent = state.avatar || "🧑‍🔬";
+
+      let levelNama = LEVEL_PEMAIN[0].nama;
+      let nextXP = LEVEL_PEMAIN[1] ? LEVEL_PEMAIN[1].minXP : 1000;
+      let prevXP = 0;
+      for (let i = LEVEL_PEMAIN.length - 1; i >= 0; i--) {
+        if (state.xp >= LEVEL_PEMAIN[i].minXP) {
+          levelNama = LEVEL_PEMAIN[i].nama;
+          nextXP = LEVEL_PEMAIN[i + 1] ? LEVEL_PEMAIN[i + 1].minXP : LEVEL_PEMAIN[i].minXP + 500;
+          prevXP = LEVEL_PEMAIN[i].minXP; break;
+        }
+      }
+      document.getElementById("userLevel").textContent = levelNama;
+      document.getElementById("userXP").textContent = state.xp + " XP";
+      const progress = Math.min(100, Math.round(((state.xp - prevXP) / (nextXP - prevXP)) * 100));
+      document.getElementById("xpProgress").style.width = progress + "%";
+      document.getElementById("xpNext").textContent = `${state.xp}/${nextXP} XP menuju level berikutnya`;
+
+      const badgeGrid = document.getElementById("badgeGrid");
+      badgeGrid.innerHTML = "";
+      BADGE_DEF.forEach(b => {
+        const div = document.createElement("div");
+        div.className = "badge-item" + (state.badges.includes(b.id) ? " owned" : "");
+        div.innerHTML = `<span class="badge-icon">${b.icon}</span>${b.nama}<br><span style="font-size:0.6rem; opacity:0.7;">${b.desc}</span>`;
+        badgeGrid.appendChild(div);
+      });
+    }
+
+    function renderMap() {
+      const map = document.getElementById("levelMap");
+      map.innerHTML = "";
+      LEVELS.forEach((lv) => {
+        const unlocked = lv.id <= state.levelBuka;
+        const completed = state.levelSelesai[lv.id] || false;
+        const stars = state.bintang[lv.id] || 0;
+        const node = document.createElement("div");
+        node.className = "level-node" + (unlocked ? "" : " locked") + (completed ? " completed" : "") + (lv.tipe === "boss" ? " boss" : "");
+        node.innerHTML = `
+          <div class="level-icon">${lv.icon}</div>
+          <div class="level-info">
+            <div class="level-title">Level ${lv.id}: ${lv.nama}</div>
+            <div class="level-desc">${lv.tipe === "boss" ? "10 soal campuran • timer 20 detik" : "Mini game interaktif"}</div>
+            ${completed ? `<div class="level-stars">${"⭐".repeat(stars)}${"☆".repeat(3 - stars)}</div>` : ""}
+          </div>
+          <div class="lock-badge">${unlocked ? (completed ? "✅" : "▶️") : "🔒"}</div>
+        `;
+        if (unlocked) node.addEventListener("click", () => mulaiLevel(lv.id));
+        map.appendChild(node);
+      });
+    }
+
+    let gameState = null;
+
+    function mulaiLevel(levelId) {
+      suaraKlik();
+      const lv = LEVELS.find(l => l.id === levelId);
+      if (!lv) return;
+      if (levelId > state.levelBuka) return;
+
+      gameState = {
+        levelId, levelDef: lv, nyawa: 3, xp: 0, benar: 0, salah: 0, streak: 0,
+        soalIndex: 0, soalList: [], waktuMulai: Date.now(), dijawab: false,
+        timerInterval: null, waktuSoal: 0, totalSoal: 0
+      };
+
+      if (lv.tipe === "boss") {
+        const allSoal = [...BANK_SOAL.level1, ...BANK_SOAL.level2, ...BANK_SOAL.level3, ...BANK_SOAL.level4, ...BANK_SOAL.level5, ...BANK_SOAL.boss];
+        gameState.soalList = shuffleArray(allSoal).slice(0, 10);
+      } else if (lv.tipe === "dragdrop") {
+        gameState.soalList = shuffleArray([...BANK_SOAL.level1]);
+      } else {
+        gameState.soalList = shuffleArray([...BANK_SOAL[lv.soalKey]]);
+      }
+      gameState.totalSoal = gameState.soalList.length;
+
+      showPage("gamePage");
+      document.getElementById("gameLevelTitle").textContent = `Level ${lv.id}: ${lv.nama}`;
+      renderHearts();
+      document.getElementById("gameXP").textContent = "0 XP";
+
+      if (lv.tipe === "dragdrop") renderDragDropLevel();
+      else renderSoalPilihan();
+    }
+
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+      return a;
+    }
+
+    function renderHearts() {
+      document.getElementById("gameHearts").textContent = "❤️".repeat(gameState.nyawa) + "🖤".repeat(3 - gameState.nyawa);
+    }
+
+    function renderDragDropLevel() {
+      const container = document.getElementById("gameContent");
+      const items = shuffleArray([
+        { nama: "Larutan garam dapur (NaCl)", kategori: "elektrolit" },
+        { nama: "Larutan gula (C₆H₁₂O₆)", kategori: "non-elektrolit" },
+        { nama: "Larutan cuka (CH₃COOH)", kategori: "elektrolit" },
+        { nama: "Larutan HCl", kategori: "elektrolit" },
+        { nama: "Air suling (H₂O)", kategori: "non-elektrolit" },
+        { nama: "Larutan urea (CO(NH₂)₂)", kategori: "non-elektrolit" },
+        { nama: "Larutan alkohol (C₂H₅OH)", kategori: "non-elektrolit" },
+        { nama: "Air laut", kategori: "elektrolit" }
+      ]);
+      gameState.dragItems = items;
+      gameState.dragPlaced = { elektrolit: [], "non-elektrolit": [] };
+      gameState.dragCorrect = 0;
+      gameState.dragTotal = items.length;
+
+      container.innerHTML = `
+        <div class="materi-box">
+          <strong>🔌 Materi Singkat:</strong> Larutan elektrolit dapat menghantarkan listrik karena terurai menjadi <strong>ion-ion</strong>.
+          Larutan non-elektrolit tidak terurai menjadi ion.
+        </div>
+        <p class="small mb-16">Seret (drag) atau ketuk larutan, lalu pilih keranjang yang tepat!</p>
+        <div class="draggable-pool" id="dragPool"></div>
+        <div class="baskets">
+          <div class="basket elektrolit" id="basketElektrolit" data-kategori="elektrolit">
+            <div class="basket-title">⚡ Elektrolit</div>
+            <div class="basket-items" id="basketItemsElektrolit"></div>
+          </div>
+          <div class="basket non-elektrolit" id="basketNon" data-kategori="non-elektrolit">
+            <div class="basket-title">🚫 Non-Elektrolit</div>
+            <div class="basket-items" id="basketItemsNon"></div>
+          </div>
+        </div>
+      `;
+
+      const pool = document.getElementById("dragPool");
+      items.forEach((item, idx) => {
+        const el = document.createElement("div");
+        el.className = "drag-item"; el.textContent = item.nama;
+        el.dataset.idx = idx; el.draggable = true;
+        el.addEventListener("dragstart", (e) => e.dataTransfer.setData("text/plain", idx));
+        el.addEventListener("click", () => {
+          document.querySelectorAll(".drag-item").forEach(x => x.style.outline = "none");
+          el.style.outline = "3px solid var(--accent)";
+          gameState.selectedDragIdx = idx;
+        });
+        pool.appendChild(el);
+      });
+
+      ["basketElektrolit", "basketNon"].forEach(id => {
+        const basket = document.getElementById(id);
+        basket.addEventListener("dragover", (e) => { e.preventDefault(); basket.classList.add("dragover"); });
+        basket.addEventListener("dragleave", () => basket.classList.remove("dragover"));
+        basket.addEventListener("drop", (e) => {
+          e.preventDefault(); basket.classList.remove("dragover");
+          const idx = parseInt(e.dataTransfer.getData("text/plain"));
+          placeDragItem(idx, basket.dataset.kategori);
+        });
+        basket.addEventListener("click", () => {
+          if (gameState.selectedDragIdx !== undefined && gameState.selectedDragIdx !== null) {
+            placeDragItem(gameState.selectedDragIdx, basket.dataset.kategori);
+            gameState.selectedDragIdx = null;
+            document.querySelectorAll(".drag-item").forEach(x => x.style.outline = "none");
+          }
+        });
+      });
+    }
+
+    function placeDragItem(idx, kategori) {
+      const item = gameState.dragItems[idx];
+      if (!item) return;
+      if (gameState.dragPlaced[kategori].includes(idx)) return;
+      const poolItem = document.querySelector(`.drag-item[data-idx="${idx}"]`);
+      if (!poolItem || poolItem.classList.contains("placed")) return;
+      const basketItems = document.getElementById(kategori === "elektrolit" ? "basketItemsElektrolit" : "basketItemsNon");
+      const clone = poolItem.cloneNode(true);
+      clone.classList.add("placed"); clone.draggable = false; clone.style.cursor = "default";
+      basketItems.appendChild(clone);
+      poolItem.classList.add("placed");
+      gameState.dragPlaced[kategori].push(idx);
+
+      const benar = item.kategori === kategori;
+      if (benar) {
+        gameState.dragCorrect++; suaraBenar();
+        showToast("✅ Benar! " + item.nama);
+        addXP(10);
+      } else {
+        suaraSalah(); gameState.nyawa--; renderHearts();
+        showToast("❌ Salah! " + item.nama + " → " + (item.kategori === "elektrolit" ? "Elektrolit" : "Non-Elektrolit"));
+        if (gameState.nyawa <= 0) { setTimeout(() => gameOver(), 500); return; }
+      }
+      const totalPlaced = gameState.dragPlaced.elektrolit.length + gameState.dragPlaced["non-elektrolit"].length;
+      if (totalPlaced >= gameState.dragTotal) setTimeout(() => selesaiLevel(), 600);
+    }
+
+    function renderSoalPilihan() {
+      const container = document.getElementById("gameContent");
+      const lv = gameState.levelDef;
+      const soal = gameState.soalList[gameState.soalIndex];
+      if (!soal) { selesaiLevel(); return; }
+      gameState.dijawab = false; gameState.waktuSoal = 0;
+
+      let timerHTML = "";
+      if (lv.tipe === "boss") timerHTML = `<div class="timer-bar"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>`;
+
+      container.innerHTML = `
+        ${lv.tipe === "boss" ? "" : `<div class="materi-box"><strong>📘 ${lv.nama}:</strong> ${MATERI[lv.materi] ? MATERI[lv.materi].replace(/<[^>]*>/g, " ").substring(0, 120) + "..." : ""}</div>`}
+        ${timerHTML}
+        <div class="soal-box">
+          <div class="soal-text">${gameState.soalIndex + 1}/${gameState.totalSoal} — ${soal.soal}</div>
+          <div id="opsiContainer"></div>
+          <div id="feedbackContainer"></div>
+        </div>
+      `;
+
+      const opsiContainer = document.getElementById("opsiContainer");
+      soal.opsi.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.className = "opsi-btn"; btn.textContent = opt;
+        btn.addEventListener("click", () => jawabPilihan(i, btn));
+        opsiContainer.appendChild(btn);
+      });
+
+      if (lv.tipe === "boss") {
+        gameState.waktuSoal = 20; updateTimerBoss();
+        if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+        gameState.timerInterval = setInterval(() => {
+          gameState.waktuSoal--; updateTimerBoss();
+          if (gameState.waktuSoal <= 0) {
+            clearInterval(gameState.timerInterval);
+            if (!gameState.dijawab) jawabPilihan(-1, null);
+          }
+        }, 1000);
+      }
+    }
+
+    function updateTimerBoss() {
+      const fill = document.getElementById("timerFill");
+      if (fill) fill.style.width = (gameState.waktuSoal / 20 * 100) + "%";
+    }
+
+    function jawabPilihan(pilihanIdx, btn) {
+      if (gameState.dijawab) return;
+      gameState.dijawab = true;
+      if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+
+      const soal = gameState.soalList[gameState.soalIndex];
+      const benar = pilihanIdx === soal.jawaban;
+
+      document.querySelectorAll(".opsi-btn").forEach((b, i) => {
+        b.disabled = true;
+        if (i === soal.jawaban) b.classList.add("correct");
+        if (i === pilihanIdx && !benar) b.classList.add("wrong");
+      });
+
+      const feedback = document.getElementById("feedbackContainer");
+
+      if (benar) {
+        gameState.benar++; gameState.streak++;
+        let xpDapat = 10; let bonusMsg = "";
+        if (gameState.levelDef.tipe === "boss" && gameState.waktuSoal > 10) { xpDapat += 5; bonusMsg += " ⚡ Bonus cepat +5 XP!"; }
+        if (gameState.streak >= 3 && gameState.streak % 3 === 0) {
+          xpDapat += 10; bonusMsg += " 🔥 Streak 3! +10 XP!";
+          if (!state.badges.includes("streak_master")) { state.badges.push("streak_master"); showToast("🏅 Badge: Streak Master!"); }
+        }
+        addXP(xpDapat); suaraBenar();
+        feedback.innerHTML = `<div class="feedback correct"><div class="fb-title">✅ Benar! +${xpDapat} XP${bonusMsg}</div><div>${soal.penjelasan}</div></div>`;
+      } else {
+        gameState.salah++; gameState.streak = 0; gameState.nyawa--; renderHearts(); suaraSalah();
+        const pesanWaktu = pilihanIdx === -1 ? "⏰ Waktu habis! " : "";
+        feedback.innerHTML = `
+          <div class="feedback wrong">
+            <div class="fb-title">${pesanWaktu}❌ Kurang tepat.</div>
+            <div><strong>Jawaban benar:</strong> ${soal.opsi[soal.jawaban]}</div>
+            <div style="margin-top:6px;">${soal.penjelasan}</div>
+            <div style="margin-top:6px; font-style:italic;">💡 Petunjuk: ${soal.petunjuk}</div>
+          </div>`;
+        if (gameState.nyawa <= 0) { setTimeout(() => gameOver(), 1200); return; }
+      }
+
+      const lanjutBtn = document.createElement("button");
+      lanjutBtn.className = "btn mt-16";
+      lanjutBtn.textContent = gameState.soalIndex + 1 >= gameState.totalSoal ? "Selesai 🏁" : "Lanjut →";
+      lanjutBtn.addEventListener("click", () => {
+        gameState.soalIndex++;
+        if (gameState.soalIndex >= gameState.totalSoal) selesaiLevel();
+        else renderSoalPilihan();
+      });
+      feedback.appendChild(lanjutBtn);
+    }
+
+    function addXP(jumlah) {
+      state.xp += jumlah; gameState.xp += jumlah;
+      document.getElementById("gameXP").textContent = state.xp + " XP";
+      saveState();
+    }
+
+    function cekBadgeLevel(levelId, tanpaSalah) {
+      const mapBadge = { 1: "pemburu_ion", 4: "master_ionisasi", 5: "detektif_elektrolit", 6: "boss_slayer" };
+      const badgeId = mapBadge[levelId];
+      if (badgeId && !state.badges.includes(badgeId)) {
+        state.badges.push(badgeId);
+        showToast("🏅 Badge baru: " + BADGE_DEF.find(b => b.id === badgeId).nama + "!");
+      }
+      if (tanpaSalah && !state.badges.includes("tanpa_salah")) {
+        state.badges.push("tanpa_salah"); showToast("🏅 Badge baru: Tanpa Salah!");
+      }
+    }
+
+    function selesaiLevel() {
+      if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+      const lv = gameState.levelDef;
+      const benar = gameState.benar, salah = gameState.salah;
+      const total = gameState.totalSoal || gameState.dragTotal || 1;
+      const tanpaSalah = (gameState.nyawa === 3);
+      const akurasi = Math.round((benar / total) * 100);
+      const waktu = Math.round((Date.now() - gameState.waktuMulai) / 1000);
+
+      let bintang = 1;
+      if (tanpaSalah && akurasi >= 90) bintang = 3;
+      else if (gameState.nyawa >= 2 && akurasi >= 70) bintang = 2;
+
+      state.levelSelesai[lv.id] = true;
+      state.bintang[lv.id] = Math.max(state.bintang[lv.id] || 0, bintang);
+      if (lv.id >= state.levelBuka) state.levelBuka = lv.id + 1;
+      state.skorTotal.benar += benar;
+      state.skorTotal.soal += total;
+      state.skorPerLevel[lv.id] = { benar, salah, total, waktu, akurasi };
+
+      cekBadgeLevel(lv.id, tanpaSalah);
+      saveState();
+      tampilkanKonfeti();
+      renderHasilLevel(lv, benar, salah, total, akurasi, waktu, bintang);
+    }
+
+    function renderHasilLevel(lv, benar, salah, total, akurasi, waktu, bintang) {
+      const container = document.getElementById("gameContent");
+      showPage("gamePage");
+      const bintangStr = "⭐".repeat(bintang) + "☆".repeat(3 - bintang);
+      const emoji = bintang === 3 ? "🏆" : bintang === 2 ? "🎉" : "👍";
+
+      const konsepLemah = [];
+      if (akurasi < 70) konsepLemah.push("Perbanyak latihan untuk memperkuat pemahaman.");
+      if (lv.id === 1) konsepLemah.push("Ingat: elektrolit = ada ion bebas; pelajari juga komponen alat uji.");
+      if (lv.id === 2) konsepLemah.push("Kuat = terang & banyak gelembung; lemah = redup & sedikit.");
+      if (lv.id === 4) konsepLemah.push("Kuat pakai →, lemah pakai ⇌.");
+      if (lv.id === 5) konsepLemah.push("Pelajari penerapan: infus NaCl, air aki H₂SO₄, cairan tubuh.");
+
+      container.innerHTML = `
+        <div class="hasil-box">
+          <div class="hasil-emoji">${emoji}</div>
+          <h2>Level ${lv.id} Selesai!</h2>
+          <div class="hasil-stars">${bintangStr}</div>
+          <div class="rekap-grid">
+            <div class="rekap-item"><div class="num">${benar}</div><div class="lbl">Benar</div></div>
+            <div class="rekap-item"><div class="num">${salah}</div><div class="lbl">Salah</div></div>
+            <div class="rekap-item"><div class="num">${akurasi}%</div><div class="lbl">Akurasi</div></div>
+            <div class="rekap-item"><div class="num">${waktu}s</div><div class="lbl">Waktu</div></div>
+          </div>
+          ${konsepLemah.length ? `<div class="materi-box"><strong>📌 Catatan:</strong><br>${konsepLemah.join("<br>")}</div>` : ""}
+          <button class="btn mt-16" id="lanjutSetelahHasil">${lv.tipe === "boss" ? "🎓 Lihat Sertifikat" : "Lanjut 🚀"}</button>
+        </div>
+      `;
+
+      document.getElementById("lanjutSetelahHasil").addEventListener("click", () => {
+        suaraKlik();
+        if (lv.tipe === "boss") buatSertifikat();
+        else { showPage("mapPage"); renderMap(); }
+      });
+    }
+
+    function gameOver() {
+      if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+      const container = document.getElementById("gameContent");
+      showPage("gamePage");
+      container.innerHTML = `
+        <div class="hasil-box">
+          <div class="hasil-emoji">💔</div>
+          <h2>Nyawa Habis!</h2>
+          <p>Jangan menyerah! Coba lagi level ini dengan urutan soal yang baru.</p>
+          <button class="btn mt-16" id="ulangLevelBtn">Ulangi Level 🔄</button>
+          <button class="btn ghost" id="kembaliMapBtn">← Kembali ke Peta</button>
+        </div>
+      `;
+      document.getElementById("ulangLevelBtn").addEventListener("click", () => mulaiLevel(gameState.levelId));
+      document.getElementById("kembaliMapBtn").addEventListener("click", () => { showPage("mapPage"); renderMap(); });
+    }
+
+    function buatSertifikat() {
+      const totalBenar = state.skorTotal.benar;
+      const totalSoal = state.skorTotal.soal || 1;
+      const nilai = Math.round((totalBenar / totalSoal) * 100);
+      let predikat = "Perlu Bimbingan";
+      if (nilai >= 90) predikat = "Sangat Baik";
+      else if (nilai >= 80) predikat = "Baik";
+      else if (nilai >= 70) predikat = "Cukup";
+
+      const now = new Date();
+      const tglStr = now.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+      state.sertifikat = { nilai, predikat, tanggal: tglStr };
+      saveState();
+
+      document.getElementById("certName").textContent = state.siswa.nama;
+      document.getElementById("certKelas").textContent = state.siswa.kelas.replace("11 Kimia", "Kelas 11 - Kimia");
+      document.getElementById("certNilai").textContent = nilai;
+      document.getElementById("certPredikat").textContent = predikat;
+      document.getElementById("certTanggal").textContent = tglStr;
+      document.getElementById("certTglTtd").textContent = tglStr;
+
+      showPage("certPage"); tampilkanKonfeti();
+    }
+
+    function tampilkanKonfeti() {
+      const container = document.getElementById("confettiContainer");
+      const colors = ["#ffd166", "#06d6a0", "#ef476f", "#00b4d8", "#f77f00", "#8338ec"];
+      for (let i = 0; i < 60; i++) {
+        const conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.top = "-10px";
+        conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.animationDuration = (2 + Math.random() * 2) + "s";
+        conf.style.animationDelay = Math.random() * 0.5 + "s";
+        conf.style.width = (6 + Math.random() * 10) + "px";
+        conf.style.height = conf.style.width;
+        conf.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
+        container.appendChild(conf);
+        setTimeout(() => conf.remove(), 4500);
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.createElement("div");
+      t.className = "toast"; t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(() => { t.style.opacity = "0"; t.style.transition = "opacity 0.3s"; setTimeout(() => t.remove(), 300); }, 2000);
+    }
+
+    function openMateri() {
+      document.getElementById("materiModal").classList.remove("hidden");
+      renderMateriTab("pengertian");
+      document.querySelectorAll("#materiNav button").forEach(b => b.classList.remove("active"));
+      document.querySelector('#materiNav button[data-tab="pengertian"]').classList.add("active");
+    }
+    function renderMateriTab(tab) {
+      document.getElementById("materiTabContent").innerHTML = MATERI_TAB[tab] || MATERI_TAB.pengertian;
+    }
+
+    function openTujuan() {
+      document.getElementById("tujuanContent").innerHTML = TUJUAN.map(t => `
+        <div class="tujuan-item">
+          <div class="tujuan-num">${t.num}</div>
+          <div class="tujuan-text"><strong>${t.judul}</strong>${t.desc}</div>
+        </div>`).join("");
+      document.getElementById("tujuanModal").classList.remove("hidden");
+    }
+
+    function openPraktikum() {
+      document.getElementById("praktikumModal").classList.remove("hidden");
+      renderPraktikumUI();
+      if (!state.badges.includes("ilmuwan_muda")) {
+        state.badges.push("ilmuwan_muda");
+        showToast("🏅 Badge baru: Ilmuwan Muda!");
+        saveState();
+      }
+      state.simulasiDibuka = true; saveState();
+    }
+
+    function renderPraktikumUI() {
+      const container = document.getElementById("praktikumContent");
+      container.innerHTML = `
+        <div class="sim-container">
+          <div class="sim-apparatus">
+            <div class="sim-lamp off" id="simLamp"></div>
+            <div class="sim-wire"></div>
+            <div class="sim-battery"></div>
+            <div class="sim-wire"></div>
+            <div class="sim-beaker">
+              <div class="sim-electrode left"></div>
+              <div class="sim-electrode right"></div>
+              <div class="sim-liquid" id="simLiquid"></div>
+              <div class="sim-bubbles" id="simBubbles"></div>
+            </div>
+          </div>
+          <div class="sim-info" id="simInfo">
+            <p class="small">Pilih larutan di bawah untuk memulai pengujian.</p>
+          </div>
+        </div>
+        <div class="sim-pilih" id="simPilih"></div>
+        <p class="small mt-16 text-center">💡 Amati: nyala lampu & gelembung gas menentukan jenis larutan!</p>
+      `;
+      const pilih = document.getElementById("simPilih");
+      SIMULASI_LARUTAN.forEach(larutan => {
+        const btn = document.createElement("button");
+        btn.textContent = larutan.nama; btn.dataset.id = larutan.id;
+        btn.addEventListener("click", () => ujiLarutan(larutan.id));
+        pilih.appendChild(btn);
+      });
+    }
+
+    function ujiLarutan(id) {
+      const larutan = SIMULASI_LARUTAN.find(l => l.id === id);
+      if (!larutan) return;
+
+      document.querySelectorAll("#simPilih button").forEach(b => b.classList.toggle("active", b.dataset.id === id));
+
+      const lamp = document.getElementById("simLamp");
+      lamp.className = "sim-lamp";
+      if (larutan.lampu === "terang") lamp.classList.add("on-strong");
+      else if (larutan.lampu === "redup") lamp.classList.add("on-weak");
+      else lamp.classList.add("off");
+
+      const liquid = document.getElementById("simLiquid");
+      if (larutan.kategori === "kuat") liquid.style.background = "rgba(100, 200, 150, 0.5)";
+      else if (larutan.kategori === "lemah") liquid.style.background = "rgba(255, 180, 100, 0.5)";
+      else liquid.style.background = "rgba(180, 180, 180, 0.5)";
+
+      const bubbles = document.getElementById("simBubbles");
+      bubbles.innerHTML = "";
+      if (larutan.gelembung === "banyak" || larutan.gelembung === "sedikit") {
+        const jumlah = larutan.gelembung === "banyak" ? 18 : 5;
+        for (let i = 0; i < jumlah; i++) {
+          const b = document.createElement("div");
+          b.className = "bubble";
+          b.style.left = (15 + Math.random() * 70) + "%";
+          b.style.animationDuration = (1 + Math.random() * 1.5) + "s";
+          b.style.animationDelay = Math.random() * 1.5 + "s";
+          b.style.width = (4 + Math.random() * 4) + "px";
+          b.style.height = b.style.width;
+          bubbles.appendChild(b);
+        }
+      }
+
+      const info = document.getElementById("simInfo");
+      let labelKat = "";
+      if (larutan.kategori === "kuat") labelKat = '<span class="label-kat label-strong">⚡ Elektrolit Kuat (α = 1)</span>';
+      else if (larutan.kategori === "lemah") labelKat = '<span class="label-kat label-weak">⚗️ Elektrolit Lemah (0 &lt; α &lt; 1)</span>';
+      else labelKat = '<span class="label-kat label-non">🚫 Non-Elektrolit (α = 0)</span>';
+
+      const lampuTxt = larutan.lampu === "terang" ? "Menyala terang" : larutan.lampu === "redup" ? "Menyala redup" : "Tidak menyala";
+      const gelembungTxt = larutan.gelembung === "banyak" ? "Banyak" : larutan.gelembung === "sedikit" ? "Sedikit" : "Tidak ada";
+
+      info.innerHTML = `
+        ${labelKat}
+        <div style="margin-top:6px;"><strong>${larutan.nama}</strong></div>
+        <div style="margin-top:6px;">💡 Lampu: <strong>${lampuTxt}</strong> | 🫧 Gelembung: <strong>${gelembungTxt}</strong></div>
+        <div style="margin-top:6px;">🔬 Ion: ${larutan.ion}</div>
+        <div style="margin-top:6px;">${larutan.penjelasan}</div>
+        <div class="rumus" style="margin-top:8px;">${larutan.reaksi}</div>
+      `;
+
+      if (larutan.kategori === "kuat") playTone(700, 0.2, "sine");
+      else if (larutan.kategori === "lemah") playTone(450, 0.2, "sine");
+      else playTone(200, 0.2, "sawtooth", 0.08);
+    }
+
+    const AVATARS = ["🧑‍🔬", "👩‍🔬", "👨‍🔬", "🧑‍🎓", "👩‍🎓", "👨‍🎓", "🦊", "🐱", "🐶", "🐼", "🦁", "🐸", "🐙", "🦄", "🐲", "⭐"];
+
+    function initAvatar() {
+      const grid = document.getElementById("avatarGrid");
+      grid.innerHTML = "";
+      AVATARS.forEach(a => {
+        const div = document.createElement("div");
+        div.className = "avatar-option" + (a === state.avatar ? " selected" : "");
+        div.textContent = a;
+        div.addEventListener("click", () => {
+          grid.querySelectorAll(".avatar-option").forEach(x => x.classList.remove("selected"));
+          div.classList.add("selected"); state.avatar = a;
+        });
+        grid.appendChild(div);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadState();
+
+      const mulaiBtn = document.getElementById("mulaiBtn");
+      if (mulaiBtn) mulaiBtn.addEventListener("click", () => {
+        suaraKlik(); showPage("mapPage"); renderMap();
+      });
+
+      const backHomeBtn = document.getElementById("backHomeBtn");
+      if (backHomeBtn) backHomeBtn.addEventListener("click", () => {
+        suaraKlik(); showPage("homePage"); renderHome();
+      });
+
+      const quitGameBtn = document.getElementById("quitGameBtn");
+      if (quitGameBtn) quitGameBtn.addEventListener("click", () => {
+        if (confirm("Keluar dari level? Progres level ini akan hilang.")) {
+          if (gameState && gameState.timerInterval) clearInterval(gameState.timerInterval);
+          showPage("mapPage"); renderMap();
+        }
+      });
+
+      const logoutBtn = document.getElementById("logoutBtn");
+      if (logoutBtn) logoutBtn.addEventListener("click", () => {
+        if (confirm("Ganti akun? Anda akan keluar.")) {
+          state.siswa = null; saveState();
+          showPage("loginPage");
+          document.getElementById("kelasSelect").value = "";
+          document.getElementById("namaSelect").innerHTML = '<option value="">-- Pilih Kelas Dahulu --</option>';
+          document.getElementById("namaSelect").disabled = true;
+          document.getElementById("absenInput").value = "";
+          document.getElementById("absenInput").disabled = true;
+          document.getElementById("loginBtn").disabled = true;
+        }
+      });
+
+      const tujuanBtn = document.getElementById("tujuanBtn");
+      if (tujuanBtn) tujuanBtn.addEventListener("click", openTujuan);
+      const closeTujuanBtn = document.getElementById("closeTujuanBtn");
+      if (closeTujuanBtn) closeTujuanBtn.addEventListener("click", () => document.getElementById("tujuanModal").classList.add("hidden"));
+
+      const materiBtn = document.getElementById("materiBtn");
+      if (materiBtn) materiBtn.addEventListener("click", openMateri);
+      const homeMateriBtn = document.getElementById("homeMateriBtn");
+      if (homeMateriBtn) homeMateriBtn.addEventListener("click", openMateri);
+      const closeMateriBtn = document.getElementById("closeMateriBtn");
+      if (closeMateriBtn) closeMateriBtn.addEventListener("click", () => document.getElementById("materiModal").classList.add("hidden"));
+
+      const materiNav = document.getElementById("materiNav");
+      if (materiNav) materiNav.addEventListener("click", (e) => {
+        if (e.target.tagName === "BUTTON") {
+          document.querySelectorAll("#materiNav button").forEach(b => b.classList.remove("active"));
+          e.target.classList.add("active");
+          renderMateriTab(e.target.dataset.tab);
+        }
+      });
+
+      const praktikumBtn = document.getElementById("praktikumBtn");
+      if (praktikumBtn) praktikumBtn.addEventListener("click", openPraktikum);
+      const homePraktikumBtn = document.getElementById("homePraktikumBtn");
+      if (homePraktikumBtn) homePraktikumBtn.addEventListener("click", openPraktikum);
+      const closePraktikumBtn = document.getElementById("closePraktikumBtn");
+      if (closePraktikumBtn) closePraktikumBtn.addEventListener("click", () => document.getElementById("praktikumModal").classList.add("hidden"));
+
+      const editAvatarBtn = document.getElementById("editAvatarBtn");
+      if (editAvatarBtn) editAvatarBtn.addEventListener("click", () => {
+        initAvatar();
+        document.getElementById("avatarModal").classList.remove("hidden");
+      });
+      const closeAvatarBtn = document.getElementById("closeAvatarBtn");
+      if (closeAvatarBtn) closeAvatarBtn.addEventListener("click", () => {
+        document.getElementById("avatarModal").classList.add("hidden");
+        renderHome(); saveState();
+      });
+
+      const muteBtn = document.getElementById("muteBtn");
+      if (muteBtn) {
+        muteBtn.textContent = state.muted ? "🔇" : "🔊";
+        muteBtn.addEventListener("click", () => {
+          state.muted = !state.muted;
+          muteBtn.textContent = state.muted ? "🔇" : "🔊";
+          saveState();
+          if (!state.muted) suaraKlik();
+        });
+      }
+
+      const printCertBtn = document.getElementById("printCertBtn");
+      if (printCertBtn) printCertBtn.addEventListener("click", () => window.print());
+      const backFromCertBtn = document.getElementById("backFromCertBtn");
+      if (backFromCertBtn) backFromCertBtn.addEventListener("click", () => { showPage("homePage"); renderHome(); });
+
+      document.querySelectorAll(".modal-overlay").forEach(overlay => {
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) overlay.classList.add("hidden");
+        });
+      });
+
+      initLogin();
+      if (!cekAutoLogin()) showPage("loginPage");
+    });
+
+  </script>
+</body>
+</html>
