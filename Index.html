@@ -4,19 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#0a1929">
-<title>ElektroLab 3D — Petualangan Elektrolit</title>
+<title>ElektroLab 3D — Petualangan Elektrolit | SMA Santo Paulus Pontianak</title>
 
-<!-- Three.js (WebGL) via CDN -->
+<!-- Three.js untuk WebGL -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <style>
-/* ============================================================
+/* ==========================================================
    RESET & VARIABEL
-   ============================================================ */
-* {
-  margin: 0; padding: 0; box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
+   ========================================================== */
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
 :root {
   --bg-dark: #0a1929;
@@ -28,19 +25,16 @@
   --weak: #f77f00;
   --non: #8d99ae;
   --danger: #ef476f;
-  --card: rgba(255, 255, 255, 0.08);
+  --card: rgba(255,255,255,0.08);
   --card-solid: #132f4c;
   --text: #e6f1ff;
   --text-dim: #94a3b8;
-  --border: rgba(0, 180, 216, 0.3);
+  --border: rgba(0,180,216,0.3);
   --radius: 16px;
-  --shadow: 0 8px 24px rgba(0, 180, 216, 0.2);
+  --shadow: 0 8px 24px rgba(0,180,216,0.2);
 }
 
-html, body {
-  height: 100%;
-  overflow-x: hidden;
-}
+html, body { height:100%; overflow-x:hidden; }
 
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -52,9 +46,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ============================================================
+/* ==========================================================
    LAYOUT MOBILE
-   ============================================================ */
+   ========================================================== */
 .app {
   max-width: 500px;
   margin: 0 auto;
@@ -64,99 +58,58 @@ body {
   flex-direction: column;
 }
 
-/* ============================================================
+/* ==========================================================
    HEADER
-   ============================================================ */
+   ========================================================== */
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position: sticky; top:0; z-index:100;
   background: linear-gradient(135deg, #0d2137 0%, #0a1929 100%);
   border-bottom: 1px solid var(--border);
   padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; align-items:center; justify-content:space-between;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
-
-.header-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
+.header-brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:0.85rem; }
 .header-brand .logo-3d {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  width:36px; height:36px; border-radius:50%;
   background: radial-gradient(circle at 30% 30%, #48cae4, #0077b6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  box-shadow: 0 0 15px rgba(72, 202, 228, 0.5);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; box-shadow:0 0 15px rgba(72,202,228,0.5);
   animation: pulse 2s infinite;
 }
-
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 15px rgba(72, 202, 228, 0.5); }
-  50% { box-shadow: 0 0 25px rgba(72, 202, 228, 0.9); }
+  0%,100% { box-shadow:0 0 15px rgba(72,202,228,0.5); }
+  50% { box-shadow:0 0 25px rgba(72,202,228,0.9); }
 }
-
-.header-brand .brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
-}
-.header-brand .brand-text .main { font-size: 0.85rem; }
+.header-brand .brand-text { display:flex; flex-direction:column; line-height:1.1; }
+.header-brand .brand-text .main { font-size:0.85rem; }
 .header-brand .brand-text .sub {
-  font-size: 0.62rem;
-  color: var(--primary-glow);
-  font-weight: 400;
-  letter-spacing: 0.5px;
+  font-size:0.62rem; color:var(--primary-glow); font-weight:400; letter-spacing:0.5px;
 }
-
-.header-actions { display: flex; gap: 6px; }
-
+.header-actions { display:flex; gap:6px; }
 .icon-btn {
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--primary-glow);
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
+  background:var(--card); border:1px solid var(--border);
+  color:var(--primary-glow); width:36px; height:36px;
+  border-radius:10px; font-size:1rem; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
 }
-.icon-btn:active { transform: scale(0.92); background: rgba(0, 180, 216, 0.25); }
+.icon-btn:active { transform:scale(0.92); background:rgba(0,180,216,0.25); }
 
-/* ============================================================
-   PAGE CONTAINER
-   ============================================================ */
-.page {
-  flex: 1;
-  padding: 16px 14px 90px;
-  display: none;
-  animation: pageIn 0.35s ease;
-}
-.page.active { display: block; }
-
+/* ==========================================================
+   PAGE
+   ========================================================== */
+.page { flex:1; padding:16px 14px 90px; display:none; animation:pageIn 0.35s ease; }
+.page.active { display:block; }
 @keyframes pageIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity:0; transform:translateY(12px); }
+  to { opacity:1; transform:translateY(0); }
 }
 
-/* ============================================================
-   KARTU
-   ============================================================ */
+/* ==========================================================
+   CARD
+   ========================================================== */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -166,806 +119,493 @@ body {
   backdrop-filter: blur(8px);
   box-shadow: var(--shadow);
 }
-
 .card-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--primary-glow);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size:1.05rem; font-weight:700; color:var(--primary-glow);
+  margin-bottom:12px; display:flex; align-items:center; gap:8px;
 }
 
-/* ============================================================
+/* ==========================================================
    FORM
-   ============================================================ */
-.form-group { margin-bottom: 14px; }
+   ========================================================== */
+.form-group { margin-bottom:14px; }
 .form-label {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  margin-bottom: 6px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
+  display:block; font-size:0.8rem; color:var(--text-dim);
+  margin-bottom:6px; font-weight:600; letter-spacing:0.3px;
 }
 .form-input, .form-select {
-  width: 100%;
-  padding: 12px 14px;
-  background: rgba(10, 25, 41, 0.7);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  color: var(--text);
-  font-size: 0.95rem;
-  font-family: inherit;
-  transition: all 0.2s;
+  width:100%; padding:12px 14px;
+  background:rgba(10,25,41,0.7);
+  border:1.5px solid var(--border);
+  border-radius:12px; color:var(--text);
+  font-size:0.95rem; font-family:inherit; transition:all 0.2s;
 }
 .form-input:focus, .form-select:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.2);
+  outline:none; border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(0,180,216,0.2);
 }
-.form-select { appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%2348cae4' d='M6 8L2 4h8z'/></svg>"); background-repeat: no-repeat; background-position: right 14px center; }
+.form-select {
+  appearance:none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%2348cae4' d='M6 8L2 4h8z'/></svg>");
+  background-repeat:no-repeat; background-position:right 14px center;
+}
 
-/* ============================================================
-   TOMBOL
-   ============================================================ */
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
 .btn {
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  font-family: inherit;
-  color: #0a1929;
+  width:100%; padding:14px; border:none; border-radius:12px;
+  font-size:0.95rem; font-weight:700; font-family:inherit;
+  color:#0a1929;
   background: linear-gradient(135deg, var(--primary-glow), var(--primary));
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
+  cursor:pointer; transition:all 0.2s;
+  box-shadow:0 4px 15px rgba(0,180,216,0.4);
+  letter-spacing:0.5px; margin-bottom:10px;
 }
-.btn:active { transform: scale(0.97); }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
+.btn:active { transform:scale(0.97); }
+.btn:disabled { opacity:0.4; cursor:not-allowed; }
 .btn-outline {
-  background: transparent;
-  border: 2px solid var(--primary);
-  color: var(--primary-glow);
-  box-shadow: none;
+  background:transparent; border:2px solid var(--primary);
+  color:var(--primary-glow); box-shadow:none;
 }
 .btn-gold {
   background: linear-gradient(135deg, #ffd166, #f77f00);
-  color: #1a1a2e;
-  box-shadow: 0 4px 15px rgba(247, 127, 0, 0.4);
+  color:#1a1a2e; box-shadow:0 4px 15px rgba(247,127,0,0.4);
 }
 .btn-danger {
   background: linear-gradient(135deg, #ef476f, #c9184a);
-  color: white;
-  box-shadow: 0 4px 15px rgba(239, 71, 111, 0.4);
+  color:white; box-shadow:0 4px 15px rgba(239,71,111,0.4);
 }
 
-/* ============================================================
-   LOGIN SCREEN
-   ============================================================ */
-.login-hero {
-  text-align: center;
-  padding: 30px 0 20px;
-}
+/* ==========================================================
+   LOGIN HERO
+   ========================================================== */
+.login-hero { text-align:center; padding:30px 0 20px; }
 .login-hero .hero-icon {
-  font-size: 4rem;
-  display: block;
-  margin-bottom: 10px;
+  font-size:4rem; display:block; margin-bottom:10px;
   animation: float 3s ease-in-out infinite;
 }
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-10px); }
 }
 .login-hero h1 {
-  font-size: 1.5rem;
+  font-size:1.5rem;
   background: linear-gradient(135deg, var(--primary-glow), var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 4px;
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:4px;
 }
-.login-hero p {
-  color: var(--text-dim);
-  font-size: 0.8rem;
-}
+.login-hero p { color:var(--text-dim); font-size:0.8rem; }
 
-/* ============================================================
-   HOME — PROFIL
-   ============================================================ */
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
-}
+/* ==========================================================
+   PROFILE
+   ========================================================== */
+.profile { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
 .profile-avatar {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
+  width:58px; height:58px; border-radius:50%;
   background: linear-gradient(135deg, var(--primary-glow), var(--primary));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  flex-shrink: 0;
-  box-shadow: 0 0 20px rgba(72, 202, 228, 0.5);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.8rem; flex-shrink:0;
+  box-shadow:0 0 20px rgba(72,202,228,0.5);
 }
-.profile-info { flex: 1; min-width: 0; }
+.profile-info { flex:1; min-width:0; }
 .profile-info h2 {
-  font-size: 1.05rem;
-  margin-bottom: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size:1.05rem; margin-bottom:2px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
-.profile-info .kelas {
-  font-size: 0.75rem;
-  color: var(--primary-glow);
-}
+.profile-info .kelas { font-size:0.75rem; color:var(--primary-glow); }
 
-/* ============================================================
-   STAT BAR
-   ============================================================ */
-.stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 14px;
-}
+/* ==========================================================
+   STATS
+   ========================================================== */
+.stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
 .stat-item {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 12px;
-  text-align: center;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:10px 12px; text-align:center;
 }
 .stat-item .val {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--primary-glow);
-  display: block;
+  font-size:1.3rem; font-weight:800; color:var(--primary-glow); display:block;
 }
 .stat-item .lbl {
-  font-size: 0.65rem;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size:0.65rem; color:var(--text-dim);
+  text-transform:uppercase; letter-spacing:0.5px;
 }
 
-/* ============================================================
-   PROGRESS BAR
-   ============================================================ */
+/* ==========================================================
+   PROGRESS
+   ========================================================== */
 .progress {
-  height: 8px;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 6px 0 4px;
+  height:8px; background:rgba(0,0,0,0.4);
+  border-radius:4px; overflow:hidden; margin:6px 0 4px;
 }
 .progress-fill {
-  height: 100%;
+  height:100%;
   background: linear-gradient(90deg, var(--strong), var(--accent));
-  border-radius: 4px;
-  transition: width 0.6s ease;
-  box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+  border-radius:4px; transition:width 0.6s ease;
+  box-shadow:0 0 10px rgba(255,209,102,0.5);
 }
 
-/* ============================================================
-   LEVEL MAP
-   ============================================================ */
-.level-list { display: flex; flex-direction: column; gap: 10px; }
-
+/* ==========================================================
+   LEVEL LIST
+   ========================================================== */
+.level-list { display:flex; flex-direction:column; gap:10px; }
 .level-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--primary);
-  border-radius: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
+  display:flex; align-items:center; gap:12px;
+  padding:14px; background:var(--card);
+  border:1px solid var(--border); border-left:4px solid var(--primary);
+  border-radius:14px; cursor:pointer; transition:all 0.2s;
 }
-.level-item:active { transform: scale(0.98); }
+.level-item:active { transform:scale(0.98); }
 .level-item.locked {
-  opacity: 0.45;
-  cursor: not-allowed;
-  border-left-color: var(--non);
+  opacity:0.45; cursor:not-allowed; border-left-color:var(--non);
 }
 .level-item.done {
-  border-left-color: var(--strong);
-  background: rgba(6, 214, 160, 0.08);
+  border-left-color:var(--strong);
+  background: rgba(6,214,160,0.08);
 }
 .level-item.boss {
-  border-left-color: var(--danger);
-  background: linear-gradient(135deg, rgba(239, 71, 111, 0.15), rgba(239, 71, 111, 0.05));
+  border-left-color:var(--danger);
+  background: linear-gradient(135deg, rgba(239,71,111,0.15), rgba(239,71,111,0.05));
 }
-
 .level-icon {
-  font-size: 1.6rem;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(0, 180, 216, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  font-size:1.6rem; width:44px; height:44px;
+  border-radius:12px; background:rgba(0,180,216,0.15);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
 }
-.level-info { flex: 1; min-width: 0; }
-.level-info .lv-name {
-  font-weight: 700;
-  font-size: 0.9rem;
-  margin-bottom: 2px;
-}
-.level-info .lv-desc {
-  font-size: 0.72rem;
-  color: var(--text-dim);
-}
-.level-info .lv-stars {
-  font-size: 0.85rem;
-  letter-spacing: 2px;
-  margin-top: 2px;
-}
-.level-badge { font-size: 1.3rem; }
+.level-info { flex:1; min-width:0; }
+.level-info .lv-name { font-weight:700; font-size:0.9rem; margin-bottom:2px; }
+.level-info .lv-desc { font-size:0.72rem; color:var(--text-dim); }
+.level-info .lv-stars { font-size:0.85rem; letter-spacing:2px; margin-top:2px; }
+.level-badge { font-size:1.3rem; }
 
-/* ============================================================
-   BADGE GRID
-   ============================================================ */
+/* ==========================================================
+   BADGE
+   ========================================================== */
 .badge-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px;
 }
 .badge {
-  text-align: center;
-  padding: 10px 4px;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  border: 1px solid transparent;
-  font-size: 0.6rem;
-  color: var(--text-dim);
-  transition: all 0.3s;
+  text-align:center; padding:10px 4px;
+  background:rgba(0,0,0,0.25); border-radius:10px;
+  border:1px solid transparent; font-size:0.6rem;
+  color:var(--text-dim); transition:all 0.3s;
 }
 .badge.owned {
-  background: linear-gradient(135deg, rgba(255, 209, 102, 0.15), rgba(247, 127, 0, 0.15));
-  border-color: var(--accent);
-  color: var(--accent);
-  box-shadow: 0 0 12px rgba(255, 209, 102, 0.3);
+  background: linear-gradient(135deg, rgba(255,209,102,0.15), rgba(247,127,0,0.15));
+  border-color:var(--accent); color:var(--accent);
+  box-shadow:0 0 12px rgba(255,209,102,0.3);
 }
 .badge .b-icon {
-  font-size: 1.5rem;
-  display: block;
-  margin-bottom: 4px;
-  filter: grayscale(1);
-  opacity: 0.4;
+  font-size:1.5rem; display:block; margin-bottom:4px;
+  filter:grayscale(1); opacity:0.4;
 }
-.badge.owned .b-icon {
-  filter: none;
-  opacity: 1;
-}
+.badge.owned .b-icon { filter:none; opacity:1; }
 
-/* ============================================================
-   LEADERBOARD (PERINGKAT)
-   ============================================================ */
-.lb-list { display: flex; flex-direction: column; gap: 6px; }
+/* ==========================================================
+   LEADERBOARD
+   ========================================================== */
+.lb-list { display:flex; flex-direction:column; gap:6px; }
 .lb-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  border: 1px solid transparent;
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px; background:rgba(0,0,0,0.2);
+  border-radius:10px; border:1px solid transparent;
 }
 .lb-item.me {
-  background: linear-gradient(135deg, rgba(255, 209, 102, 0.15), rgba(247, 127, 0, 0.1));
-  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(255,209,102,0.15), rgba(247,127,0,0.1));
+  border-color:var(--accent);
 }
 .lb-rank {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 0.75rem;
-  flex-shrink: 0;
+  width:26px; height:26px; border-radius:50%;
+  background:var(--primary); color:white;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:0.75rem; flex-shrink:0;
 }
-.lb-rank.g { background: linear-gradient(135deg, #ffd700, #ffb703); color: #3a2e00; }
+.lb-rank.g { background: linear-gradient(135deg, #ffd700, #ffb703); color:#3a2e00; }
 .lb-rank.s { background: linear-gradient(135deg, #c0c0c0, #a8a8a8); }
 .lb-rank.b { background: linear-gradient(135deg, #cd7f32, #b06a20); }
-.lb-name {
-  flex: 1;
-  font-size: 0.82rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.lb-score {
-  font-weight: 800;
-  color: var(--primary-glow);
-  font-size: 0.82rem;
-}
+.lb-name { flex:1; font-size:0.82rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lb-score { font-weight:800; color:var(--primary-glow); font-size:0.82rem; }
 
-/* ============================================================
-   GAME SCREEN
-   ============================================================ */
+/* ==========================================================
+   GAME HUD
+   ========================================================== */
 .game-hud {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 12px;
-  padding: 10px 14px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  margin-bottom:12px; padding:10px 14px;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:12px;
 }
-.hud-hearts { font-size: 1rem; letter-spacing: 1px; }
+.hud-hearts { font-size:1rem; letter-spacing:1px; }
 .hud-xp {
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: var(--accent);
-  background: rgba(255, 209, 102, 0.15);
-  padding: 4px 10px;
-  border-radius: 20px;
+  font-size:0.8rem; font-weight:800; color:var(--accent);
+  background:rgba(255,209,102,0.15); padding:4px 10px; border-radius:20px;
 }
 
+/* ==========================================================
+   QUESTION BOX
+   ========================================================== */
 .question-box {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 12px;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:16px; margin-bottom:12px;
 }
 .question-num {
-  font-size: 0.7rem;
-  color: var(--primary-glow);
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
+  font-size:0.7rem; color:var(--primary-glow);
+  font-weight:700; letter-spacing:1px; margin-bottom:6px;
 }
 .question-text {
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.55;
-  margin-bottom: 6px;
+  font-size:0.95rem; font-weight:600; line-height:1.55; margin-bottom:6px;
 }
 
 .option {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 12px 14px;
-  margin-bottom: 8px;
-  background: rgba(10, 25, 41, 0.6);
-  border: 1.5px solid var(--border);
-  border-radius: 12px;
-  color: var(--text);
-  font-size: 0.88rem;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s;
-  line-height: 1.4;
+  display:block; width:100%; text-align:left;
+  padding:12px 14px; margin-bottom:8px;
+  background:rgba(10,25,41,0.6);
+  border:1.5px solid var(--border); border-radius:12px;
+  color:var(--text); font-size:0.88rem; font-family:inherit;
+  cursor:pointer; transition:all 0.2s; line-height:1.4;
 }
-.option:active { transform: scale(0.98); }
+.option:active { transform:scale(0.98); }
 .option.correct {
-  background: rgba(6, 214, 160, 0.2);
-  border-color: var(--strong);
-  font-weight: 700;
+  background:rgba(6,214,160,0.2); border-color:var(--strong); font-weight:700;
 }
 .option.wrong {
-  background: rgba(239, 71, 111, 0.2);
-  border-color: var(--danger);
+  background:rgba(239,71,111,0.2); border-color:var(--danger);
 }
-.option:disabled { cursor: default; }
+.option:disabled { cursor:default; }
 
+/* ==========================================================
+   FEEDBACK
+   ========================================================== */
 .feedback {
-  padding: 12px 14px;
-  border-radius: 12px;
-  margin-top: 10px;
-  font-size: 0.82rem;
-  line-height: 1.5;
+  padding:12px 14px; border-radius:12px; margin-top:10px;
+  font-size:0.82rem; line-height:1.5;
   animation: slideUp 0.3s;
 }
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity:0; transform:translateY(8px); }
+  to { opacity:1; transform:translateY(0); }
 }
-.feedback.ok {
-  background: rgba(6, 214, 160, 0.15);
-  border-left: 4px solid var(--strong);
-}
-.feedback.no {
-  background: rgba(239, 71, 111, 0.15);
-  border-left: 4px solid var(--danger);
-}
-.feedback .fb-title {
-  font-weight: 800;
-  margin-bottom: 4px;
-}
+.feedback.ok { background:rgba(6,214,160,0.15); border-left:4px solid var(--strong); }
+.feedback.no { background:rgba(239,71,111,0.15); border-left:4px solid var(--danger); }
+.feedback .fb-title { font-weight:800; margin-bottom:4px; }
 
+/* ==========================================================
+   TIMER
+   ========================================================== */
 .timer-bar {
-  height: 6px;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-bottom: 12px;
+  height:6px; background:rgba(0,0,0,0.4); border-radius:3px;
+  overflow:hidden; margin-bottom:12px;
 }
 .timer-fill {
-  height: 100%;
+  height:100%;
   background: linear-gradient(90deg, var(--danger), var(--weak));
-  transition: width 1s linear;
+  transition:width 1s linear;
 }
 
-/* ============================================================
+/* ==========================================================
    RESULT
-   ============================================================ */
-.result-box {
-  text-align: center;
-  padding: 20px 14px;
-}
-.result-emoji { font-size: 3.5rem; margin-bottom: 8px; animation: bounce 0.6s; }
+   ========================================================== */
+.result-box { text-align:center; padding:20px 14px; }
+.result-emoji { font-size:3.5rem; margin-bottom:8px; animation: bounce 0.6s; }
 @keyframes bounce {
-  0% { transform: scale(0); }
-  60% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0% { transform:scale(0); }
+  60% { transform:scale(1.2); }
+  100% { transform:scale(1); }
 }
-.result-stars { font-size: 2rem; letter-spacing: 4px; margin: 8px 0; }
+.result-stars { font-size:2rem; letter-spacing:4px; margin:8px 0; }
 .result-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin: 14px 0;
+  display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:14px 0;
 }
 .result-item {
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  padding: 10px;
+  background:rgba(0,0,0,0.3); border-radius:10px; padding:10px;
 }
 .result-item .num {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--primary-glow);
+  font-size:1.3rem; font-weight:800; color:var(--primary-glow);
 }
-.result-item .lbl {
-  font-size: 0.68rem;
-  color: var(--text-dim);
-}
+.result-item .lbl { font-size:0.68rem; color:var(--text-dim); }
 
-/* ============================================================
+/* ==========================================================
    SERTIFIKAT
-   ============================================================ */
+   ========================================================== */
 .cert {
   background: linear-gradient(135deg, #fffdf5, #fff8e1);
-  color: #1a237e;
-  border: 6px double #1a237e;
-  border-radius: 8px;
-  padding: 20px 16px;
-  text-align: center;
-  position: relative;
+  color:#1a237e;
+  border:6px double #1a237e;
+  border-radius:8px; padding:20px 16px;
+  text-align:center; position:relative;
 }
 .cert::before {
-  content: "";
-  position: absolute;
-  inset: 8px;
-  border: 1px solid rgba(26, 35, 126, 0.3);
-  border-radius: 4px;
-  pointer-events: none;
+  content:""; position:absolute; inset:8px;
+  border:1px solid rgba(26,35,126,0.3); border-radius:4px;
+  pointer-events:none;
 }
 .cert-title {
-  font-size: 1rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #1a237e;
-  margin-bottom: 2px;
+  font-size:1rem; font-weight:800; text-transform:uppercase;
+  letter-spacing:1px; color:#1a237e; margin-bottom:2px;
 }
 .cert-school {
-  font-size: 0.75rem;
-  color: #283593;
-  margin-bottom: 14px;
-  font-weight: 600;
+  font-size:0.75rem; color:#283593; margin-bottom:14px; font-weight:600;
 }
 .cert-logo {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 10px;
+  width:60px; height:60px; margin:0 auto 10px;
   background: radial-gradient(circle at 30% 30%, #48cae4, #0077b6);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 119, 182, 0.3);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:2rem; box-shadow:0 4px 12px rgba(0,119,182,0.3);
 }
 .cert-name {
-  font-size: 1.4rem;
-  font-weight: 800;
-  margin: 10px 0 4px;
-  color: #0a1929;
-  border-bottom: 2px solid #ffd166;
-  display: inline-block;
-  padding-bottom: 2px;
+  font-size:1.4rem; font-weight:800; margin:10px 0 4px; color:#0a1929;
+  border-bottom:2px solid #ffd166; display:inline-block; padding-bottom:2px;
 }
-.cert-kelas {
-  font-size: 0.8rem;
-  color: #283593;
-  margin-bottom: 12px;
-}
-.cert-materi {
-  font-size: 0.78rem;
-  margin: 10px 0;
-  color: #1a237e;
-}
+.cert-kelas { font-size:0.8rem; color:#283593; margin-bottom:12px; }
+.cert-materi { font-size:0.78rem; margin:10px 0; color:#1a237e; }
 .cert-nilai {
-  font-size: 2.4rem;
-  font-weight: 900;
-  color: #06d6a0;
-  margin: 8px 0;
-  text-shadow: 0 2px 4px rgba(6, 214, 160, 0.3);
+  font-size:2.4rem; font-weight:900; color:#06d6a0; margin:8px 0;
+  text-shadow:0 2px 4px rgba(6,214,160,0.3);
 }
 .cert-predikat {
-  display: inline-block;
-  background: #ffd166;
-  color: #3a2e00;
-  padding: 5px 16px;
-  border-radius: 20px;
-  font-weight: 800;
-  font-size: 0.85rem;
-  margin-bottom: 14px;
+  display:inline-block; background:#ffd166; color:#3a2e00;
+  padding:5px 16px; border-radius:20px; font-weight:800;
+  font-size:0.85rem; margin-bottom:14px;
 }
-.cert-tanggal {
-  font-size: 0.75rem;
-  color: #283593;
-  margin-bottom: 14px;
-}
-.cert-sign {
-  font-size: 0.78rem;
-  color: #1a237e;
-  margin-top: 10px;
-}
+.cert-tanggal { font-size:0.75rem; color:#283593; margin-bottom:14px; }
+.cert-sign { font-size:0.78rem; color:#1a237e; margin-top:10px; }
 .cert-sign .name {
-  font-weight: 800;
-  border-bottom: 1px solid #1a237e;
-  display: inline-block;
-  padding: 0 12px 2px;
-  margin-top: 26px;
+  font-weight:800; border-bottom:1px solid #1a237e;
+  display:inline-block; padding:0 12px 2px; margin-top:26px;
 }
 
-/* ============================================================
+/* ==========================================================
    MODAL
-   ============================================================ */
+   ========================================================== */
 .modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(4px);
-  z-index: 1000;
-  display: none;
-  align-items: flex-end;
-  justify-content: center;
-  animation: fadeIn 0.2s;
+  position:fixed; inset:0; background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(4px); z-index:1000; display:none;
+  align-items:flex-end; justify-content:center;
+  animation:fadeIn 0.2s;
 }
-.modal.active { display: flex; }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+.modal.active { display:flex; }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 .modal-content {
   background: linear-gradient(180deg, #132f4c, #0a1929);
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  border-top: 2px solid var(--primary);
-  padding: 20px 16px 30px;
-  width: 100%;
-  max-width: 500px;
-  max-height: 85vh;
-  overflow-y: auto;
+  border-top-left-radius:20px; border-top-right-radius:20px;
+  border-top:2px solid var(--primary);
+  padding:20px 16px 30px; width:100%; max-width:500px;
+  max-height:85vh; overflow-y:auto;
   animation: modalUp 0.3s ease;
 }
 @keyframes modalUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from { transform:translateY(100%); }
+  to { transform:translateY(0); }
 }
 .modal-handle {
-  width: 40px;
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  margin: 0 auto 14px;
+  width:40px; height:4px; background:var(--border);
+  border-radius:2px; margin:0 auto 14px;
 }
 .modal-title {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--primary-glow);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size:1.05rem; font-weight:800; color:var(--primary-glow);
+  margin-bottom:12px; display:flex; align-items:center; gap:8px;
 }
-.materi-content {
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: var(--text);
-}
-.materi-content h3 {
-  color: var(--primary-glow);
-  font-size: 0.95rem;
-  margin: 12px 0 6px;
-}
-.materi-content h4 {
-  color: var(--accent);
-  font-size: 0.85rem;
-  margin: 10px 0 4px;
-}
-.materi-content p { margin-bottom: 8px; }
-.materi-content ul {
-  margin: 6px 0 10px 18px;
-}
-.materi-content li { margin-bottom: 4px; }
+.materi-content { font-size:0.85rem; line-height:1.6; color:var(--text); }
+.materi-content h3 { color:var(--primary-glow); font-size:0.95rem; margin:12px 0 6px; }
+.materi-content h4 { color:var(--accent); font-size:0.85rem; margin:10px 0 4px; }
+.materi-content p { margin-bottom:8px; }
+.materi-content ul { margin:6px 0 10px 18px; }
+.materi-content li { margin-bottom:4px; }
 .materi-content .rumus {
-  background: rgba(0, 0, 0, 0.5);
-  color: #00ff9d;
-  font-family: 'Courier New', monospace;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 0.82rem;
-  margin: 6px 0;
-  overflow-x: auto;
+  background:rgba(0,0,0,0.5); color:#00ff9d;
+  font-family:'Courier New', monospace; padding:8px 12px;
+  border-radius:8px; font-size:0.82rem; margin:6px 0; overflow-x:auto;
 }
 .materi-content .badge-kuat {
-  display: inline-block;
-  background: rgba(6, 214, 160, 0.2);
-  color: var(--strong);
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.72rem;
-  font-weight: 700;
+  display:inline-block; background:rgba(6,214,160,0.2); color:var(--strong);
+  padding:2px 8px; border-radius:10px; font-size:0.72rem; font-weight:700;
 }
 .materi-content .badge-lemah {
-  display: inline-block;
-  background: rgba(247, 127, 0, 0.2);
-  color: var(--weak);
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.72rem;
-  font-weight: 700;
+  display:inline-block; background:rgba(247,127,0,0.2); color:var(--weak);
+  padding:2px 8px; border-radius:10px; font-size:0.72rem; font-weight:700;
 }
 .materi-content .badge-non {
-  display: inline-block;
-  background: rgba(141, 153, 174, 0.2);
-  color: var(--non);
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.72rem;
-  font-weight: 700;
+  display:inline-block; background:rgba(141,153,174,0.2); color:var(--non);
+  padding:2px 8px; border-radius:10px; font-size:0.72rem; font-weight:700;
 }
 
-/* ============================================================
-   TAB 3D VIEWER
-   ============================================================ */
+/* ==========================================================
+   WEBGL 3D VIEWER
+   ========================================================== */
 #webgl-container {
-  width: 100%;
-  height: 220px;
-  border-radius: 14px;
-  overflow: hidden;
+  width:100%; height:220px; border-radius:14px; overflow:hidden;
   background: radial-gradient(circle at 50% 50%, #112b45, #05101c);
-  border: 1px solid var(--border);
-  margin-bottom: 14px;
-  position: relative;
+  border:1px solid var(--border); margin-bottom:14px; position:relative;
 }
-#webgl-container canvas {
-  display: block;
-}
+#webgl-container canvas { display:block; }
 .webgl-label {
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  font-size: 0.68rem;
-  color: var(--primary-glow);
-  background: rgba(0, 0, 0, 0.5);
-  padding: 3px 8px;
-  border-radius: 10px;
-  pointer-events: none;
+  position:absolute; bottom:8px; left:8px;
+  font-size:0.68rem; color:var(--primary-glow);
+  background:rgba(0,0,0,0.5); padding:3px 8px; border-radius:10px;
+  pointer-events:none;
 }
 
-/* ============================================================
+/* ==========================================================
    TOAST
-   ============================================================ */
+   ========================================================== */
 .toast {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
+  position:fixed; bottom:80px; left:50%; transform:translateX(-50%);
   background: linear-gradient(135deg, #132f4c, #0a1929);
-  border: 1px solid var(--primary);
-  color: var(--text);
-  padding: 10px 18px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  z-index: 2000;
+  border:1px solid var(--primary); color:var(--text);
+  padding:10px 18px; border-radius:20px; font-size:0.8rem;
+  font-weight:600; z-index:2000;
   animation: toastIn 0.3s;
-  box-shadow: 0 4px 20px rgba(0, 180, 216, 0.4);
-  max-width: 85vw;
-  text-align: center;
+  box-shadow:0 4px 20px rgba(0,180,216,0.4);
+  max-width:85vw; text-align:center;
 }
 @keyframes toastIn {
-  from { opacity: 0; transform: translate(-50%, 20px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
+  from { opacity:0; transform:translate(-50%, 20px); }
+  to { opacity:1; transform:translate(-50%, 0); }
 }
 
-/* ============================================================
+/* ==========================================================
    BOTTOM NAV
-   ============================================================ */
+   ========================================================== */
 .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 500px;
-  background: rgba(10, 25, 41, 0.95);
+  position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:500px;
+  background:rgba(10,25,41,0.95);
   backdrop-filter: blur(10px);
-  border-top: 1px solid var(--border);
-  display: none;
-  padding: 8px 0 10px;
-  z-index: 90;
+  border-top:1px solid var(--border);
+  display:none; padding:8px 0 10px; z-index:90;
 }
-.bottom-nav.active { display: flex; }
+.bottom-nav.active { display:flex; }
 .bottom-nav button {
-  flex: 1;
-  background: none;
-  border: none;
-  color: var(--text-dim);
-  font-size: 0.65rem;
-  font-family: inherit;
-  cursor: pointer;
-  padding: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  transition: color 0.2s;
+  flex:1; background:none; border:none; color:var(--text-dim);
+  font-size:0.65rem; font-family:inherit; cursor:pointer;
+  padding:4px; display:flex; flex-direction:column;
+  align-items:center; gap:2px; transition:color 0.2s;
 }
-.bottom-nav button.active { color: var(--primary-glow); }
-.bottom-nav button .nav-icon { font-size: 1.2rem; }
+.bottom-nav button.active { color:var(--primary-glow); }
+.bottom-nav button .nav-icon { font-size:1.2rem; }
 
-/* ============================================================
+/* ==========================================================
    SCROLLBAR
-   ============================================================ */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+   ========================================================== */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
 
-/* ============================================================
-   PRINT SERTIFIKAT
-   ============================================================ */
+/* ==========================================================
+   PRINT
+   ========================================================== */
 @media print {
-  body * { visibility: hidden; }
-  #certArea, #certArea * { visibility: visible; }
-  #certArea { position: absolute; left: 0; top: 0; width: 100%; }
-  .no-print { display: none !important; }
+  body * { visibility:hidden; }
+  #certArea, #certArea * { visibility:visible; }
+  #certArea { position:absolute; left:0; top:0; width:100%; }
+  .no-print { display:none !important; }
 }
 </style>
 </head>
 <body>
 
 <div class="app">
-  <!-- ============ HEADER ============ -->
+  <!-- ================= HEADER ================= -->
   <header class="header">
     <div class="header-brand">
       <div class="logo-3d">⚗️</div>
@@ -981,7 +621,7 @@ body {
     </div>
   </header>
 
-  <!-- ============ PAGE: LOGIN ============ -->
+  <!-- ================= PAGE: LOGIN ================= -->
   <div class="page active" id="pageLogin">
     <div class="login-hero">
       <span class="hero-icon">🧪</span>
@@ -1017,9 +657,8 @@ body {
     </div>
   </div>
 
-  <!-- ============ PAGE: HOME ============ -->
+  <!-- ================= PAGE: HOME ================= -->
   <div class="page" id="pageHome">
-    <!-- 3D View -->
     <div id="webgl-container">
       <div class="webgl-label">🎮 Animasi 3D • Geser untuk memutar</div>
     </div>
@@ -1061,7 +700,7 @@ body {
     </div>
   </div>
 
-  <!-- ============ PAGE: MAP ============ -->
+  <!-- ================= PAGE: MAP ================= -->
   <div class="page" id="pageMap">
     <div class="card">
       <div class="card-title">🗺️ Peta Level</div>
@@ -1073,7 +712,7 @@ body {
     <button class="btn btn-outline" id="btnBackHome" style="margin-top:14px;">← Beranda</button>
   </div>
 
-  <!-- ============ PAGE: GAME ============ -->
+  <!-- ================= PAGE: GAME ================= -->
   <div class="page" id="pageGame">
     <div class="game-hud">
       <span style="font-size:0.78rem; font-weight:700;" id="hudTitle">Level 1</span>
@@ -1084,7 +723,7 @@ body {
     <button class="btn btn-outline" id="btnQuit" style="margin-top:12px;">← Keluar Level</button>
   </div>
 
-  <!-- ============ PAGE: SERTIFIKAT ============ -->
+  <!-- ================= PAGE: SERTIFIKAT ================= -->
   <div class="page" id="pageCert">
     <div id="certArea">
       <div class="cert">
@@ -1111,14 +750,14 @@ body {
   </div>
 </div>
 
-<!-- ============ BOTTOM NAV ============ -->
+<!-- ================= BOTTOM NAV ================= -->
 <nav class="bottom-nav" id="bottomNav">
   <button data-page="pageHome" class="active"><span class="nav-icon">🏠</span>Beranda</button>
   <button data-page="pageMap"><span class="nav-icon">🗺️</span>Peta</button>
   <button data-page="pageCert"><span class="nav-icon">🎓</span>Sertifikat</button>
 </nav>
 
-<!-- ============ MODAL MATERI ============ -->
+<!-- ================= MODAL MATERI ================= -->
 <div class="modal" id="modalMateri">
   <div class="modal-content">
     <div class="modal-handle"></div>
@@ -1129,168 +768,123 @@ body {
 </div>
 
 <script>
-/* ================================================================
-   1. DATA SISWA — kelompok per kelas
-   ================================================================ */
+/* ============================================================
+   1. DATA SISWA
+   ============================================================ */
 const DAFTAR_SISWA = {
   "11 Kimia 1": [
-    { absen: 1, nama: "Alpino Metodius" },
-    { absen: 2, nama: "Angely Chyntia Christine" },
-    { absen: 3, nama: "Axel Alvis Wun" },
-    { absen: 4, nama: "Bhetesda Grace Vanea Paraya" },
-    { absen: 5, nama: "Briyant Edgardo Sinaga" },
-    { absen: 6, nama: "Caecilia Chrissy Amabbel Kahaya" },
-    { absen: 7, nama: "Caroline Ivana" },
-    { absen: 8, nama: "Chastine Clarissa" },
-    { absen: 9, nama: "Christiani Putri Dwi Cinta" },
-    { absen: 10, nama: "Fabio Fransco" },
-    { absen: 11, nama: "Felisya Valentina" },
-    { absen: 12, nama: "Florentina Zefanya Neska" },
-    { absen: 13, nama: "Fransisca Juju Pratama" },
-    { absen: 14, nama: "Ignatius Dali" },
-    { absen: 15, nama: "Irren Ilaqueenna" },
-    { absen: 16, nama: "Keisyah Meilani Shirleen" },
-    { absen: 17, nama: "Marsela Aprilian" },
-    { absen: 18, nama: "Mia Azalia" },
-    { absen: 19, nama: "Oktavienny Nofe" },
-    { absen: 20, nama: "Owen Geraldo Chandra" },
-    { absen: 21, nama: "Puteri Samara Jessica" },
-    { absen: 22, nama: "Rafa Emeraldy Chandra" },
-    { absen: 23, nama: "Selviana Nefi" },
-    { absen: 24, nama: "Silvester Noviani" },
-    { absen: 25, nama: "Stevino Nata Wardani" },
-    { absen: 26, nama: "Teguh Gunawan" },
-    { absen: 27, nama: "Tri City Yoti" },
-    { absen: 28, nama: "Yeci" },
-    { absen: 29, nama: "Yonas Galih Gumintang" },
-    { absen: 30, nama: "Yusta Calista Adila Putri" },
-    { absen: 31, nama: "Ziphora Natasha" }
+    { absen:1, nama:"Alpino Metodius" }, { absen:2, nama:"Angely Chyntia Christine" },
+    { absen:3, nama:"Axel Alvis Wun" }, { absen:4, nama:"Bhetesda Grace Vanea Paraya" },
+    { absen:5, nama:"Briyant Edgardo Sinaga" }, { absen:6, nama:"Caecilia Chrissy Amabbel Kahaya" },
+    { absen:7, nama:"Caroline Ivana" }, { absen:8, nama:"Chastine Clarissa" },
+    { absen:9, nama:"Christiani Putri Dwi Cinta" }, { absen:10, nama:"Fabio Fransco" },
+    { absen:11, nama:"Felisya Valentina" }, { absen:12, nama:"Florentina Zefanya Neska" },
+    { absen:13, nama:"Fransisca Juju Pratama" }, { absen:14, nama:"Ignatius Dali" },
+    { absen:15, nama:"Irren Ilaqueenna" }, { absen:16, nama:"Keisyah Meilani Shirleen" },
+    { absen:17, nama:"Marsela Aprilian" }, { absen:18, nama:"Mia Azalia" },
+    { absen:19, nama:"Oktavienny Nofe" }, { absen:20, nama:"Owen Geraldo Chandra" },
+    { absen:21, nama:"Puteri Samara Jessica" }, { absen:22, nama:"Rafa Emeraldy Chandra" },
+    { absen:23, nama:"Selviana Nefi" }, { absen:24, nama:"Silvester Noviani" },
+    { absen:25, nama:"Stevino Nata Wardani" }, { absen:26, nama:"Teguh Gunawan" },
+    { absen:27, nama:"Tri City Yoti" }, { absen:28, nama:"Yeci" },
+    { absen:29, nama:"Yonas Galih Gumintang" }, { absen:30, nama:"Yusta Calista Adila Putri" },
+    { absen:31, nama:"Ziphora Natasha" }
   ],
   "11 Kimia 2": [
-    { absen: 1, nama: "Brandon Alexander" },
-    { absen: 2, nama: "Carissa Leticia Ngantung" },
-    { absen: 3, nama: "Carissa Putri Siallagan" },
-    { absen: 4, nama: "Carolia Nava" },
-    { absen: 5, nama: "Chil Win" },
-    { absen: 6, nama: "Christian Denilson" },
-    { absen: 7, nama: "Clara Evani" },
-    { absen: 8, nama: "Dave Andrean" },
-    { absen: 9, nama: "Delius Marko Renaldi" },
-    { absen: 10, nama: "Digta Valenda" },
-    { absen: 11, nama: "Dion Novic" },
-    { absen: 12, nama: "Evander Jo" },
-    { absen: 13, nama: "Everli Listya" },
-    { absen: 14, nama: "Fetrus Ricardo" },
-    { absen: 15, nama: "Flaviana Salsa" },
-    { absen: 16, nama: "Fransiska Elia" },
-    { absen: 17, nama: "Jeppry Gerson" },
-    { absen: 18, nama: "John Sons" },
-    { absen: 19, nama: "Lionel Deogracia Assa" },
-    { absen: 20, nama: "Majesty Paulyfia" },
-    { absen: 21, nama: "Mario Christ Mikael" },
-    { absen: 22, nama: "Maura Febbry" },
-    { absen: 23, nama: "Ryan Misora" },
-    { absen: 24, nama: "Stanney Canon Brahmayhanna" },
-    { absen: 25, nama: "Theresia Hani" },
-    { absen: 26, nama: "Valeryo Chandra Halim" },
-    { absen: 27, nama: "Victor Setiawan" },
-    { absen: 28, nama: "Vincent Lindra Then" },
-    { absen: 29, nama: "Viola Mareta" },
-    { absen: 30, nama: "Wilsenz Fernandez" }
+    { absen:1, nama:"Brandon Alexander" }, { absen:2, nama:"Carissa Leticia Ngantung" },
+    { absen:3, nama:"Carissa Putri Siallagan" }, { absen:4, nama:"Carolia Nava" },
+    { absen:5, nama:"Chil Win" }, { absen:6, nama:"Christian Denilson" },
+    { absen:7, nama:"Clara Evani" }, { absen:8, nama:"Dave Andrean" },
+    { absen:9, nama:"Delius Marko Renaldi" }, { absen:10, nama:"Digta Valenda" },
+    { absen:11, nama:"Dion Novic" }, { absen:12, nama:"Evander Jo" },
+    { absen:13, nama:"Everli Listya" }, { absen:14, nama:"Fetrus Ricardo" },
+    { absen:15, nama:"Flaviana Salsa" }, { absen:16, nama:"Fransiska Elia" },
+    { absen:17, nama:"Jeppry Gerson" }, { absen:18, nama:"John Sons" },
+    { absen:19, nama:"Lionel Deogracia Assa" }, { absen:20, nama:"Majesty Paulyfia" },
+    { absen:21, nama:"Mario Christ Mikael" }, { absen:22, nama:"Maura Febbry" },
+    { absen:23, nama:"Ryan Misora" }, { absen:24, nama:"Stanney Canon Brahmayhanna" },
+    { absen:25, nama:"Theresia Hani" }, { absen:26, nama:"Valeryo Chandra Halim" },
+    { absen:27, nama:"Victor Setiawan" }, { absen:28, nama:"Vincent Lindra Then" },
+    { absen:29, nama:"Viola Mareta" }, { absen:30, nama:"Wilsenz Fernandez" }
   ],
   "11 Kimia 3": [
-    { absen: 1, nama: "Albert Carnegi Hero Aquino" },
-    { absen: 2, nama: "Andrea Charita Divina" },
-    { absen: 3, nama: "Andreas Andika" },
-    { absen: 4, nama: "Anggea Letiza Nacita" },
-    { absen: 5, nama: "Cristian Willy" },
-    { absen: 6, nama: "Evelyn Yovela" },
-    { absen: 7, nama: "Genoveva Lusiana Anggun" },
-    { absen: 8, nama: "Graciela Yuri Fumiko" },
-    { absen: 9, nama: "Grasela Aprilia Iryan" },
-    { absen: 10, nama: "Gregorius Stevanus" },
-    { absen: 11, nama: "Grezencia Tifani" },
-    { absen: 12, nama: "Intan Berliana" },
-    { absen: 13, nama: "Jesica Rheaivana Fielo Veril" },
-    { absen: 14, nama: "Josef Tristan Willie" },
-    { absen: 15, nama: "Maria Maydilova Pasaribu" },
-    { absen: 16, nama: "Maria Oktaviani" },
-    { absen: 17, nama: "Midea Untan" },
-    { absen: 18, nama: "Natasya Audreylia" },
-    { absen: 19, nama: "Octavian Seviero Geobagara" },
-    { absen: 20, nama: "Olinsha Shasya" },
-    { absen: 21, nama: "Owen Cristiono" },
-    { absen: 22, nama: "Rafael Oscar Gozali" },
-    { absen: 23, nama: "Revi Orville Thamrin" },
-    { absen: 24, nama: "Roderick Dustin" },
-    { absen: 25, nama: "Rosalia Milda" },
-    { absen: 26, nama: "Salomon Elang Nusantara" },
-    { absen: 27, nama: "Shakira Alexa Carlos" },
-    { absen: 28, nama: "Steven Theodoric Lorand" },
-    { absen: 29, nama: "Vanelia Natalia Cega" },
-    { absen: 30, nama: "Vanessa Lovelyn" }
+    { absen:1, nama:"Albert Carnegi Hero Aquino" }, { absen:2, nama:"Andrea Charita Divina" },
+    { absen:3, nama:"Andreas Andika" }, { absen:4, nama:"Anggea Letiza Nacita" },
+    { absen:5, nama:"Cristian Willy" }, { absen:6, nama:"Evelyn Yovela" },
+    { absen:7, nama:"Genoveva Lusiana Anggun" }, { absen:8, nama:"Graciela Yuri Fumiko" },
+    { absen:9, nama:"Grasela Aprilia Iryan" }, { absen:10, nama:"Gregorius Stevanus" },
+    { absen:11, nama:"Grezencia Tifani" }, { absen:12, nama:"Intan Berliana" },
+    { absen:13, nama:"Jesica Rheaivana Fielo Veril" }, { absen:14, nama:"Josef Tristan Willie" },
+    { absen:15, nama:"Maria Maydilova Pasaribu" }, { absen:16, nama:"Maria Oktaviani" },
+    { absen:17, nama:"Midea Untan" }, { absen:18, nama:"Natasya Audreylia" },
+    { absen:19, nama:"Octavian Seviero Geobagara" }, { absen:20, nama:"Olinsha Shasya" },
+    { absen:21, nama:"Owen Cristiono" }, { absen:22, nama:"Rafael Oscar Gozali" },
+    { absen:23, nama:"Revi Orville Thamrin" }, { absen:24, nama:"Roderick Dustin" },
+    { absen:25, nama:"Rosalia Milda" }, { absen:26, nama:"Salomon Elang Nusantara" },
+    { absen:27, nama:"Shakira Alexa Carlos" }, { absen:28, nama:"Steven Theodoric Lorand" },
+    { absen:29, nama:"Vanelia Natalia Cega" }, { absen:30, nama:"Vanessa Lovelyn" }
   ]
 };
 
-/* ================================================================
+/* ============================================================
    2. BANK SOAL
-   ================================================================ */
+   ============================================================ */
 const BANK_SOAL = {
   level1: [
-    { q: "Larutan garam dapur (NaCl) dalam air termasuk...", o: ["Elektrolit kuat", "Elektrolit lemah", "Non-elektrolit", "Tidak dapat ditentukan"], j: 0, p: "NaCl senyawa ion, terionisasi sempurna menjadi Na⁺ dan Cl⁻ → elektrolit kuat.", t: "Senyawa ion yang terurai sempurna = elektrolit kuat." },
-    { q: "Alat uji elektrolit yang berfungsi sebagai sumber arus listrik adalah...", o: ["Baterai", "Gelas kimia", "Lampu", "Elektroda karbon"], j: 0, p: "Baterai sumber arus listrik yang menggerakkan elektron melalui rangkaian.", t: "Komponen penyimpan energi listrik." },
-    { q: "Fungsi elektroda karbon dalam alat uji elektrolit adalah...", o: ["Konduktor yang dicelupkan ke larutan", "Sumber cahaya", "Wadah larutan", "Penutup rangkaian"], j: 0, p: "Elektroda karbon (grafit) konduktor inert yang dicelupkan ke larutan.", t: "Komponen yang dicelupkan ke larutan uji." },
-    { q: "Lampu pada alat uji elektrolit berfungsi untuk...", o: ["Menunjukkan ada/tidaknya arus listrik", "Memanaskan larutan", "Mencampur larutan", "Menyaring larutan"], j: 0, p: "Lampu indikator visual: menyala = arus mengalir.", t: "Indikator visual adanya arus." },
-    { q: "Larutan gula dalam air tidak menghantarkan listrik karena...", o: ["Terionisasi sebagian", "Tidak terionisasi menjadi ion", "Mengandung H⁺", "Bereaksi dengan air"], j: 1, p: "Gula kovalen non-polar, larut sebagai molekul netral tanpa ion.", t: "Non-elektrolit tidak menghasilkan ion." },
-    { q: "Urutan komponen alat uji elektrolit dari sumber arus ke indikator...", o: ["Baterai → elektroda → larutan → elektroda → lampu", "Lampu → baterai → elektroda → larutan", "Larutan → baterai → lampu → elektroda", "Elektroda → lampu → baterai → larutan"], j: 0, p: "Arus mengalir dari baterai melalui elektroda-larutan-elektroda lalu ke lampu.", t: "Arus dari sumber, melewati larutan, ke indikator." },
-    { q: "Manakah yang termasuk non-elektrolit?", o: ["Air laut", "Larutan urea", "Larutan cuka", "Larutan HCl"], j: 1, p: "Urea larut sebagai molekul netral, tidak terionisasi.", t: "Cari senyawa kovalen tanpa ion." },
-    { q: "Larutan yang menghantarkan listrik karena ion bebas adalah...", o: ["Larutan alkohol", "Air suling", "Larutan asam klorida", "Larutan glukosa"], j: 2, p: "HCl terionisasi menjadi H⁺ dan Cl⁻ yang bergerak bebas.", t: "Elektrolit menghasilkan ion bebas." }
+    { q:"Larutan garam dapur (NaCl) dalam air termasuk...", o:["Elektrolit kuat","Elektrolit lemah","Non-elektrolit","Tidak dapat ditentukan"], j:0, p:"NaCl senyawa ion, terionisasi sempurna menjadi Na⁺ dan Cl⁻ → elektrolit kuat.", t:"Senyawa ion terurai sempurna = elektrolit kuat." },
+    { q:"Alat uji elektrolit yang berfungsi sebagai sumber arus listrik adalah...", o:["Baterai","Gelas kimia","Lampu","Elektroda karbon"], j:0, p:"Baterai sumber arus listrik yang menggerakkan elektron.", t:"Komponen penyimpan energi listrik." },
+    { q:"Fungsi elektroda karbon dalam alat uji elektrolit adalah...", o:["Konduktor yang dicelupkan ke larutan","Sumber cahaya","Wadah larutan","Penutup rangkaian"], j:0, p:"Elektroda karbon (grafit) konduktor inert yang dicelupkan ke larutan.", t:"Komponen yang dicelupkan ke larutan uji." },
+    { q:"Lampu pada alat uji elektrolit berfungsi untuk...", o:["Menunjukkan ada/tidaknya arus listrik","Memanaskan larutan","Mencampur larutan","Menyaring larutan"], j:0, p:"Lampu indikator visual: menyala = arus mengalir.", t:"Indikator visual adanya arus." },
+    { q:"Larutan gula dalam air tidak menghantarkan listrik karena...", o:["Terionisasi sebagian","Tidak terionisasi menjadi ion","Mengandung H⁺","Bereaksi dengan air"], j:1, p:"Gula kovalen non-polar, larut sebagai molekul netral tanpa ion.", t:"Non-elektrolit tidak menghasilkan ion." },
+    { q:"Urutan komponen alat uji elektrolit dari sumber arus ke indikator...", o:["Baterai → elektroda → larutan → elektroda → lampu","Lampu → baterai → elektroda → larutan","Larutan → baterai → lampu → elektroda","Elektroda → lampu → baterai → larutan"], j:0, p:"Arus mengalir dari baterai melalui elektroda-larutan-elektroda lalu ke lampu.", t:"Arus dari sumber, melewati larutan, ke indikator." },
+    { q:"Manakah yang termasuk non-elektrolit?", o:["Air laut","Larutan urea","Larutan cuka","Larutan HCl"], j:1, p:"Urea larut sebagai molekul netral, tidak terionisasi.", t:"Cari senyawa kovalen tanpa ion." },
+    { q:"Larutan yang menghantarkan listrik karena ion bebas adalah...", o:["Larutan alkohol","Air suling","Larutan asam klorida","Larutan glukosa"], j:2, p:"HCl terionisasi menjadi H⁺ dan Cl⁻ yang bergerak bebas.", t:"Elektrolit menghasilkan ion bebas." }
   ],
   level2: [
-    { q: "Hasil uji: lampu terang, gelembung banyak. Larutan ini termasuk...", o: ["Elektrolit kuat", "Elektrolit lemah", "Non-elektrolit", "Bukan larutan"], j: 0, p: "Terang + banyak gelembung = ionisasi sempurna → elektrolit kuat.", t: "Terang + banyak = sempurna." },
-    { q: "CH₃COOH termasuk elektrolit lemah karena...", o: ["Tidak terionisasi", "Terionisasi sebagian", "Terionisasi sempurna", "Tidak larut"], j: 1, p: "Hanya sebagian kecil molekul CH₃COOH terionisasi.", t: "Elektrolit lemah = ionisasi sebagian (α < 1)." },
-    { q: "Larutan NH₄OH elektrolit lemah. Ciri hasil ujinya...", o: ["Lampu terang, gelembung banyak", "Lampu redup, gelembung sedikit", "Tidak ada gelembung", "Lampu terang, tanpa gelembung"], j: 1, p: "Ion sedikit → lampu redup dan gelembung sedikit.", t: "Sedikit ion = redup + sedikit." },
-    { q: "NaCl 1 M vs CH₃COOH 1 M. Perbedaan hasil uji yang benar...", o: ["NaCl redup, CH₃COOH terang", "NaCl terang, CH₃COOH redup", "Keduanya terang", "Keduanya mati"], j: 1, p: "NaCl elektrolit kuat (terang), CH₃COOH lemah (redup).", t: "Bandingkan jumlah ion." },
-    { q: "Gelembung gas pada elektroda muncul karena...", o: ["Reaksi ion di elektroda", "Larutan mendidih", "Udara masuk", "Air menguap"], j: 0, p: "Ion yang mencapai elektroda mengalami reaksi elektrolisis menghasilkan gas.", t: "Hasil reaksi ion di elektroda." }
+    { q:"Hasil uji: lampu terang, gelembung banyak. Larutan ini termasuk...", o:["Elektrolit kuat","Elektrolit lemah","Non-elektrolit","Bukan larutan"], j:0, p:"Terang + banyak gelembung = ionisasi sempurna → elektrolit kuat.", t:"Terang + banyak = sempurna." },
+    { q:"CH₃COOH termasuk elektrolit lemah karena...", o:["Tidak terionisasi","Terionisasi sebagian","Terionisasi sempurna","Tidak larut"], j:1, p:"Hanya sebagian kecil molekul CH₃COOH terionisasi.", t:"Elektrolit lemah = ionisasi sebagian (α < 1)." },
+    { q:"Larutan NH₄OH elektrolit lemah. Ciri hasil ujinya...", o:["Lampu terang, gelembung banyak","Lampu redup, gelembung sedikit","Tidak ada gelembung","Lampu terang, tanpa gelembung"], j:1, p:"Ion sedikit → lampu redup dan gelembung sedikit.", t:"Sedikit ion = redup + sedikit." },
+    { q:"NaCl 1 M vs CH₃COOH 1 M. Perbedaan hasil uji yang benar...", o:["NaCl redup, CH₃COOH terang","NaCl terang, CH₃COOH redup","Keduanya terang","Keduanya mati"], j:1, p:"NaCl elektrolit kuat (terang), CH₃COOH lemah (redup).", t:"Bandingkan jumlah ion." },
+    { q:"Gelembung gas pada elektroda muncul karena...", o:["Reaksi ion di elektroda","Larutan mendidih","Udara masuk","Air menguap"], j:0, p:"Ion yang mencapai elektroda mengalami reaksi elektrolisis menghasilkan gas.", t:"Hasil reaksi ion di elektroda." }
   ],
   level3: [
-    { q: "NaCl ikatan ion dan dalam air bersifat...", o: ["Elektrolit kuat", "Elektrolit lemah", "Non-elektrolit", "Tidak larut"], j: 0, p: "Senyawa ion terurai sempurna → elektrolit kuat.", t: "Ion → kuat." },
-    { q: "HCl ikatan kovalen polar. Dalam air HCl termasuk...", o: ["Elektrolit lemah", "Non-elektrolit", "Elektrolit kuat", "Tidak terionisasi"], j: 2, p: "HCl kovalen polar terionisasi sempurna → elektrolit kuat.", t: "Kovalen polar + sempurna = kuat." },
-    { q: "Glukosa kovalen non-polar dan dalam air bersifat...", o: ["Elektrolit kuat", "Elektrolit lemah", "Non-elektrolit", "Asam kuat"], j: 2, p: "Glukosa larut sebagai molekul utuh, tidak terionisasi.", t: "Kovalen non-polar = non-elektrolit." },
-    { q: "Pasangan berikut yang keduanya elektrolit kuat adalah...", o: ["NaCl dan CH₃COOH", "HCl dan NaCl", "CH₃COOH dan glukosa", "Glukosa dan urea"], j: 1, p: "HCl dan NaCl keduanya terionisasi sempurna.", t: "Cari yang ionisasi sempurna." },
-    { q: "Senyawa ion dapat menghantarkan listrik dalam bentuk...", o: ["Padatan kering", "Lelehan dan larutan", "Gas", "Kristal murni"], j: 1, p: "Ion harus bebas bergerak — hanya pada lelehan/larutan.", t: "Ion harus bebas bergerak." }
+    { q:"NaCl ikatan ion dan dalam air bersifat...", o:["Elektrolit kuat","Elektrolit lemah","Non-elektrolit","Tidak larut"], j:0, p:"Senyawa ion terurai sempurna → elektrolit kuat.", t:"Ion → kuat." },
+    { q:"HCl ikatan kovalen polar. Dalam air HCl termasuk...", o:["Elektrolit lemah","Non-elektrolit","Elektrolit kuat","Tidak terionisasi"], j:2, p:"HCl kovalen polar terionisasi sempurna → elektrolit kuat.", t:"Kovalen polar + sempurna = kuat." },
+    { q:"Glukosa kovalen non-polar dan dalam air bersifat...", o:["Elektrolit kuat","Elektrolit lemah","Non-elektrolit","Asam kuat"], j:2, p:"Glukosa larut sebagai molekul utuh, tidak terionisasi.", t:"Kovalen non-polar = non-elektrolit." },
+    { q:"Pasangan berikut yang keduanya elektrolit kuat adalah...", o:["NaCl dan CH₃COOH","HCl dan NaCl","CH₃COOH dan glukosa","Glukosa dan urea"], j:1, p:"HCl dan NaCl keduanya terionisasi sempurna.", t:"Cari yang ionisasi sempurna." },
+    { q:"Senyawa ion dapat menghantarkan listrik dalam bentuk...", o:["Padatan kering","Lelehan dan larutan","Gas","Kristal murni"], j:1, p:"Ion harus bebas bergerak — hanya pada lelehan/larutan.", t:"Ion harus bebas bergerak." }
   ],
   level4: [
-    { q: "Hasil ionisasi NaCl dalam air adalah...", o: ["Na⁺ + Cl⁻", "Na²⁺ + Cl²⁻", "NaCl tetap", "Na + Cl"], j: 0, p: "NaCl → Na⁺ + Cl⁻.", t: "Na golongan IA, Cl VIIA." },
-    { q: "Persamaan ionisasi CH₃COOH yang benar...", o: ["CH₃COOH → CH₃COO⁻ + H⁺", "CH₃COOH ⇌ CH₃COO⁻ + H⁺", "CH₃COOH → CH₃⁺ + COOH⁻", "CH₃COOH ⇌ CH₃⁺ + COOH⁻"], j: 1, p: "Asam lemah → tanda kesetimbangan ⇌.", t: "Lemah = ⇌." },
-    { q: "Ionisasi Ca(OH)₂ menghasilkan...", o: ["Ca²⁺ + 2OH⁻", "Ca⁺ + OH⁻", "Ca²⁺ + OH₂⁻", "Ca + 2OH"], j: 0, p: "Ca(OH)₂ → Ca²⁺ + 2OH⁻.", t: "Ca golongan IIA." },
-    { q: "H₂SO₄ terionisasi sempurna. Persamaannya...", o: ["H₂SO₄ → 2H⁺ + SO₄²⁻", "H₂SO₄ ⇌ 2H⁺ + SO₄²⁻", "H₂SO₄ → H₂⁺ + SO₄⁻", "H₂SO₄ → 2H + SO₄"], j: 0, p: "Asam kuat → panah satu arah.", t: "Kuat = →." },
-    { q: "Reaksi ionisasi Al₂(SO₄)₃ yang benar...", o: ["Al₂(SO₄)₃ → 2Al³⁺ + 3SO₄²⁻", "Al₂(SO₄)₃ → Al³⁺ + SO₄²⁻", "Al₂(SO₄)₃ ⇌ 2Al³⁺ + 3SO₄²⁻", "Al₂(SO₄)₃ → 3Al³⁺ + 2SO₄²⁻"], j: 0, p: "Garam ion, ionisasi sempurna → 2Al³⁺ + 3SO₄²⁻.", t: "Sesuaikan jumlah atom & muatan." }
+    { q:"Hasil ionisasi NaCl dalam air adalah...", o:["Na⁺ + Cl⁻","Na²⁺ + Cl²⁻","NaCl tetap","Na + Cl"], j:0, p:"NaCl → Na⁺ + Cl⁻.", t:"Na golongan IA, Cl VIIA." },
+    { q:"Persamaan ionisasi CH₃COOH yang benar...", o:["CH₃COOH → CH₃COO⁻ + H⁺","CH₃COOH ⇌ CH₃COO⁻ + H⁺","CH₃COOH → CH₃⁺ + COOH⁻","CH₃COOH ⇌ CH₃⁺ + COOH⁻"], j:1, p:"Asam lemah → tanda kesetimbangan ⇌.", t:"Lemah = ⇌." },
+    { q:"Ionisasi Ca(OH)₂ menghasilkan...", o:["Ca²⁺ + 2OH⁻","Ca⁺ + OH⁻","Ca²⁺ + OH₂⁻","Ca + 2OH"], j:0, p:"Ca(OH)₂ → Ca²⁺ + 2OH⁻.", t:"Ca golongan IIA." },
+    { q:"H₂SO₄ terionisasi sempurna. Persamaannya...", o:["H₂SO₄ → 2H⁺ + SO₄²⁻","H₂SO₄ ⇌ 2H⁺ + SO₄²⁻","H₂SO₄ → H₂⁺ + SO₄⁻","H₂SO₄ → 2H + SO₄"], j:0, p:"Asam kuat → panah satu arah.", t:"Kuat = →." },
+    { q:"Reaksi ionisasi Al₂(SO₄)₃ yang benar...", o:["Al₂(SO₄)₃ → 2Al³⁺ + 3SO₄²⁻","Al₂(SO₄)₃ → Al³⁺ + SO₄²⁻","Al₂(SO₄)₃ ⇌ 2Al³⁺ + 3SO₄²⁻","Al₂(SO₄)₃ → 3Al³⁺ + 2SO₄²⁻"], j:0, p:"Garam ion, ionisasi sempurna → 2Al³⁺ + 3SO₄²⁻.", t:"Sesuaikan jumlah atom & muatan." }
   ],
   level5: [
-    { q: "Cairan infus (NaCl 0,9%) termasuk elektrolit karena...", o: ["Mengandung ion Na⁺ dan Cl⁻", "Tidak ada ion", "Hanya air murni", "Non-polar"], j: 0, p: "Infus NaCl mengandung ion untuk keseimbangan elektrolit tubuh.", t: "Infus = garam fisiologis." },
-    { q: "Air aki (H₂SO₄) digunakan pada baterai karena...", o: ["Menghantarkan listrik karena ion", "Tidak menghantarkan listrik", "Non-elektrolit", "Hanya pelarut"], j: 0, p: "H₂SO₄ terionisasi → 2H⁺ + SO₄²⁻ menghantarkan arus.", t: "Aki butuh elektrolit." },
-    { q: "Pasangan larutan dan pemanfaatan yang tepat...", o: ["Gula – infus", "NaCl – infus", "Air suling – air aki", "Urea – penghantar listrik"], j: 1, p: "NaCl 0,9% digunakan sebagai cairan infus.", t: "Infus = NaCl." },
-    { q: "Mengapa gula tidak dapat menggantikan ion tubuh pada infus?", o: ["Gula non-elektrolit, tidak menghasilkan ion", "Gula mahal", "Gula elektrolit kuat", "Gula tidak larut"], j: 0, p: "Gula larut sebagai molekul netral, tidak menghasilkan ion.", t: "Infus butuh ion, bukan molekul netral." },
-    { q: "Minuman isotonik bermanfaat bagi atlet karena...", o: ["Menggantikan ion tubuh yang hilang", "Menambah energi tanpa ion", "Mengandung alkohol", "Tanpa mineral"], j: 0, p: "Isotonik mengandung elektrolit Na⁺, K⁺, Cl⁻.", t: "Atlet kehilangan ion lewat keringat." }
+    { q:"Cairan infus (NaCl 0,9%) termasuk elektrolit karena...", o:["Mengandung ion Na⁺ dan Cl⁻","Tidak ada ion","Hanya air murni","Non-polar"], j:0, p:"Infus NaCl mengandung ion untuk keseimbangan elektrolit tubuh.", t:"Infus = garam fisiologis." },
+    { q:"Air aki (H₂SO₄) digunakan pada baterai karena...", o:["Menghantarkan listrik karena ion","Tidak menghantarkan listrik","Non-elektrolit","Hanya pelarut"], j:0, p:"H₂SO₄ terionisasi → 2H⁺ + SO₄²⁻ menghantarkan arus.", t:"Aki butuh elektrolit." },
+    { q:"Pasangan larutan dan pemanfaatan yang tepat...", o:["Gula – infus","NaCl – infus","Air suling – air aki","Urea – penghantar listrik"], j:1, p:"NaCl 0,9% digunakan sebagai cairan infus.", t:"Infus = NaCl." },
+    { q:"Mengapa gula tidak dapat menggantikan ion tubuh pada infus?", o:["Gula non-elektrolit, tidak menghasilkan ion","Gula mahal","Gula elektrolit kuat","Gula tidak larut"], j:0, p:"Gula larut sebagai molekul netral, tidak menghasilkan ion.", t:"Infus butuh ion, bukan molekul netral." },
+    { q:"Minuman isotonik bermanfaat bagi atlet karena...", o:["Menggantikan ion tubuh yang hilang","Menambah energi tanpa ion","Mengandung alkohol","Tanpa mineral"], j:0, p:"Isotonik mengandung elektrolit Na⁺, K⁺, Cl⁻.", t:"Atlet kehilangan ion lewat keringat." }
   ],
   boss: [
-    { q: "Larutan yang tidak dapat menghantarkan listrik adalah...", o: ["Larutan garam", "Larutan cuka", "Larutan urea", "Air laut"], j: 2, p: "Urea non-elektrolit.", t: "Non-elektrolit = tanpa ion." },
-    { q: "Komponen alat uji elektrolit sebagai indikator visual adalah...", o: ["Baterai", "Lampu", "Gelas kimia", "Kabel"], j: 1, p: "Lampu indikator: menyala = ada arus.", t: "Komponen yang menyala." },
-    { q: "Elektroda pada uji elektrolit umumnya terbuat dari...", o: ["Karbon (grafit)", "Besi", "Tembaga", "Plastik"], j: 0, p: "Karbon konduktor inert, tidak bereaksi.", t: "Konduktor inert." },
-    { q: "Elektrolit kuat ditunjukkan oleh...", o: ["Ionisasi sebagian", "Ionisasi sempurna", "Tidak terionisasi", "Larut tanpa ion"], j: 1, p: "Elektrolit kuat α = 1 (sempurna).", t: "Kuat = sempurna." },
-    { q: "Ionisasi H₃PO₄ (asam lemah) yang benar...", o: ["H₃PO₄ → 3H⁺ + PO₄³⁻", "H₃PO₄ ⇌ 3H⁺ + PO₄³⁻", "H₃PO₄ → H⁺ + H₂PO₄⁻", "H₃PO₄ ⇌ H⁺ + H₂PO₄⁻"], j: 3, p: "Asam lemah, ionisasi sebagian, gunakan ⇌.", t: "Lemah = ⇌." },
-    { q: "Pasangan ion + kovalen polar yang keduanya elektrolit kuat...", o: ["NaCl dan HCl", "CH₃COOH dan NaCl", "Glukosa dan HCl", "Urea dan NaCl"], j: 0, p: "NaCl (ion) dan HCl (kovalen polar) keduanya sempurna.", t: "Cari yang sempurna." },
-    { q: "Gelembung sedikit, lampu redup menunjukkan...", o: ["Elektrolit kuat", "Elektrolit lemah", "Non-elektrolit", "Bukan larutan"], j: 1, p: "Ion sedikit → elektrolit lemah.", t: "Redup + sedikit = lemah." },
-    { q: "Kegunaan elektrolit dalam tubuh manusia...", o: ["Menjaga keseimbangan cairan & impuls saraf", "Sumber energi utama", "Membentuk tulang", "Mengangkut oksigen"], j: 0, p: "Ion Na⁺, K⁺, Ca²⁺, Cl⁻ untuk keseimbangan cairan & saraf.", t: "Ion = fungsi fisiologis." },
-    { q: "Larutan CaCl₂ 0,1 M elektrolit kuat karena...", o: ["Terionisasi sempurna → Ca²⁺ + 2Cl⁻", "Terionisasi sebagian", "Tidak terionisasi", "Hanya larut"], j: 0, p: "CaCl₂ → Ca²⁺ + 2Cl⁻ sempurna.", t: "Garam ion → kuat." },
-    { q: "Zat berikut yang non-elektrolit adalah...", o: ["HCl", "NaOH", "C₂H₅OH", "H₂SO₄"], j: 2, p: "Etanol larut sebagai molekul netral.", t: "Alkohol = non-elektrolit." }
+    { q:"Larutan yang tidak dapat menghantarkan listrik adalah...", o:["Larutan garam","Larutan cuka","Larutan urea","Air laut"], j:2, p:"Urea non-elektrolit.", t:"Non-elektrolit = tanpa ion." },
+    { q:"Komponen alat uji elektrolit sebagai indikator visual adalah...", o:["Baterai","Lampu","Gelas kimia","Kabel"], j:1, p:"Lampu indikator: menyala = ada arus.", t:"Komponen yang menyala." },
+    { q:"Elektroda pada uji elektrolit umumnya terbuat dari...", o:["Karbon (grafit)","Besi","Tembaga","Plastik"], j:0, p:"Karbon konduktor inert, tidak bereaksi.", t:"Konduktor inert." },
+    { q:"Elektrolit kuat ditunjukkan oleh...", o:["Ionisasi sebagian","Ionisasi sempurna","Tidak terionisasi","Larut tanpa ion"], j:1, p:"Elektrolit kuat α = 1 (sempurna).", t:"Kuat = sempurna." },
+    { q:"Ionisasi H₃PO₄ (asam lemah) yang benar...", o:["H₃PO₄ → 3H⁺ + PO₄³⁻","H₃PO₄ ⇌ 3H⁺ + PO₄³⁻","H₃PO₄ → H⁺ + H₂PO₄⁻","H₃PO₄ ⇌ H⁺ + H₂PO₄⁻"], j:3, p:"Asam lemah, ionisasi sebagian, gunakan ⇌.", t:"Lemah = ⇌." },
+    { q:"Pasangan ion + kovalen polar yang keduanya elektrolit kuat...", o:["NaCl dan HCl","CH₃COOH dan NaCl","Glukosa dan HCl","Urea dan NaCl"], j:0, p:"NaCl (ion) dan HCl (kovalen polar) keduanya sempurna.", t:"Cari yang sempurna." },
+    { q:"Gelembung sedikit, lampu redup menunjukkan...", o:["Elektrolit kuat","Elektrolit lemah","Non-elektrolit","Bukan larutan"], j:1, p:"Ion sedikit → elektrolit lemah.", t:"Redup + sedikit = lemah." },
+    { q:"Kegunaan elektrolit dalam tubuh manusia...", o:["Menjaga keseimbangan cairan & impuls saraf","Sumber energi utama","Membentuk tulang","Mengangkut oksigen"], j:0, p:"Ion Na⁺, K⁺, Ca²⁺, Cl⁻ untuk keseimbangan cairan & saraf.", t:"Ion = fungsi fisiologis." },
+    { q:"Larutan CaCl₂ 0,1 M elektrolit kuat karena...", o:["Terionisasi sempurna → Ca²⁺ + 2Cl⁻","Terionisasi sebagian","Tidak terionisasi","Hanya larut"], j:0, p:"CaCl₂ → Ca²⁺ + 2Cl⁻ sempurna.", t:"Garam ion → kuat." },
+    { q:"Zat berikut yang non-elektrolit adalah...", o:["HCl","NaOH","C₂H₅OH","H₂SO₄"], j:2, p:"Etanol larut sebagai molekul netral.", t:"Alkohol = non-elektrolit." }
   ]
 };
 
-/* ================================================================
-   3. MATERI RINGKASAN
-   ================================================================ */
+/* ============================================================
+   3. MATERI
+   ============================================================ */
 const MATERI_HTML = `
 <h3>🔌 Larutan Elektrolit</h3>
 <p>Larutan yang dapat menghantarkan arus listrik karena mengandung <strong>ion-ion bebas</strong> yang bergerak.</p>
@@ -1325,125 +919,81 @@ const MATERI_HTML = `
 </ul>
 `;
 
-/* ================================================================
+/* ============================================================
    4. LEVEL & BADGE
-   ================================================================ */
+   ============================================================ */
 const LEVELS = [
-  { id: 1, nama: "Lab Daya Hantar", icon: "🔌", key: "level1" },
-  { id: 2, nama: "Arena Kuat vs Lemah", icon: "⚡", key: "level2" },
-  { id: 3, nama: "Misi Jenis Ikatan", icon: "🔗", key: "level3" },
-  { id: 4, nama: "Reaksi Ionisasi", icon: "🧪", key: "level4" },
-  { id: 5, nama: "Detektif Kehidupan", icon: "🔍", key: "level5" },
-  { id: 6, nama: "Pertarungan Boss", icon: "👑", key: "boss", boss: true }
+  { id:1, nama:"Lab Daya Hantar", icon:"🔌", key:"level1" },
+  { id:2, nama:"Arena Kuat vs Lemah", icon:"⚡", key:"level2" },
+  { id:3, nama:"Misi Jenis Ikatan", icon:"🔗", key:"level3" },
+  { id:4, nama:"Reaksi Ionisasi", icon:"🧪", key:"level4" },
+  { id:5, nama:"Detektif Kehidupan", icon:"🔍", key:"level5" },
+  { id:6, nama:"Pertarungan Boss", icon:"👑", key:"boss", boss:true }
 ];
 
 const BADGES = [
-  { id: "b1", nama: "Pemburu Ion", icon: "🏹", desc: "Selesaikan Level 1" },
-  { id: "b2", nama: "Master Ionisasi", icon: "⚗️", desc: "Selesaikan Level 4" },
-  { id: "b3", nama: "Detektif Elektrolit", icon: "🔍", desc: "Selesaikan Level 5" },
-  { id: "b4", nama: "Tanpa Salah", icon: "💎", desc: "Selesaikan level tanpa kehilangan nyawa" },
-  { id: "b5", nama: "Boss Slayer", icon: "👑", desc: "Kalahkan Boss" },
-  { id: "b6", nama: "Streak Master", icon: "🔥", desc: "3 jawaban benar berturut-turut" },
-  { id: "b7", nama: "Cepat Tangkas", icon: "⚡", desc: "Jawab benar < 10 detik di Boss" },
-  { id: "b8", nama: "Ilmuwan Muda", icon: "🔬", desc: "Buka materi" }
+  { id:"b1", nama:"Pemburu Ion", icon:"🏹" },
+  { id:"b2", nama:"Master Ionisasi", icon:"⚗️" },
+  { id:"b3", nama:"Detektif Elektrolit", icon:"🔍" },
+  { id:"b4", nama:"Tanpa Salah", icon:"💎" },
+  { id:"b5", nama:"Boss Slayer", icon:"👑" },
+  { id:"b6", nama:"Streak Master", icon:"🔥" },
+  { id:"b7", nama:"Cepat Tangkas", icon:"⚡" },
+  { id:"b8", nama:"Ilmuwan Muda", icon:"🔬" }
 ];
 
 const LEVEL_PEMAIN = [
-  { nama: "Pemula", min: 0 },
-  { nama: "Peneliti Muda", min: 100 },
-  { nama: "Ahli Kimia", min: 250 },
-  { nama: "Profesor Elektrolit", min: 500 }
+  { nama:"Pemula", min:0 },
+  { nama:"Peneliti Muda", min:100 },
+  { nama:"Ahli Kimia", min:250 },
+  { nama:"Profesor Elektrolit", min:500 }
 ];
 
-/* ================================================================
-   5. STATE & JSON STORAGE
-   ================================================================ */
+/* ============================================================
+   5. JSON STORAGE
+   ============================================================ */
 const STORAGE_KEY = "elektrolab3d_v1";
 
-/* Struktur JSON:
-{
-  "accounts": [
-    {
-      "kelas": "11 Kimia 1",
-      "nama": "Alpino Metodius",
-      "absen": 1,
-      "xp": 0,
-      "badges": [],
-      "levelSelesai": {},
-      "bintang": {},
-      "levelBuka": 1,
-      "skorTotal": { "benar": 0, "soal": 0 },
-      "avatar": "🧑‍🔬",
-      "muted": false,
-      "sertifikat": null,
-      "lastLogin": "2026-..."
-    }
-  ],
-  "current": "kelas::nama::absen"
-}
-*/
-
-let DB = {
-  accounts: [],
-  current: null
-};
+let DB = { accounts: [], current: null };
 
 function loadDB() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) DB = JSON.parse(raw);
     if (!DB.accounts) DB.accounts = [];
-  } catch (e) {
-    console.warn("localStorage tidak tersedia, pakai memori.");
-  }
+  } catch(e) { console.warn("localStorage tidak tersedia."); }
 }
-
 function saveDB() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
-  } catch (e) { /* fallback memori */ }
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(DB)); } catch(e) {}
 }
-
 function getCurrentAccount() {
   if (!DB.current) return null;
   return DB.accounts.find(a => `${a.kelas}::${a.nama}::${a.absen}` === DB.current) || null;
 }
-
 function saveCurrentAccount(acc) {
   const idx = DB.accounts.findIndex(a => `${a.kelas}::${a.nama}::${a.absen}` === DB.current);
-  if (idx >= 0) DB.accounts[idx] = acc;
-  else DB.accounts.push(acc);
+  if (idx >= 0) DB.accounts[idx] = acc; else DB.accounts.push(acc);
   saveDB();
 }
-
 function createAccount(kelas, nama, absen) {
   return {
     kelas, nama, absen,
-    xp: 0,
-    badges: [],
-    levelSelesai: {},
-    bintang: {},
-    levelBuka: 1,
-    skorTotal: { benar: 0, soal: 0 },
-    avatar: "🧑‍🔬",
-    muted: false,
-    sertifikat: null,
+    xp: 0, badges: [], levelSelesai: {}, bintang: {}, levelBuka: 1,
+    skorTotal: { benar:0, soal:0 },
+    avatar: "🧑‍🔬", muted: false, sertifikat: null,
     lastLogin: new Date().toISOString()
   };
 }
 
-/* ================================================================
-   6. AUDIO (Web Audio API)
-   ================================================================ */
+/* ============================================================
+   6. AUDIO
+   ============================================================ */
 let audioCtx = null;
 function getAudio() {
-  if (!audioCtx) {
-    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-    catch (e) { return null; }
-  }
+  if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { return null; } }
   return audioCtx;
 }
-function tone(freq, dur, type = "sine", vol = 0.12) {
+function tone(freq, dur, type="sine", vol=0.12) {
   const acc = getCurrentAccount();
   if (acc && acc.muted) return;
   const ctx = getAudio(); if (!ctx) return;
@@ -1454,40 +1004,36 @@ function tone(freq, dur, type = "sine", vol = 0.12) {
     g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
     o.connect(g); g.connect(ctx.destination);
     o.start(); o.stop(ctx.currentTime + dur);
-  } catch (e) {}
+  } catch(e) {}
 }
 const sOk = () => { tone(523,0.12); setTimeout(()=>tone(659,0.12),90); setTimeout(()=>tone(784,0.15),180); };
 const sNo = () => { tone(200,0.25,"sawtooth",0.1); setTimeout(()=>tone(150,0.35,"sawtooth",0.1),120); };
 const sTap = () => tone(600,0.06,"square",0.07);
 
-/* ================================================================
+/* ============================================================
    7. NAVIGASI
-   ================================================================ */
+   ============================================================ */
 function showPage(id) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   const el = document.getElementById(id);
   if (el) el.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top:0, behavior:"smooth" });
 
-  // bottom nav aktif
   const nav = document.getElementById("bottomNav");
   if (id === "pageLogin") nav.classList.remove("active");
   else nav.classList.add("active");
   document.querySelectorAll(".bottom-nav button").forEach(b => {
     b.classList.toggle("active", b.dataset.page === id);
   });
-
-  // tombol logout hanya muncul kalau ada akun
   document.getElementById("btnLogout").style.display = getCurrentAccount() ? "flex" : "none";
 
-  // pause 3D saat bukan home
   if (id === "pageHome") startWebGL();
   else stopWebGL();
 }
 
-/* ================================================================
-   8. WEBGL — Three.js 3D ANIMASI
-   ================================================================ */
+/* ============================================================
+   8. WEBGL — Three.js 3D
+   ============================================================ */
 let webglScene, webglCamera, webglRenderer, webglObjects = [], webglRunning = false, webglRAF;
 
 function startWebGL() {
@@ -1495,98 +1041,67 @@ function startWebGL() {
   if (!container || webglRunning) return;
   if (typeof THREE === "undefined") return;
 
-  const w = container.clientWidth;
-  const h = container.clientHeight;
-
+  const w = container.clientWidth, h = container.clientHeight;
   webglScene = new THREE.Scene();
-  webglCamera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100);
+  webglCamera = new THREE.PerspectiveCamera(50, w/h, 0.1, 100);
   webglCamera.position.set(0, 1.2, 5);
 
-  webglRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  webglRenderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
   webglRenderer.setSize(w, h);
   webglRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   container.appendChild(webglRenderer.domElement);
 
-  // Cahaya
   webglScene.add(new THREE.AmbientLight(0xffffff, 0.6));
-  const l1 = new THREE.PointLight(0x48cae4, 1.2, 20);
-  l1.position.set(3, 4, 3); webglScene.add(l1);
-  const l2 = new THREE.PointLight(0xffd166, 0.8, 20);
-  l2.position.set(-3, 2, 2); webglScene.add(l2);
+  const l1 = new THREE.PointLight(0x48cae4, 1.2, 20); l1.position.set(3,4,3); webglScene.add(l1);
+  const l2 = new THREE.PointLight(0xffd166, 0.8, 20); l2.position.set(-3,2,2); webglScene.add(l2);
 
-  // === Erlenmeyer (Labu) ===
+  // Labu Erlenmeyer
   const erlenGroup = new THREE.Group();
-
-  // Badan labu (kerucut terbalik)
-  const bodyGeo = new THREE.CylinderGeometry(1.2, 0.35, 1.6, 32, 1, true);
   const glassMat = new THREE.MeshPhysicalMaterial({
-    color: 0xcfe2f3, transparent: true, opacity: 0.55,
-    roughness: 0.1, metalness: 0.1, transmission: 0.9,
-    side: THREE.DoubleSide
+    color:0xcfe2f3, transparent:true, opacity:0.55,
+    roughness:0.1, metalness:0.1, transmission:0.9, side:THREE.DoubleSide
   });
-  const body = new THREE.Mesh(bodyGeo, glassMat);
-  body.position.y = -0.4;
-  erlenGroup.add(body);
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 0.35, 1.6, 32, 1, true), glassMat);
+  body.position.y = -0.4; erlenGroup.add(body);
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.7, 24, 1, true), glassMat);
+  neck.position.y = 0.8; erlenGroup.add(neck);
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(0.38, 0.05, 12, 24), glassMat);
+  rim.rotation.x = Math.PI/2; rim.position.y = 1.15; erlenGroup.add(rim);
 
-  // Leher
-  const neckGeo = new THREE.CylinderGeometry(0.35, 0.35, 0.7, 24, 1, true);
-  const neck = new THREE.Mesh(neckGeo, glassMat);
-  neck.position.y = 0.8;
-  erlenGroup.add(neck);
-
-  // Bibir atas
-  const rimGeo = new THREE.TorusGeometry(0.38, 0.05, 12, 24);
-  const rim = new THREE.Mesh(rimGeo, glassMat);
-  rim.rotation.x = Math.PI / 2;
-  rim.position.y = 1.15;
-  erlenGroup.add(rim);
-
-  // Cairan dalam labu
-  const liquidGeo = new THREE.CylinderGeometry(1.1, 0.9, 0.9, 32);
+  // Cairan
   const liquidMat = new THREE.MeshPhysicalMaterial({
-    color: 0x00b4d8, transparent: true, opacity: 0.7,
-    roughness: 0.2, transmission: 0.6, emissive: 0x0077b6, emissiveIntensity: 0.3
+    color:0x00b4d8, transparent:true, opacity:0.7,
+    roughness:0.2, transmission:0.6, emissive:0x0077b6, emissiveIntensity:0.3
   });
-  const liquid = new THREE.Mesh(liquidGeo, liquidMat);
-  liquid.position.y = -0.7;
-  erlenGroup.add(liquid);
+  const liquid = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 0.9, 0.9, 32), liquidMat);
+  liquid.position.y = -0.7; erlenGroup.add(liquid);
 
   // Gelembung
   const bubbles = [];
   for (let i = 0; i < 12; i++) {
-    const bGeo = new THREE.SphereGeometry(0.05 + Math.random() * 0.05, 8, 8);
-    const bMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 });
-    const b = new THREE.Mesh(bGeo, bMat);
-    b.position.set(
-      (Math.random() - 0.5) * 1.6,
-      -1 + Math.random() * 1.2,
-      (Math.random() - 0.5) * 1.6
+    const b = new THREE.Mesh(
+      new THREE.SphereGeometry(0.05 + Math.random()*0.05, 8, 8),
+      new THREE.MeshBasicMaterial({ color:0xffffff, transparent:true, opacity:0.8 })
     );
-    b.userData.speed = 0.3 + Math.random() * 0.6;
+    b.position.set((Math.random()-0.5)*1.6, -1 + Math.random()*1.2, (Math.random()-0.5)*1.6);
+    b.userData.speed = 0.3 + Math.random()*0.6;
     b.userData.startY = b.position.y;
-    erlenGroup.add(b);
-    bubbles.push(b);
+    erlenGroup.add(b); bubbles.push(b);
   }
-
   erlenGroup.position.y = -0.2;
   webglScene.add(erlenGroup);
 
-  // === Atom/molekul berputar ===
+  // Atom
   const atomGroup = new THREE.Group();
-  const atomColors = [0xffd166, 0xef476f, 0x06d6a0, 0xf77f00];
-  const atomPositions = [[-2,1.2,0],[2,1.2,0],[-1.8,-0.8,0.5],[1.8,-0.8,0.5]];
-  atomPositions.forEach((pos, i) => {
+  const colors = [0xffd166, 0xef476f, 0x06d6a0, 0xf77f00];
+  const positions = [[-2,1.2,0],[2,1.2,0],[-1.8,-0.8,0.5],[1.8,-0.8,0.5]];
+  positions.forEach((p, i) => {
     const atom = new THREE.Mesh(
       new THREE.SphereGeometry(0.22, 16, 16),
-      new THREE.MeshStandardMaterial({
-        color: atomColors[i],
-        emissive: atomColors[i],
-        emissiveIntensity: 0.5,
-        roughness: 0.3
-      })
+      new THREE.MeshStandardMaterial({ color:colors[i], emissive:colors[i], emissiveIntensity:0.5, roughness:0.3 })
     );
-    atom.position.set(pos[0], pos[1], pos[2]);
-    atom.userData.basePos = pos;
+    atom.position.set(p[0], p[1], p[2]);
+    atom.userData.basePos = p;
     atom.userData.phase = i * Math.PI / 2;
     atomGroup.add(atom);
   });
@@ -1594,20 +1109,19 @@ function startWebGL() {
 
   webglObjects = { erlenGroup, bubbles, atomGroup, liquid };
 
-  // Interaksi sentuh/geser
+  // Interaksi
   let touching = false, lastX = 0, rotY = 0;
   const cvs = webglRenderer.domElement;
   const onDown = (e) => { touching = true; lastX = (e.touches ? e.touches[0].clientX : e.clientX); };
   const onMove = (e) => {
     if (!touching) return;
     const x = (e.touches ? e.touches[0].clientX : e.clientX);
-    rotY += (x - lastX) * 0.01;
-    lastX = x;
+    rotY += (x - lastX) * 0.01; lastX = x;
     if (e.cancelable) e.preventDefault();
   };
   const onUp = () => { touching = false; };
-  cvs.addEventListener("touchstart", onDown, { passive: true });
-  cvs.addEventListener("touchmove", onMove, { passive: false });
+  cvs.addEventListener("touchstart", onDown, { passive:true });
+  cvs.addEventListener("touchmove", onMove, { passive:false });
   cvs.addEventListener("touchend", onUp);
   cvs.addEventListener("mousedown", onDown);
   cvs.addEventListener("mousemove", onMove);
@@ -1617,69 +1131,56 @@ function startWebGL() {
   // Resize
   const onResize = () => {
     if (!webglRenderer) return;
-    const nw = container.clientWidth;
-    const nh = container.clientHeight;
-    webglCamera.aspect = nw / nh;
-    webglCamera.updateProjectionMatrix();
+    const nw = container.clientWidth, nh = container.clientHeight;
+    webglCamera.aspect = nw/nh; webglCamera.updateProjectionMatrix();
     webglRenderer.setSize(nw, nh);
   };
   window.addEventListener("resize", onResize);
 
-  // Animasi
   let time = 0;
   const animate = () => {
     if (!webglRunning) return;
     webglRAF = requestAnimationFrame(animate);
     time += 0.016;
-
-    // Rotasi group
     if (webglObjects.erlenGroup) {
       webglObjects.erlenGroup.rotation.y = rotY;
-      webglObjects.erlenGroup.position.y = -0.2 + Math.sin(time * 1.5) * 0.05;
+      webglObjects.erlenGroup.position.y = -0.2 + Math.sin(time*1.5)*0.05;
     }
     if (webglObjects.atomGroup) {
       webglObjects.atomGroup.rotation.y = time * 0.4;
-      webglObjects.atomGroup.rotation.x = Math.sin(time * 0.5) * 0.2;
-      webglObjects.atomGroup.children.forEach((atom, i) => {
-        const base = atom.userData.basePos;
-        const phase = atom.userData.phase;
-        atom.position.y = base[1] + Math.sin(time * 2 + phase) * 0.15;
+      webglObjects.atomGroup.rotation.x = Math.sin(time*0.5)*0.2;
+      webglObjects.atomGroup.children.forEach(a => {
+        a.position.y = a.userData.basePos[1] + Math.sin(time*2 + a.userData.phase)*0.15;
       });
     }
     if (webglObjects.bubbles) {
       webglObjects.bubbles.forEach(b => {
         b.position.y += b.userData.speed * 0.02;
-        b.material.opacity = 0.8 * (1 - (b.position.y - b.userData.startY) / 1.5);
+        b.material.opacity = 0.8 * (1 - (b.position.y - b.userData.startY)/1.5);
         if (b.position.y > b.userData.startY + 1.4) {
-          b.position.y = b.userData.startY;
-          b.material.opacity = 0.8;
+          b.position.y = b.userData.startY; b.material.opacity = 0.8;
         }
       });
     }
     if (webglObjects.liquid) {
-      webglObjects.liquid.material.emissiveIntensity = 0.3 + Math.sin(time * 2) * 0.15;
+      webglObjects.liquid.material.emissiveIntensity = 0.3 + Math.sin(time*2)*0.15;
     }
-
     webglRenderer.render(webglScene, webglCamera);
   };
-
   webglRunning = true;
   animate();
 }
-
 function stopWebGL() {
   webglRunning = false;
   if (webglRAF) cancelAnimationFrame(webglRAF);
   const container = document.getElementById("webgl-container");
-  if (container) {
-    container.querySelectorAll("canvas").forEach(c => c.remove());
-  }
+  if (container) container.querySelectorAll("canvas").forEach(c => c.remove());
   webglScene = null; webglCamera = null; webglRenderer = null;
 }
 
-/* ================================================================
+/* ============================================================
    9. LOGIN
-   ================================================================ */
+   ============================================================ */
 function initLogin() {
   const inKelas = document.getElementById("inKelas");
   const inNama = document.getElementById("inNama");
@@ -1696,9 +1197,7 @@ function initLogin() {
         inNama.appendChild(opt);
       });
       inNama.disabled = false;
-    } else {
-      inNama.disabled = true; inAbsen.disabled = true; btnLogin.disabled = true;
-    }
+    } else { inNama.disabled = true; inAbsen.disabled = true; btnLogin.disabled = true; }
     inAbsen.value = ""; inAbsen.disabled = true; btnLogin.disabled = true;
   });
 
@@ -1706,7 +1205,6 @@ function initLogin() {
     if (inNama.value) { inAbsen.disabled = false; inAbsen.focus(); cek(); }
     else { inAbsen.disabled = true; btnLogin.disabled = true; }
   });
-
   inAbsen.addEventListener("input", cek);
 
   function cek() {
@@ -1726,13 +1224,10 @@ function initLogin() {
     let acc = DB.accounts.find(x => `${x.kelas}::${x.nama}::${x.absen}` === key);
     if (!acc) { acc = createAccount(k, n, a); DB.accounts.push(acc); }
     acc.lastLogin = new Date().toISOString();
-    DB.current = key;
-    saveDB();
-    sTap();
+    DB.current = key; saveDB();
     enterHome();
   });
 }
-
 function autoLogin() {
   if (DB.current) {
     const acc = getCurrentAccount();
@@ -1740,20 +1235,16 @@ function autoLogin() {
   }
   return false;
 }
-
 function enterHome() {
-  renderHome();
-  renderBadges();
-  renderLeaderboard();
+  renderHome(); renderBadges(); renderLeaderboard();
   showPage("pageHome");
 }
 
-/* ================================================================
+/* ============================================================
    10. HOME
-   ================================================================ */
+   ============================================================ */
 function renderHome() {
-  const acc = getCurrentAccount();
-  if (!acc) return;
+  const acc = getCurrentAccount(); if (!acc) return;
   document.getElementById("pAvatar").textContent = acc.avatar || "🧑‍🔬";
   document.getElementById("pNama").textContent = acc.nama;
   document.getElementById("pKelas").textContent = acc.kelas.replace("11 Kimia", "Kelas 11 - Kimia");
@@ -1765,13 +1256,13 @@ function renderHome() {
   for (let i = LEVEL_PEMAIN.length - 1; i >= 0; i--) {
     if (acc.xp >= LEVEL_PEMAIN[i].min) {
       lvlNama = LEVEL_PEMAIN[i].nama;
-      nextXP = LEVEL_PEMAIN[i + 1] ? LEVEL_PEMAIN[i + 1].min : LEVEL_PEMAIN[i].min + 500;
+      nextXP = LEVEL_PEMAIN[i+1] ? LEVEL_PEMAIN[i+1].min : LEVEL_PEMAIN[i].min + 500;
       prevXP = LEVEL_PEMAIN[i].min;
       break;
     }
   }
   document.getElementById("sLevel").textContent = lvlNama;
-  const pct = Math.min(100, Math.round(((acc.xp - prevXP) / (nextXP - prevXP)) * 100));
+  const pct = Math.min(100, Math.round(((acc.xp - prevXP)/(nextXP - prevXP))*100));
   document.getElementById("xpBar").style.width = pct + "%";
   document.getElementById("xpNext").textContent = `${acc.xp}/${nextXP} XP menuju level berikutnya`;
 }
@@ -1789,12 +1280,8 @@ function renderBadges() {
   });
 }
 
-/* ================================================================
-   11. LEADERBOARD (PERINGKAT)
-   ================================================================ */
 function renderLeaderboard() {
-  const acc = getCurrentAccount();
-  if (!acc) return;
+  const acc = getCurrentAccount(); if (!acc) return;
   const list = DB.accounts
     .filter(a => a.kelas === acc.kelas)
     .sort((a, b) => b.xp - a.xp)
@@ -1808,13 +1295,11 @@ function renderLeaderboard() {
   list.forEach((a, i) => {
     const isMe = a.nama === acc.nama && a.absen === acc.absen;
     let rk = "lb-rank";
-    if (i === 0) rk += " g";
-    else if (i === 1) rk += " s";
-    else if (i === 2) rk += " b";
+    if (i === 0) rk += " g"; else if (i === 1) rk += " s"; else if (i === 2) rk += " b";
     const row = document.createElement("div");
     row.className = "lb-item" + (isMe ? " me" : "");
     row.innerHTML = `
-      <div class="${rk}">${i + 1}</div>
+      <div class="${rk}">${i+1}</div>
       <div class="lb-name">${a.nama}</div>
       <div class="lb-score">${a.xp} XP</div>
     `;
@@ -1822,12 +1307,11 @@ function renderLeaderboard() {
   });
 }
 
-/* ================================================================
-   12. PETA LEVEL
-   ================================================================ */
+/* ============================================================
+   11. PETA LEVEL
+   ============================================================ */
 function renderMap() {
-  const acc = getCurrentAccount();
-  if (!acc) return;
+  const acc = getCurrentAccount(); if (!acc) return;
   const list = document.getElementById("levelList");
   list.innerHTML = "";
   LEVELS.forEach(lv => {
@@ -1835,16 +1319,13 @@ function renderMap() {
     const done = !!acc.levelSelesai[lv.id];
     const stars = acc.bintang[lv.id] || 0;
     const div = document.createElement("div");
-    div.className = "level-item" +
-      (unlocked ? "" : " locked") +
-      (done ? " done" : "") +
-      (lv.boss ? " boss" : "");
+    div.className = "level-item" + (unlocked ? "" : " locked") + (done ? " done" : "") + (lv.boss ? " boss" : "");
     div.innerHTML = `
       <div class="level-icon">${lv.icon}</div>
       <div class="level-info">
         <div class="lv-name">Level ${lv.id}: ${lv.nama}</div>
         <div class="lv-desc">${lv.boss ? "10 soal • timer 20 detik" : "Mini kuis interaktif"}</div>
-        ${done ? `<div class="lv-stars">${"⭐".repeat(stars)}${"☆".repeat(3 - stars)}</div>` : ""}
+        ${done ? `<div class="lv-stars">${"⭐".repeat(stars)}${"☆".repeat(3-stars)}</div>` : ""}
       </div>
       <div class="level-badge">${unlocked ? (done ? "✅" : "▶️") : "🔒"}</div>
     `;
@@ -1853,9 +1334,9 @@ function renderMap() {
   });
 }
 
-/* ================================================================
-   13. GAME
-   ================================================================ */
+/* ============================================================
+   12. GAME
+   ============================================================ */
 let G = null;
 
 function startLevel(lvId) {
@@ -1865,20 +1346,13 @@ function startLevel(lvId) {
   if (lvId > acc.levelBuka) return;
 
   G = {
-    lvId, lv,
-    nyawa: 3,
-    benar: 0, salah: 0,
-    streak: 0,
-    idx: 0,
-    list: [],
-    dijawab: false,
-    startTime: Date.now(),
-    timer: null,
-    waktu: 0
+    lvId, lv, nyawa:3, benar:0, salah:0, streak:0, idx:0, list:[],
+    dijawab:false, startTime:Date.now(), timer:null, waktu:0
   };
 
   if (lv.boss) {
-    const all = [...BANK_SOAL.level1, ...BANK_SOAL.level2, ...BANK_SOAL.level3, ...BANK_SOAL.level4, ...BANK_SOAL.level5, ...BANK_SOAL.boss];
+    const all = [...BANK_SOAL.level1, ...BANK_SOAL.level2, ...BANK_SOAL.level3,
+                 ...BANK_SOAL.level4, ...BANK_SOAL.level5, ...BANK_SOAL.boss];
     G.list = shuffle(all).slice(0, 10);
   } else {
     G.list = shuffle([...BANK_SOAL[lv.key]]);
@@ -1895,11 +1369,10 @@ function updateHearts() {
   document.getElementById("hudHearts").textContent =
     "❤️".repeat(G.nyawa) + "🖤".repeat(3 - G.nyawa);
 }
-
 function shuffle(arr) {
   const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+  for (let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
@@ -1908,9 +1381,7 @@ function shuffle(arr) {
 function renderQuestion() {
   const q = G.list[G.idx];
   if (!q) { finishLevel(); return; }
-  G.dijawab = false;
-  G.waktu = 0;
-
+  G.dijawab = false; G.waktu = 0;
   const isBoss = G.lv.boss;
   const timerHTML = isBoss ? `<div class="timer-bar"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>` : "";
 
@@ -1927,19 +1398,16 @@ function renderQuestion() {
   const wrap = document.getElementById("opsiWrap");
   q.o.forEach((opt, i) => {
     const btn = document.createElement("button");
-    btn.className = "option";
-    btn.textContent = opt;
+    btn.className = "option"; btn.textContent = opt;
     btn.addEventListener("click", () => answer(i));
     wrap.appendChild(btn);
   });
 
   if (isBoss) {
-    G.waktu = 20;
-    updateTimer();
+    G.waktu = 20; updateTimer();
     if (G.timer) clearInterval(G.timer);
     G.timer = setInterval(() => {
-      G.waktu--;
-      updateTimer();
+      G.waktu--; updateTimer();
       if (G.waktu <= 0) {
         clearInterval(G.timer);
         if (!G.dijawab) answer(-1);
@@ -1947,10 +1415,9 @@ function renderQuestion() {
     }, 1000);
   }
 }
-
 function updateTimer() {
   const f = document.getElementById("timerFill");
-  if (f) f.style.width = (G.waktu / 20 * 100) + "%";
+  if (f) f.style.width = (G.waktu/20*100) + "%";
 }
 
 function answer(idx) {
@@ -1972,8 +1439,7 @@ function answer(idx) {
 
   if (benar) {
     G.benar++; G.streak++;
-    let xp = 10;
-    let bonus = "";
+    let xp = 10, bonus = "";
     if (G.lv.boss && G.waktu > 10) {
       xp += 5; bonus += " ⚡ Bonus cepat +5 XP!";
       if (!acc.badges.includes("b7")) { acc.badges.push("b7"); toast("🏅 Badge: Cepat Tangkas!"); }
@@ -1982,15 +1448,12 @@ function answer(idx) {
       xp += 10; bonus += " 🔥 Streak 3! +10 XP!";
       if (!acc.badges.includes("b6")) { acc.badges.push("b6"); toast("🏅 Badge: Streak Master!"); }
     }
-    acc.xp += xp;
-    saveCurrentAccount(acc);
+    acc.xp += xp; saveCurrentAccount(acc);
     document.getElementById("hudXP").textContent = acc.xp + " XP";
     sOk();
     fb.innerHTML = `<div class="feedback ok"><div class="fb-title">✅ Benar! +${xp} XP${bonus}</div><div>${q.p}</div></div>`;
   } else {
-    G.salah++; G.streak = 0; G.nyawa--;
-    updateHearts();
-    sNo();
+    G.salah++; G.streak = 0; G.nyawa--; updateHearts(); sNo();
     const waktu = idx === -1 ? "⏰ Waktu habis! " : "";
     fb.innerHTML = `
       <div class="feedback no">
@@ -1998,14 +1461,12 @@ function answer(idx) {
         <div><strong>Jawaban benar:</strong> ${q.o[q.j]}</div>
         <div style="margin-top:6px;">${q.p}</div>
         <div style="margin-top:6px; font-style:italic;">💡 ${q.t}</div>
-      </div>
-    `;
+      </div>`;
     if (G.nyawa <= 0) { setTimeout(() => gameOver(), 1200); return; }
   }
 
   const next = document.createElement("button");
-  next.className = "btn";
-  next.style.marginTop = "12px";
+  next.className = "btn"; next.style.marginTop = "12px";
   next.textContent = G.idx + 1 >= G.list.length ? "🏁 Selesai" : "Lanjut →";
   next.addEventListener("click", () => {
     G.idx++;
@@ -2026,8 +1487,7 @@ function gameOver() {
       </p>
       <button class="btn" id="retryBtn">🔄 Ulangi Level</button>
       <button class="btn btn-outline" id="mapBtn">← Kembali ke Peta</button>
-    </div>
-  `;
+    </div>`;
   document.getElementById("retryBtn").addEventListener("click", () => startLevel(G.lvId));
   document.getElementById("mapBtn").addEventListener("click", () => { renderMap(); showPage("pageMap"); });
 }
@@ -2036,10 +1496,9 @@ function finishLevel() {
   if (G.timer) clearInterval(G.timer);
   const acc = getCurrentAccount();
   const total = G.list.length;
-  const benar = G.benar;
-  const salah = G.salah;
-  const akurasi = Math.round((benar / total) * 100);
-  const waktu = Math.round((Date.now() - G.startTime) / 1000);
+  const benar = G.benar, salah = G.salah;
+  const akurasi = Math.round((benar/total)*100);
+  const waktu = Math.round((Date.now() - G.startTime)/1000);
   const tanpaSalah = G.nyawa === 3;
 
   let bintang = 1;
@@ -2052,22 +1511,17 @@ function finishLevel() {
   acc.skorTotal.benar += benar;
   acc.skorTotal.soal += total;
 
-  // Badge per level
-  const badgeMap = { 1: "b1", 4: "b2", 5: "b3", 6: "b5" };
+  const badgeMap = { 1:"b1", 4:"b2", 5:"b3", 6:"b5" };
   if (badgeMap[G.lvId] && !acc.badges.includes(badgeMap[G.lvId])) {
-    acc.badges.push(badgeMap[G.lvId]);
-    toast("🏅 Badge baru!");
+    acc.badges.push(badgeMap[G.lvId]); toast("🏅 Badge baru!");
   }
   if (tanpaSalah && !acc.badges.includes("b4")) {
-    acc.badges.push("b4");
-    toast("🏅 Badge: Tanpa Salah!");
+    acc.badges.push("b4"); toast("🏅 Badge: Tanpa Salah!");
   }
   saveCurrentAccount(acc);
-
-  // Konfeti
   confetti();
 
-  const bintangStr = "⭐".repeat(bintang) + "☆".repeat(3 - bintang);
+  const bintangStr = "⭐".repeat(bintang) + "☆".repeat(3-bintang);
   const emoji = bintang === 3 ? "🏆" : bintang === 2 ? "🎉" : "👍";
 
   document.getElementById("gameContent").innerHTML = `
@@ -2084,8 +1538,7 @@ function finishLevel() {
       <button class="btn ${G.lv.boss ? "btn-gold" : ""}" id="nextBtn">
         ${G.lv.boss ? "🎓 Lihat Sertifikat" : "Lanjut 🚀"}
       </button>
-    </div>
-  `;
+    </div>`;
 
   document.getElementById("nextBtn").addEventListener("click", () => {
     if (G.lv.boss) { buildCertificate(); showPage("pageCert"); }
@@ -2093,23 +1546,21 @@ function finishLevel() {
   });
 }
 
-/* ================================================================
-   14. SERTIFIKAT
-   ================================================================ */
+/* ============================================================
+   13. SERTIFIKAT
+   ============================================================ */
 function buildCertificate() {
-  const acc = getCurrentAccount();
-  if (!acc) return;
+  const acc = getCurrentAccount(); if (!acc) return;
   const totalB = acc.skorTotal.benar;
   const totalS = acc.skorTotal.soal || 1;
-  const nilai = Math.round((totalB / totalS) * 100);
+  const nilai = Math.round((totalB/totalS)*100);
   let predikat = "Perlu Bimbingan";
   if (nilai >= 90) predikat = "Sangat Baik";
   else if (nilai >= 80) predikat = "Baik";
   else if (nilai >= 70) predikat = "Cukup";
 
   const now = new Date();
-  const tgl = now.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
-
+  const tgl = now.toLocaleDateString("id-ID", { day:"numeric", month:"long", year:"numeric" });
   acc.sertifikat = { nilai, predikat, tanggal: tgl };
   saveCurrentAccount(acc);
 
@@ -2121,11 +1572,11 @@ function buildCertificate() {
   confetti();
 }
 
-/* ================================================================
-   15. KONFETI & TOAST
-   ================================================================ */
+/* ============================================================
+   14. KONFETI & TOAST
+   ============================================================ */
 function confetti() {
-  const colors = ["#ffd166", "#06d6a0", "#ef476f", "#00b4d8", "#f77f00"];
+  const colors = ["#ffd166","#06d6a0","#ef476f","#00b4d8","#f77f00"];
   for (let i = 0; i < 40; i++) {
     const c = document.createElement("div");
     c.style.cssText = `
@@ -2146,31 +1597,29 @@ function confetti() {
     document.head.appendChild(st);
   }
 }
-
 function toast(msg) {
   const t = document.createElement("div");
-  t.className = "toast";
-  t.textContent = msg;
+  t.className = "toast"; t.textContent = msg;
   document.body.appendChild(t);
   setTimeout(() => { t.style.opacity = "0"; t.style.transition = "opacity 0.3s"; setTimeout(() => t.remove(), 300); }, 2000);
 }
 
-/* ================================================================
-   16. INIT & EVENT BINDING
-   ================================================================ */
+/* ============================================================
+   15. INIT
+   ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
   loadDB();
   initLogin();
 
-  // Navigasi bottom
+  // Bottom nav
   document.querySelectorAll(".bottom-nav button").forEach(b => {
     b.addEventListener("click", () => {
       sTap();
-      const target = b.dataset.page;
-      if (target === "pageHome") { renderHome(); renderBadges(); renderLeaderboard(); }
-      else if (target === "pageMap") renderMap();
-      else if (target === "pageCert") buildCertificate();
-      showPage(target);
+      const t = b.dataset.page;
+      if (t === "pageHome") { renderHome(); renderBadges(); renderLeaderboard(); }
+      else if (t === "pageMap") renderMap();
+      else if (t === "pageCert") buildCertificate();
+      showPage(t);
     });
   });
 
@@ -2184,7 +1633,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sTap(); renderHome(); renderBadges(); renderLeaderboard(); showPage("pageHome");
   });
 
-  // Quit level
+  // Quit
   document.getElementById("btnQuit").addEventListener("click", () => {
     if (confirm("Keluar dari level? Progres akan hilang.")) {
       if (G && G.timer) clearInterval(G.timer);
@@ -2195,8 +1644,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Logout
   document.getElementById("btnLogout").addEventListener("click", () => {
     if (confirm("Keluar dari akun?")) {
-      DB.current = null; saveDB();
-      location.reload();
+      DB.current = null; saveDB(); location.reload();
     }
   });
 
@@ -2205,24 +1653,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const acc0 = getCurrentAccount();
   btnMute.textContent = (acc0 && acc0.muted) ? "🔇" : "🔊";
   btnMute.addEventListener("click", () => {
-    const acc = getCurrentAccount();
-    if (!acc) return;
-    acc.muted = !acc.muted;
-    saveCurrentAccount(acc);
+    const acc = getCurrentAccount(); if (!acc) return;
+    acc.muted = !acc.muted; saveCurrentAccount(acc);
     btnMute.textContent = acc.muted ? "🔇" : "🔊";
     if (!acc.muted) sTap();
   });
 
-  // Materi modal
+  // Materi
   const modalMateri = document.getElementById("modalMateri");
   document.getElementById("materiBody").innerHTML = MATERI_HTML;
   document.getElementById("btnMateri").addEventListener("click", () => {
     sTap(); modalMateri.classList.add("active");
     const acc = getCurrentAccount();
     if (acc && !acc.badges.includes("b8")) {
-      acc.badges.push("b8");
-      saveCurrentAccount(acc);
-      toast("🏅 Badge: Ilmuwan Muda!");
+      acc.badges.push("b8"); saveCurrentAccount(acc); toast("🏅 Badge: Ilmuwan Muda!");
     }
   });
   document.getElementById("btnCloseMateri").addEventListener("click", () => {
